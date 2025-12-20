@@ -10,7 +10,9 @@ The dashboard focuses on **executive KPIs**, **operational insights**, and **dri
 
 A short walkthrough demonstrating dashboard navigation, slicers, focus mode, and key insights across all pages.
 
-📽️ **[Watch the dashboard walkthrough](video/dashboard_walkthrough.mp4)**
+https://github.com/user-attachments/assets/61568333-06a9-4f8e-81d5-4ecfc1977c56
+
+
 
 ---
 

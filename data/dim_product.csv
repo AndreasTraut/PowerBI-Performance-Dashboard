@@ -1,0 +1,161 @@
+ProductKey,SKU,ProductName,Category,SubCategory,Brand,UnitCost,UnitPrice,GrossMargin
+1,SKU00001,TechPro Laptops Model 1,Electronics,Laptops,TechPro,22.26,289.53,92.31
+2,SKU00002,SmartHome Laptops Model 2,Electronics,Laptops,SmartHome,78.37,120.45,34.94
+3,SKU00003,Premium Laptops Model 3,Electronics,Laptops,Premium,52.6,433.48,87.87
+4,SKU00004,TechPro Laptops Model 4,Electronics,Laptops,TechPro,55.91,248.01,77.46
+5,SKU00005,Premium Laptops Model 5,Electronics,Laptops,Premium,23.0,214.86,89.3
+6,SKU00006,Premium Laptops Model 6,Electronics,Laptops,Premium,215.56,460.22,53.16
+7,SKU00007,ActiveLife Laptops Model 7,Electronics,Laptops,ActiveLife,406.62,26.37,-1441.98
+8,SKU00008,SmartHome Laptops Model 8,Electronics,Laptops,SmartHome,352.09,353.45,0.38
+9,SKU00009,SmartHome Laptops Model 9,Electronics,Laptops,SmartHome,115.5,768.22,84.97
+10,SKU00010,TechPro Laptops Model 10,Electronics,Laptops,TechPro,55.45,114.78,51.69
+11,SKU00011,ActiveLife Phones Model 1,Electronics,Phones,ActiveLife,305.83,810.99,62.29
+12,SKU00012,EcoGear Phones Model 2,Electronics,Phones,EcoGear,272.75,973.65,71.99
+13,SKU00013,EcoGear Phones Model 3,Electronics,Phones,EcoGear,48.61,307.31,84.18
+14,SKU00014,Premium Phones Model 4,Electronics,Phones,Premium,443.87,374.4,-18.56
+15,SKU00015,SmartHome Phones Model 5,Electronics,Phones,SmartHome,355.24,64.91,-447.28
+16,SKU00016,SmartHome Phones Model 6,Electronics,Phones,SmartHome,388.8,985.52,60.55
+17,SKU00017,SmartHome Phones Model 7,Electronics,Phones,SmartHome,434.58,392.52,-10.72
+18,SKU00018,EcoGear Phones Model 8,Electronics,Phones,EcoGear,321.49,377.54,14.85
+19,SKU00019,ActiveLife Phones Model 9,Electronics,Phones,ActiveLife,184.08,676.77,72.8
+20,SKU00020,TechPro Phones Model 10,Electronics,Phones,TechPro,308.47,187.72,-64.32
+21,SKU00021,SmartHome Tablets Model 1,Electronics,Tablets,SmartHome,90.07,391.87,77.02
+22,SKU00022,Premium Tablets Model 2,Electronics,Tablets,Premium,117.61,337.8,65.18
+23,SKU00023,TechPro Tablets Model 3,Electronics,Tablets,TechPro,122.23,51.46,-137.52
+24,SKU00024,ActiveLife Tablets Model 4,Electronics,Tablets,ActiveLife,206.57,84.86,-143.42
+25,SKU00025,Premium Tablets Model 5,Electronics,Tablets,Premium,439.42,328.38,-33.81
+26,SKU00026,EcoGear Tablets Model 6,Electronics,Tablets,EcoGear,203.86,916.26,77.75
+27,SKU00027,EcoGear Tablets Model 7,Electronics,Tablets,EcoGear,80.01,156.84,48.99
+28,SKU00028,Premium Tablets Model 8,Electronics,Tablets,Premium,274.1,752.07,63.55
+29,SKU00029,EcoGear Tablets Model 9,Electronics,Tablets,EcoGear,449.93,411.41,-9.36
+30,SKU00030,SmartHome Tablets Model 10,Electronics,Tablets,SmartHome,498.69,155.57,-220.56
+31,SKU00031,EcoGear Accessories Model 1,Electronics,Accessories,EcoGear,54.55,66.17,17.56
+32,SKU00032,TechPro Accessories Model 2,Electronics,Accessories,TechPro,84.89,176.78,51.98
+33,SKU00033,EcoGear Accessories Model 3,Electronics,Accessories,EcoGear,302.24,397.07,23.88
+34,SKU00034,Premium Accessories Model 4,Electronics,Accessories,Premium,498.1,538.53,7.51
+35,SKU00035,Premium Accessories Model 5,Electronics,Accessories,Premium,431.78,31.25,-1281.7
+36,SKU00036,TechPro Accessories Model 6,Electronics,Accessories,TechPro,344.04,546.23,37.02
+37,SKU00037,ActiveLife Accessories Model 7,Electronics,Accessories,ActiveLife,386.61,353.37,-9.41
+38,SKU00038,ActiveLife Accessories Model 8,Electronics,Accessories,ActiveLife,223.03,464.65,52.0
+39,SKU00039,ActiveLife Accessories Model 9,Electronics,Accessories,ActiveLife,486.23,766.72,36.58
+40,SKU00040,Premium Accessories Model 10,Electronics,Accessories,Premium,457.19,873.11,47.64
+41,SKU00041,ActiveLife Furniture Model 1,Home & Garden,Furniture,ActiveLife,422.42,517.51,18.37
+42,SKU00042,SmartHome Furniture Model 2,Home & Garden,Furniture,SmartHome,84.89,767.26,88.94
+43,SKU00043,Premium Furniture Model 3,Home & Garden,Furniture,Premium,477.21,923.99,48.35
+44,SKU00044,TechPro Furniture Model 4,Home & Garden,Furniture,TechPro,303.48,498.83,39.16
+45,SKU00045,TechPro Furniture Model 5,Home & Garden,Furniture,TechPro,465.26,881.15,47.2
+46,SKU00046,ActiveLife Furniture Model 6,Home & Garden,Furniture,ActiveLife,127.33,256.05,50.27
+47,SKU00047,Premium Furniture Model 7,Home & Garden,Furniture,Premium,474.01,103.94,-356.04
+48,SKU00048,EcoGear Furniture Model 8,Home & Garden,Furniture,EcoGear,409.85,978.42,58.11
+49,SKU00049,Premium Furniture Model 9,Home & Garden,Furniture,Premium,385.26,145.82,-164.2
+50,SKU00050,EcoGear Furniture Model 10,Home & Garden,Furniture,EcoGear,473.96,181.82,-160.68
+51,SKU00051,Premium Kitchen Model 1,Home & Garden,Kitchen,Premium,437.49,434.68,-0.65
+52,SKU00052,SmartHome Kitchen Model 2,Home & Garden,Kitchen,SmartHome,465.17,760.16,38.81
+53,SKU00053,SmartHome Kitchen Model 3,Home & Garden,Kitchen,SmartHome,359.34,411.01,12.57
+54,SKU00054,ActiveLife Kitchen Model 4,Home & Garden,Kitchen,ActiveLife,224.67,527.22,57.39
+55,SKU00055,TechPro Kitchen Model 5,Home & Garden,Kitchen,TechPro,131.47,82.75,-58.88
+56,SKU00056,TechPro Kitchen Model 6,Home & Garden,Kitchen,TechPro,298.27,245.51,-21.49
+57,SKU00057,SmartHome Kitchen Model 7,Home & Garden,Kitchen,SmartHome,13.52,713.68,98.11
+58,SKU00058,TechPro Kitchen Model 8,Home & Garden,Kitchen,TechPro,122.18,907.31,86.53
+59,SKU00059,ActiveLife Kitchen Model 9,Home & Garden,Kitchen,ActiveLife,44.72,253.24,82.34
+60,SKU00060,EcoGear Kitchen Model 10,Home & Garden,Kitchen,EcoGear,114.98,149.67,23.18
+61,SKU00061,Premium Decor Model 1,Home & Garden,Decor,Premium,292.34,258.14,-13.25
+62,SKU00062,EcoGear Decor Model 2,Home & Garden,Decor,EcoGear,405.67,206.6,-96.36
+63,SKU00063,TechPro Decor Model 3,Home & Garden,Decor,TechPro,332.9,367.21,9.34
+64,SKU00064,EcoGear Decor Model 4,Home & Garden,Decor,EcoGear,238.84,734.49,67.48
+65,SKU00065,TechPro Decor Model 5,Home & Garden,Decor,TechPro,39.7,733.65,94.59
+66,SKU00066,TechPro Decor Model 6,Home & Garden,Decor,TechPro,131.84,206.4,36.12
+67,SKU00067,EcoGear Decor Model 7,Home & Garden,Decor,EcoGear,78.69,199.82,60.62
+68,SKU00068,EcoGear Decor Model 8,Home & Garden,Decor,EcoGear,132.41,924.8,85.68
+69,SKU00069,EcoGear Decor Model 9,Home & Garden,Decor,EcoGear,405.93,858.85,52.74
+70,SKU00070,TechPro Decor Model 10,Home & Garden,Decor,TechPro,34.79,999.3,96.52
+71,SKU00071,TechPro Tools Model 1,Home & Garden,Tools,TechPro,484.81,927.84,47.75
+72,SKU00072,SmartHome Tools Model 2,Home & Garden,Tools,SmartHome,91.49,495.93,81.55
+73,SKU00073,SmartHome Tools Model 3,Home & Garden,Tools,SmartHome,433.68,904.39,52.05
+74,SKU00074,SmartHome Tools Model 4,Home & Garden,Tools,SmartHome,195.7,985.6,80.14
+75,SKU00075,ActiveLife Tools Model 5,Home & Garden,Tools,ActiveLife,463.99,789.43,41.22
+76,SKU00076,ActiveLife Tools Model 6,Home & Garden,Tools,ActiveLife,217.27,958.17,77.32
+77,SKU00077,Premium Tools Model 7,Home & Garden,Tools,Premium,334.32,496.94,32.72
+78,SKU00078,SmartHome Tools Model 8,Home & Garden,Tools,SmartHome,155.39,969.34,83.97
+79,SKU00079,Premium Tools Model 9,Home & Garden,Tools,Premium,370.51,79.74,-364.65
+80,SKU00080,ActiveLife Tools Model 10,Home & Garden,Tools,ActiveLife,38.01,592.49,93.58
+81,SKU00081,Premium Fitness Model 1,Sports & Outdoors,Fitness,Premium,460.5,540.5,14.8
+82,SKU00082,TechPro Fitness Model 2,Sports & Outdoors,Fitness,TechPro,480.78,98.51,-388.05
+83,SKU00083,SmartHome Fitness Model 3,Sports & Outdoors,Fitness,SmartHome,43.58,86.6,49.68
+84,SKU00084,SmartHome Fitness Model 4,Sports & Outdoors,Fitness,SmartHome,207.85,942.76,77.95
+85,SKU00085,Premium Fitness Model 5,Sports & Outdoors,Fitness,Premium,130.65,602.63,78.32
+86,SKU00086,Premium Fitness Model 6,Sports & Outdoors,Fitness,Premium,50.17,664.23,92.45
+87,SKU00087,Premium Fitness Model 7,Sports & Outdoors,Fitness,Premium,266.16,936.01,71.56
+88,SKU00088,SmartHome Fitness Model 8,Sports & Outdoors,Fitness,SmartHome,338.17,327.9,-3.13
+89,SKU00089,ActiveLife Fitness Model 9,Sports & Outdoors,Fitness,ActiveLife,203.94,678.26,69.93
+90,SKU00090,ActiveLife Fitness Model 10,Sports & Outdoors,Fitness,ActiveLife,234.04,930.44,74.85
+91,SKU00091,TechPro Camping Model 1,Sports & Outdoors,Camping,TechPro,14.56,628.74,97.68
+92,SKU00092,Premium Camping Model 2,Sports & Outdoors,Camping,Premium,498.09,91.8,-442.58
+93,SKU00093,SmartHome Camping Model 3,Sports & Outdoors,Camping,SmartHome,257.88,149.81,-72.14
+94,SKU00094,ActiveLife Camping Model 4,Sports & Outdoors,Camping,ActiveLife,441.62,881.68,49.91
+95,SKU00095,ActiveLife Camping Model 5,Sports & Outdoors,Camping,ActiveLife,149.64,449.42,66.7
+96,SKU00096,Premium Camping Model 6,Sports & Outdoors,Camping,Premium,354.73,619.44,42.73
+97,SKU00097,Premium Camping Model 7,Sports & Outdoors,Camping,Premium,13.83,820.76,98.31
+98,SKU00098,ActiveLife Camping Model 8,Sports & Outdoors,Camping,ActiveLife,466.56,121.51,-283.97
+99,SKU00099,SmartHome Camping Model 9,Sports & Outdoors,Camping,SmartHome,139.59,891.92,84.35
+100,SKU00100,Premium Camping Model 10,Sports & Outdoors,Camping,Premium,86.17,296.12,70.9
+101,SKU00101,SmartHome Cycling Model 1,Sports & Outdoors,Cycling,SmartHome,361.63,219.53,-64.73
+102,SKU00102,ActiveLife Cycling Model 2,Sports & Outdoors,Cycling,ActiveLife,257.65,266.1,3.18
+103,SKU00103,TechPro Cycling Model 3,Sports & Outdoors,Cycling,TechPro,55.23,435.1,87.31
+104,SKU00104,ActiveLife Cycling Model 4,Sports & Outdoors,Cycling,ActiveLife,31.6,346.89,90.89
+105,SKU00105,SmartHome Cycling Model 5,Sports & Outdoors,Cycling,SmartHome,322.19,276.72,-16.43
+106,SKU00106,EcoGear Cycling Model 6,Sports & Outdoors,Cycling,EcoGear,280.32,439.13,36.16
+107,SKU00107,TechPro Cycling Model 7,Sports & Outdoors,Cycling,TechPro,64.82,946.15,93.15
+108,SKU00108,SmartHome Cycling Model 8,Sports & Outdoors,Cycling,SmartHome,277.34,837.9,66.9
+109,SKU00109,Premium Cycling Model 9,Sports & Outdoors,Cycling,Premium,280.74,441.19,36.37
+110,SKU00110,TechPro Cycling Model 10,Sports & Outdoors,Cycling,TechPro,161.05,901.0,82.13
+111,SKU00111,TechPro Water Sports Model 1,Sports & Outdoors,Water Sports,TechPro,450.47,225.88,-99.43
+112,SKU00112,SmartHome Water Sports Model 2,Sports & Outdoors,Water Sports,SmartHome,336.8,366.61,8.13
+113,SKU00113,Premium Water Sports Model 3,Sports & Outdoors,Water Sports,Premium,443.23,418.25,-5.97
+114,SKU00114,Premium Water Sports Model 4,Sports & Outdoors,Water Sports,Premium,377.24,927.25,59.32
+115,SKU00115,SmartHome Water Sports Model 5,Sports & Outdoors,Water Sports,SmartHome,433.66,976.68,55.6
+116,SKU00116,SmartHome Water Sports Model 6,Sports & Outdoors,Water Sports,SmartHome,441.89,44.29,-897.72
+117,SKU00117,ActiveLife Water Sports Model 7,Sports & Outdoors,Water Sports,ActiveLife,393.37,423.48,7.11
+118,SKU00118,SmartHome Water Sports Model 8,Sports & Outdoors,Water Sports,SmartHome,140.73,791.63,82.22
+119,SKU00119,TechPro Water Sports Model 9,Sports & Outdoors,Water Sports,TechPro,197.45,57.95,-240.72
+120,SKU00120,EcoGear Water Sports Model 10,Sports & Outdoors,Water Sports,EcoGear,118.99,820.25,85.49
+121,SKU00121,EcoGear Men Model 1,Clothing,Men,EcoGear,181.33,824.13,78.0
+122,SKU00122,SmartHome Men Model 2,Clothing,Men,SmartHome,119.23,666.83,82.12
+123,SKU00123,EcoGear Men Model 3,Clothing,Men,EcoGear,170.85,867.07,80.3
+124,SKU00124,ActiveLife Men Model 4,Clothing,Men,ActiveLife,182.06,519.22,64.94
+125,SKU00125,Premium Men Model 5,Clothing,Men,Premium,172.26,47.05,-266.12
+126,SKU00126,ActiveLife Men Model 6,Clothing,Men,ActiveLife,97.5,963.28,89.88
+127,SKU00127,ActiveLife Men Model 7,Clothing,Men,ActiveLife,28.75,604.64,95.25
+128,SKU00128,ActiveLife Men Model 8,Clothing,Men,ActiveLife,366.99,327.4,-12.09
+129,SKU00129,Premium Men Model 9,Clothing,Men,Premium,492.28,133.33,-269.22
+130,SKU00130,Premium Men Model 10,Clothing,Men,Premium,103.14,63.5,-62.43
+131,SKU00131,EcoGear Women Model 1,Clothing,Women,EcoGear,10.83,927.06,98.83
+132,SKU00132,Premium Women Model 2,Clothing,Women,Premium,346.56,941.46,63.19
+133,SKU00133,SmartHome Women Model 3,Clothing,Women,SmartHome,188.47,88.57,-112.79
+134,SKU00134,ActiveLife Women Model 4,Clothing,Women,ActiveLife,315.35,670.12,52.94
+135,SKU00135,TechPro Women Model 5,Clothing,Women,TechPro,362.68,314.32,-15.39
+136,SKU00136,ActiveLife Women Model 6,Clothing,Women,ActiveLife,336.78,339.66,0.85
+137,SKU00137,ActiveLife Women Model 7,Clothing,Women,ActiveLife,281.66,208.0,-35.41
+138,SKU00138,EcoGear Women Model 8,Clothing,Women,EcoGear,341.89,904.75,62.21
+139,SKU00139,Premium Women Model 9,Clothing,Women,Premium,288.86,417.95,30.89
+140,SKU00140,TechPro Women Model 10,Clothing,Women,TechPro,158.9,225.98,29.68
+141,SKU00141,Premium Kids Model 1,Clothing,Kids,Premium,307.26,335.8,8.5
+142,SKU00142,EcoGear Kids Model 2,Clothing,Kids,EcoGear,226.66,229.43,1.21
+143,SKU00143,EcoGear Kids Model 3,Clothing,Kids,EcoGear,398.93,960.64,58.47
+144,SKU00144,SmartHome Kids Model 4,Clothing,Kids,SmartHome,332.84,298.11,-11.65
+145,SKU00145,Premium Kids Model 5,Clothing,Kids,Premium,174.24,822.05,78.8
+146,SKU00146,SmartHome Kids Model 6,Clothing,Kids,SmartHome,339.67,240.15,-41.44
+147,SKU00147,SmartHome Kids Model 7,Clothing,Kids,SmartHome,82.2,65.29,-25.9
+148,SKU00148,EcoGear Kids Model 8,Clothing,Kids,EcoGear,309.52,773.12,59.96
+149,SKU00149,EcoGear Kids Model 9,Clothing,Kids,EcoGear,213.08,637.17,66.56
+150,SKU00150,SmartHome Kids Model 10,Clothing,Kids,SmartHome,361.99,396.3,8.66
+151,SKU00151,EcoGear Accessories Model 1,Clothing,Accessories,EcoGear,129.55,662.94,80.46
+152,SKU00152,TechPro Accessories Model 2,Clothing,Accessories,TechPro,447.4,863.23,48.17
+153,SKU00153,TechPro Accessories Model 3,Clothing,Accessories,TechPro,391.43,234.46,-66.95
+154,SKU00154,Premium Accessories Model 4,Clothing,Accessories,Premium,237.63,566.26,58.04
+155,SKU00155,TechPro Accessories Model 5,Clothing,Accessories,TechPro,233.67,805.39,70.99
+156,SKU00156,Premium Accessories Model 6,Clothing,Accessories,Premium,494.07,603.54,18.14
+157,SKU00157,EcoGear Accessories Model 7,Clothing,Accessories,EcoGear,310.2,724.89,57.21
+158,SKU00158,Premium Accessories Model 8,Clothing,Accessories,Premium,219.1,908.72,75.89
+159,SKU00159,EcoGear Accessories Model 9,Clothing,Accessories,EcoGear,449.63,748.78,39.95
+160,SKU00160,EcoGear Accessories Model 10,Clothing,Accessories,EcoGear,230.53,756.74,69.54

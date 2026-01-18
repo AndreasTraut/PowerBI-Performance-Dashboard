@@ -93,9 +93,12 @@ Return behavior and quality insights:
 
 ---
 
-## 📁 Project File
+## 📁 Project Files
 
 - Power BI file: `Performance Dashboard.pbix`
+- Data directory: `/data` - Contains CSV files for the data model
+  - Sample data is provided for demonstration
+  - See [`/data/README.md`](data/README.md) for instructions on extracting actual data from the PBIX
 
 ---
 
@@ -104,6 +107,7 @@ Return behavior and quality insights:
 1. Download the `.pbix` file  
 2. Open it in **Power BI Desktop**
 3. Explore the dashboard using slicers, navigation, and focus mode
+4. To access the underlying data, see the [`/data`](data/) directory
 
 ---
 

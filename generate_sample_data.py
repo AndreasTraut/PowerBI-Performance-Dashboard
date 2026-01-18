@@ -2,12 +2,16 @@
 """
 Generate sample CSV data files that match the Power BI Performance Dashboard schema.
 Based on the dashboard requirements: Sales, Customers, Orders, and Returns analysis.
+
+Usage: python generate_sample_data.py [output_directory]
+If output_directory is not specified, uses ./data relative to the script location.
 """
 
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import os
+import sys
 import random
 
 # Set random seed for reproducibility
@@ -237,9 +241,15 @@ def generate_fact_returns(orders, dates):
 def main():
     print("Generating sample data for Power BI Performance Dashboard...")
     
-    # Create output directory
-    output_dir = '/home/runner/work/PowerBI-Performance-Dashboard/PowerBI-Performance-Dashboard/data'
+    # Create output directory (use script directory + data folder, or allow override via arg)
+    if len(sys.argv) > 1:
+        output_dir = sys.argv[1]
+    else:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        output_dir = os.path.join(script_dir, 'data')
+    
     os.makedirs(output_dir, exist_ok=True)
+    print(f"Output directory: {output_dir}")
     
     # Generate dimensions
     print("Generating date dimension...")

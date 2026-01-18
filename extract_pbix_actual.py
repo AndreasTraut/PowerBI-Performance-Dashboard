@@ -100,31 +100,78 @@ def check_for_bim_file(temp_dir):
 
 def extract_with_tabular_editor_command(pbix_path, output_dir):
     """
-    Generate instructions for using Tabular Editor with command line.
-    Tabular Editor 3 has CLI capabilities.
+    Generate instructions and scripts for using Tabular Editor with command line.
+    Supports both Windows (PowerShell) and cross-platform guidance.
     """
-    script = f"""
-# PowerShell script to extract data using Tabular Editor 3 CLI (Windows only)
+    
+    # PowerShell script for Windows
+    ps_script = f"""# PowerShell script to extract data using Tabular Editor 3 CLI (Windows)
 # Download Tabular Editor 3 from: https://tabulareditor.com/
 
 $pbixPath = "{pbix_path}"
 $outputDir = "{output_dir}"
 
-# Example command (adjust path to your Tabular Editor installation)
+# Adjust this path to your Tabular Editor 3 installation
+# Common locations:
+# - C:\\Program Files\\Tabular Editor 3\\TabularEditor3.exe
+# - C:\\Users\\$env:USERNAME\\AppData\\Local\\TabularEditor3\\TabularEditor3.exe
+
 $te3 = "C:\\Program Files\\Tabular Editor 3\\TabularEditor3.exe"
 
-# Connect and export
-& $te3 $pbixPath -S "ExportData.cs"
+if (Test-Path $te3) {{
+    Write-Host "Found Tabular Editor 3 at: $te3"
+    # Example: Connect and export using a C# script
+    # & $te3 $pbixPath -S "ExportData.cs"
+}} else {{
+    Write-Host "Tabular Editor 3 not found at $te3"
+    Write-Host "Please install it from https://tabulareditor.com/"
+    Write-Host "Or update the path in this script"
+}}
 
-# Where ExportData.cs is a C# script that exports each table to CSV
+# Note: You'll need to create an ExportData.cs script that exports tables to CSV
+# See Tabular Editor documentation for scripting examples
 """
     
-    script_path = os.path.join(output_dir, "extract_with_te3.ps1")
-    with open(script_path, 'w') as f:
-        f.write(script)
+    ps_script_path = os.path.join(output_dir, "extract_with_te3.ps1")
+    with open(ps_script_path, 'w') as f:
+        f.write(ps_script)
     
-    print(f"\nGenerated PowerShell script: {script_path}")
-    print("This script requires Tabular Editor 3 (Windows) to run")
+    # Cross-platform instructions
+    instructions = f"""# Data Extraction Instructions
+
+## Using Tabular Editor (Cross-Platform)
+
+1. Download and install:
+   - Windows: https://tabulareditor.com/
+   - macOS/Linux: Use Tabular Editor 2 via Mono or .NET 6+
+
+2. Open the PBIX file:
+   - Launch Tabular Editor
+   - File → Open → From File
+   - Select: {pbix_path}
+
+3. Export data:
+   - Use C# scripts from the Advanced Scripting menu
+   - Community scripts available at: https://github.com/TabularEditor/Scripts
+
+## Using DAX Studio (Recommended, Cross-Platform)
+
+1. Download: https://daxstudio.org/
+2. Connect to the PBIX file
+3. Run queries like: EVALUATE 'TableName'
+4. Export results to CSV
+
+See data/README.md for complete step-by-step instructions.
+"""
+    
+    instructions_path = os.path.join(output_dir, "EXTRACTION_INSTRUCTIONS.txt")
+    with open(instructions_path, 'w') as f:
+        f.write(instructions)
+    
+    print(f"\nGenerated extraction helpers:")
+    print(f"  - PowerShell script (Windows): {ps_script_path}")
+    print(f"  - General instructions: {instructions_path}")
+    print("\nThese provide guidance for extracting data using available tools")
 
 def main():
     if len(sys.argv) < 3:

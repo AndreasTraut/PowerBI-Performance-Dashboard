@@ -19,15 +19,31 @@ def setup_analysis_services():
         clr.AddReference("System")
         clr.AddReference("System.IO")
         
-        # Try to load Microsoft.AnalysisServices
-        dll_path = "/home/runner/.nuget/packages/microsoft.analysisservices.netcore.retail.amd64/19.84.1/lib/netcoreapp3.0/Microsoft.AnalysisServices.Tabular.dll"
+        # Try to find Microsoft.AnalysisServices DLL
+        # Check common NuGet package locations
+        import pathlib
+        home_dir = pathlib.Path.home()
+        nuget_paths = [
+            home_dir / ".nuget" / "packages" / "microsoft.analysisservices.netcore.retail.amd64" / "19.84.1" / "lib" / "netcoreapp3.0" / "Microsoft.AnalysisServices.Tabular.dll",
+            pathlib.Path("/usr/local/lib/Microsoft.AnalysisServices.Tabular.dll"),
+            pathlib.Path("./Microsoft.AnalysisServices.Tabular.dll"),
+        ]
         
-        if os.path.exists(dll_path):
+        dll_path = None
+        for path in nuget_paths:
+            if path.exists():
+                dll_path = str(path)
+                break
+        
+        if dll_path:
             clr.AddReference(dll_path)
             import Microsoft.AnalysisServices.Tabular as Tabular
             return Tabular
         else:
-            print(f"Analysis Services DLL not found at: {dll_path}")
+            print("Analysis Services DLL not found in common locations.")
+            print("Searched:")
+            for path in nuget_paths:
+                print(f"  - {path}")
             return None
     except Exception as e:
         print(f"Error loading Analysis Services: {e}")

@@ -95,7 +95,7 @@ Return behavior and quality insights:
 
 ## 📁 Project File
 
-- Power BI file: `Performance_Dashboard.pbix`
+- Power BI file: `Performance Dashboard.pbix`
 
 ---
 
@@ -111,3 +111,6 @@ Return behavior and quality insights:
 
 - Data is for demonstration purposes only
 - Dashboard design emphasizes **clarity, performance, and usability**
+
+## Design Inspiration:
+User interface layout and visual styling inspired by the work of Nicholas Lea-Trengrouse shared publicly on LinkedIn.

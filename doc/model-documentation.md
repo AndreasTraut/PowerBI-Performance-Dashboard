@@ -103,7 +103,6 @@ erDiagram
 
     %% Retourengründe
     dim_return_reason ||--o{ fact_returns : "Grund"
-
 ```
 
 

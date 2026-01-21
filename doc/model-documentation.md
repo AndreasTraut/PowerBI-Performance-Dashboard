@@ -25,6 +25,7 @@ The data model is organized around business processes with clearly separated **f
 ```
 
 
+```mermaid
 erDiagram
     %% Dimensionen (Stammdaten)
     dim_date {
@@ -102,6 +103,9 @@ erDiagram
 
     %% Retourengründe
     dim_return_reason ||--o{ fact_returns : "Grund"
+
+```
+
 
 ## Fact Tables
 

@@ -24,6 +24,85 @@ The data model is organized around business processes with clearly separated **f
                       fact_financial_insights
 ```
 
+
+erDiagram
+    %% Dimensionen (Stammdaten)
+    dim_date {
+        date Date
+        int Year
+        string Month
+    }
+    dim_customer {
+        int CustomerKey
+        string Name
+        string Segment
+    }
+    dim_product {
+        int ProductKey
+        string Category
+        string SKU
+    }
+    dim_region {
+        int RegionKey
+        string Country
+        string Region
+    }
+    dim_channel {
+        int ChannelKey
+        string ChannelName
+    }
+    dim_return_reason {
+        int ReasonKey
+        string ReasonDescription
+    }
+
+    %% Fakten (Bewegungsdaten)
+    fact_sales {
+        int OrderID
+        int Amount
+        int Quantity
+    }
+    fact_orders {
+        int OrderID
+        string Status
+    }
+    fact_returns {
+        int ReturnID
+        int ReturnAmount
+    }
+    fact_visits {
+        int VisitID
+        int Duration
+    }
+
+    %% Beziehungen (Sternschema)
+    %% Zeit gilt für alles
+    dim_date ||--o{ fact_sales : "filtert"
+    dim_date ||--o{ fact_orders : "filtert"
+    dim_date ||--o{ fact_returns : "filtert"
+    dim_date ||--o{ fact_visits : "filtert"
+
+    %% Kunde kauft, bestellt und retourniert
+    dim_customer ||--o{ fact_sales : "kauft"
+    dim_customer ||--o{ fact_orders : "bestellt"
+    dim_customer ||--o{ fact_returns : "retourniert"
+
+    %% Produkte werden verkauft und retourniert
+    dim_product ||--o{ fact_sales : "enthält"
+    dim_product ||--o{ fact_orders : "enthält"
+    dim_product ||--o{ fact_returns : "enthält"
+
+    %% Regionale Zuordnung
+    dim_region ||--o{ fact_sales : "verortet"
+    dim_region ||--o{ fact_orders : "verortet"
+
+    %% Kanal Zuordnung
+    dim_channel ||--o{ fact_sales : "via"
+    dim_channel ||--o{ fact_visits : "via"
+
+    %% Retourengründe
+    dim_return_reason ||--o{ fact_returns : "Grund"
+
 ## Fact Tables
 
 Fact tables contain the quantitative business data and foreign keys to dimension tables.

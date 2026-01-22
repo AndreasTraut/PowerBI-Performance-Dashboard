@@ -6,6 +6,19 @@ The dashboard focuses on **executive KPIs**, **operational insights**, and **dri
 
 ---
 
+## 📋 Table of Contents
+
+- [Dashboard Walkthrough](#-dashboard-walkthrough-demo)
+- [Key Features](#-key-features)
+- [Dashboard Pages](#-dashboard-pages-overview)
+- [Quick Start](#-quick-start)
+- [Data & Model](#-data--model)
+- [Documentation](#-documentation)
+- [Tools & Technologies](#-tools--technologies)
+- [Design Notes](#-design-notes)
+
+---
+
 ## 🎥 Dashboard Walkthrough (Demo)
 
 A short walkthrough demonstrating dashboard navigation, slicers, focus mode, and key insights across all pages.
@@ -84,37 +97,91 @@ Return behavior and quality insights:
 
 ---
 
+## � Quick Start
+
+1. **Download** the `.pbix` file  
+2. **Open** in **Power BI Desktop**
+3. **Explore** the dashboard using slicers, navigation, and focus mode
+4. **Review** the [documentation](#-documentation) for technical details
+
+---
+
+## 📁 Data & Model
+
+### Data Files
+
+The [/data](data/) directory contains CSV files for the data model:
+
+- **Dimension Tables**: Customer, Date, Geography, Product
+- **Fact Tables**: Sales, Orders, Returns
+
+📖 **See [/data/README.md](data/README.md)** for:
+- Data extraction instructions
+- Schema overview
+- How to extract actual data from the PBIX
+
+### Data Model
+
+The semantic model (`Model.bim`) uses a **star schema architecture** with optimized relationships and DAX measures.
+
+📖 **See [Model Documentation](doc/model-documentation.md)** for:
+- Complete model structure
+- Fact and dimension tables
+- DAX measures and calculations
+- Performance optimizations
+
+---
+
+## 📚 Documentation
+
+Comprehensive technical documentation is available in the [/doc](doc/) directory:
+
+### Core Documentation
+
+- **[Model Documentation](doc/model-documentation.md)**  
+  Complete data model architecture, star schema, fact/dimension tables, relationships, and DAX measures
+
+- **[Data Extraction Guide](doc/DATA_EXTRACTION_SUMMARY.md)**  
+  How data was extracted from PBIX, available tools, and step-by-step extraction instructions
+
+- **[Security Summary](doc/SECURITY_SUMMARY.md)**  
+  Security review of all scripts, code safety analysis, and best practices
+
+### Key Topics
+
+| Topic | Documentation |
+|-------|--------------|
+| 🗂️ Model Structure | [model-documentation.md](doc/model-documentation.md) |
+| 📊 Data Extraction | [DATA_EXTRACTION_SUMMARY.md](doc/DATA_EXTRACTION_SUMMARY.md) |
+| 🔒 Security | [SECURITY_SUMMARY.md](doc/SECURITY_SUMMARY.md) |
+| 💾 Data Files | [/data/README.md](data/README.md) |
+
+---
+
 ## 🛠 Tools & Technologies
 
-- **Power BI**
-- Power Query (data cleaning & transformation)
-- DAX (KPIs, YoY comparisons, retention logic)
-- Data modeling (star schema, relationships)
+- **Power BI Desktop** - Dashboard and reporting
+- **Power Query** - Data cleaning & transformation
+- **DAX** - KPIs, YoY comparisons, retention logic
+- **Data Modeling** - Star schema, relationships
+- **Python** - Data extraction and sample data generation
+
+### Included Scripts
+
+- [generate_sample_data.py](tools/generate_sample_data.py) - Generate sample data for testing
+- [extract_pbix_actual.py](tools/extract_pbix_actual.py) - Analyze and extract from PBIX
+- [extract_pbix_data.py](tools/extract_pbix_data.py) - Data extraction utilities
 
 ---
 
-## 📁 Project Files
+## 📌 Design Notes
 
-- Power BI file: `Performance Dashboard.pbix`
-- Data directory: `/data` - Contains CSV files for the data model
-  - Sample data is provided for demonstration
-  - See [`/data/README.md`](data/README.md) for instructions on extracting actual data from the PBIX
-
----
-
-## 🚀 How to Use
-
-1. Download the `.pbix` file  
-2. Open it in **Power BI Desktop**
-3. Explore the dashboard using slicers, navigation, and focus mode
-4. To access the underlying data, see the [`/data`](data/) directory
+- **Data**: Sample data provided for demonstration purposes
+- **Focus**: Clarity, performance, and usability
+- **Design Inspiration**: User interface layout and visual styling inspired by the work of Nicholas Lea-Trengrouse shared publicly on LinkedIn
 
 ---
 
-## 📌 Notes
+## 📄 License
 
-- Data is for demonstration purposes only
-- Dashboard design emphasizes **clarity, performance, and usability**
-
-## Design Inspiration:
-User interface layout and visual styling inspired by the work of Nicholas Lea-Trengrouse shared publicly on LinkedIn.
+See [LICENSE](LICENSE) for details.

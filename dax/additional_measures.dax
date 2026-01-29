@@ -1,0 +1,240 @@
+// Additional Measures for Market Basket Analysis
+// These are optional but useful supplementary measures for deeper analysis
+
+// ============================================================================
+// MEASURE 1: Orders with Product 1
+// ============================================================================
+// Counts how many total orders contain the selected product from dim_product
+// This is the baseline for calculating co-occurrence rates
+
+Orders with Product 1 = DISTINCTCOUNT(fact_orders[OrderID])
+
+
+// ============================================================================
+// MEASURE 2: Orders with Product 2
+// ============================================================================
+// Counts how many total orders contain the comparison product 
+// from dim_product_comparison
+// Uses ALL(dim_product) to ignore filters from the main product dimension
+
+Orders with Product 2 = 
+VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductKey])
+RETURN
+    IF(
+        NOT ISBLANK(SelectedComparisonProduct),
+        CALCULATE(
+            DISTINCTCOUNT(fact_orders[OrderID]),
+            ALL(dim_product),
+            fact_orders[ProductKey] = SelectedComparisonProduct
+        ),
+        BLANK()
+    )
+
+
+// ============================================================================
+// MEASURE 3: Co-occurrence Rate (%)
+// ============================================================================
+// Calculates what percentage of Product 1's orders also contain Product 2
+// Formula: (Orders with both) / (Orders with Product 1) × 100
+// 
+// Business meaning: "When customers buy Product 1, how often do they also buy Product 2?"
+// Example: 40% means that 40% of Product 1's orders include Product 2
+
+Co-occurrence Rate % = 
+VAR OrdersBoth = [Orders containing both]
+VAR OrdersProduct1 = [Orders with Product 1]
+RETURN
+    IF(
+        NOT ISBLANK(OrdersBoth) && OrdersProduct1 > 0,
+        DIVIDE(OrdersBoth, OrdersProduct1, 0) * 100,
+        BLANK()
+    )
+
+
+// ============================================================================
+// MEASURE 4: Support (%)
+// ============================================================================
+// Calculates what percentage of ALL orders contain this product combination
+// Formula: (Orders with both) / (Total Orders) × 100
+// 
+// Business meaning: "How common is this product combination overall?"
+// Example: 2% means this pair appears in 2% of all orders
+// Useful for: Identifying how frequently a combination occurs in absolute terms
+
+Support % = 
+VAR OrdersBoth = [Orders containing both]
+VAR TotalOrders = CALCULATE(
+    DISTINCTCOUNT(fact_orders[OrderID]), 
+    ALL(dim_product), 
+    ALL(dim_product_comparison)
+)
+RETURN
+    IF(
+        NOT ISBLANK(OrdersBoth) && TotalOrders > 0,
+        DIVIDE(OrdersBoth, TotalOrders, 0) * 100,
+        BLANK()
+    )
+
+
+// ============================================================================
+// MEASURE 5: Confidence (%)
+// ============================================================================
+// Synonym for Co-occurrence Rate, using standard association rule terminology
+// Formula: (Orders with both) / (Orders with Product 1) × 100
+// 
+// Association Rule: Product 1 → Product 2
+// Meaning: Given that Product 1 is purchased, what's the probability Product 2 is also purchased?
+// Same as Co-occurrence Rate but uses standard data mining terminology
+
+Confidence % = [Co-occurrence Rate %]
+
+
+// ============================================================================
+// MEASURE 6: Lift
+// ============================================================================
+// Measures how much more likely products are bought together vs. independently
+// Formula: (Observed co-occurrence) / (Expected co-occurrence if independent)
+// 
+// Interpretation:
+// - Lift = 1: Products are bought together as expected by chance (no association)
+// - Lift > 1: Products are bought together MORE often than expected (positive association)
+// - Lift < 1: Products are bought together LESS often than expected (negative association)
+// 
+// Example: Lift = 2.5 means this pair occurs 2.5× more often than random chance
+// Business use: Prioritize product pairs with Lift > 1 for cross-selling
+
+Lift = 
+VAR OrdersBoth = [Orders containing both]
+VAR OrdersProduct1 = [Orders with Product 1]
+VAR OrdersProduct2 = [Orders with Product 2]
+VAR TotalOrders = CALCULATE(
+    DISTINCTCOUNT(fact_orders[OrderID]), 
+    ALL(dim_product), 
+    ALL(dim_product_comparison)
+)
+VAR ExpectedCoOccurrence = DIVIDE(OrdersProduct1 * OrdersProduct2, TotalOrders, 0)
+RETURN
+    IF(
+        NOT ISBLANK(OrdersBoth) && ExpectedCoOccurrence > 0,
+        DIVIDE(OrdersBoth, ExpectedCoOccurrence, 0),
+        BLANK()
+    )
+
+
+// ============================================================================
+// MEASURE 7: Reverse Co-occurrence Rate (%)
+// ============================================================================
+// Calculates what percentage of Product 2's orders also contain Product 1
+// Formula: (Orders with both) / (Orders with Product 2) × 100
+// 
+// Difference from Co-occurrence Rate:
+// - Co-occurrence Rate: Product 1 → Product 2 (forward)
+// - Reverse Co-occurrence Rate: Product 2 → Product 1 (backward)
+// 
+// Business meaning: "When customers buy Product 2, how often do they also buy Product 1?"
+// Useful when association might be asymmetric
+
+Reverse Co-occurrence Rate % = 
+VAR OrdersBoth = [Orders containing both]
+VAR OrdersProduct2 = [Orders with Product 2]
+RETURN
+    IF(
+        NOT ISBLANK(OrdersBoth) && OrdersProduct2 > 0,
+        DIVIDE(OrdersBoth, OrdersProduct2, 0) * 100,
+        BLANK()
+    )
+
+
+// ============================================================================
+// MEASURE 8: Product Pair Label
+// ============================================================================
+// Creates a readable label showing both products in the combination
+// Useful for table visuals showing top product pairs
+// Example: "TechPro Laptop + Premium Mouse"
+
+Product Pair = 
+VAR Product1 = SELECTEDVALUE(dim_product[ProductName])
+VAR Product2 = SELECTEDVALUE(dim_product_comparison[ProductName])
+RETURN
+    IF(
+        NOT ISBLANK(Product1) && NOT ISBLANK(Product2),
+        Product1 & " + " & Product2,
+        BLANK()
+    )
+
+
+// ============================================================================
+// MEASURE 9: Jaccard Similarity
+// ============================================================================
+// Alternative similarity metric for product affinity
+// Formula: (Orders with both) / (Orders with either product)
+// 
+// Range: 0 to 1 (or 0% to 100%)
+// - 0: Products never bought together
+// - 1: Products always bought together
+// 
+// Different from Lift: Accounts for individual product popularity
+// Useful when: Comparing products with very different sales volumes
+
+Jaccard Similarity % = 
+VAR OrdersBoth = [Orders containing both]
+VAR OrdersProduct1 = [Orders with Product 1]
+VAR OrdersProduct2 = [Orders with Product 2]
+VAR OrdersEither = OrdersProduct1 + OrdersProduct2 - OrdersBoth
+RETURN
+    IF(
+        NOT ISBLANK(OrdersBoth) && OrdersEither > 0,
+        DIVIDE(OrdersBoth, OrdersEither, 0) * 100,
+        BLANK()
+    )
+
+
+// ============================================================================
+// MEASURE 10: Is Strong Association
+// ============================================================================
+// Boolean measure indicating if this is a "strong" product association
+// Criteria: Lift > 1.5 AND Co-occurrence Rate > 20%
+// 
+// Business use: Filter to show only strong associations worth acting on
+// Returns: "Yes" or "No" for easy filtering
+
+Is Strong Association = 
+VAR CurrentLift = [Lift]
+VAR CurrentCoOccurrence = [Co-occurrence Rate %]
+RETURN
+    IF(
+        NOT ISBLANK(CurrentLift) && NOT ISBLANK(CurrentCoOccurrence),
+        IF(
+            CurrentLift > 1.5 && CurrentCoOccurrence > 20,
+            "Yes",
+            "No"
+        ),
+        BLANK()
+    )
+
+
+// ============================================================================
+// USAGE NOTES
+// ============================================================================
+// 
+// Recommended Measure Combinations:
+// 
+// 1. For Cross-Selling Recommendations:
+//    - Orders containing both (count)
+//    - Co-occurrence Rate % (how often)
+//    - Lift (strength of association)
+// 
+// 2. For Bundle Creation:
+//    - Support % (how common the pair is)
+//    - Lift (strength of association)
+//    - Jaccard Similarity % (overall similarity)
+// 
+// 3. For Product Placement:
+//    - Orders containing both (volume)
+//    - Reverse Co-occurrence Rate % (bidirectional affinity)
+// 
+// 4. For Quick Filtering:
+//    - Is Strong Association (yes/no filter)
+//    - Then show detailed metrics for strong pairs only
+// 
+// ============================================================================

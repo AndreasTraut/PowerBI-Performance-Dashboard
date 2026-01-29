@@ -1,0 +1,6 @@
+// Calculated Table: dim_product_comparison
+// Purpose: Disconnected table (copy of dim_product) for Market Basket Analysis
+// This table has no relationships to the data model and is used to select comparison products
+// for analyzing which products are frequently bought together
+
+dim_product_comparison = dim_product

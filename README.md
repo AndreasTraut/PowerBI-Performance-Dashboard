@@ -130,6 +130,20 @@ The semantic model (`Model.bim`) uses a **star schema architecture** with optimi
 - DAX measures and calculations
 - Performance optimizations
 
+### DAX Code Library
+
+The [/dax](dax/) directory contains reusable DAX code for advanced analytics:
+
+- **Market Basket Analysis**: Analyze which products are frequently bought together
+- **Calculated Tables**: Disconnected tables for comparative analysis
+- **Advanced Measures**: Co-occurrence analysis and product affinity
+
+📖 **See [/dax/README.md](dax/README.md)** for:
+- Market Basket Analysis implementation
+- DAX code for calculated tables and measures
+- Step-by-step implementation guide
+- Usage examples and best practices
+
 ---
 
 ## 📚 Documentation
@@ -155,6 +169,7 @@ Comprehensive technical documentation is available in the [/doc](doc/) directory
 | 📊 Data Extraction | [DATA_EXTRACTION_SUMMARY.md](doc/DATA_EXTRACTION_SUMMARY.md) |
 | 🔒 Security | [SECURITY_SUMMARY.md](doc/SECURITY_SUMMARY.md) |
 | 💾 Data Files | [/data/README.md](data/README.md) |
+| 🛒 Market Basket Analysis (DAX) | [/dax/README.md](dax/README.md) |
 
 ---
 

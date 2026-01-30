@@ -1,0 +1,40 @@
+{
+	"name": "Power BI Performance Dashboard",
+	"image": "mcr.microsoft.com/devcontainers/python:3.11",
+	
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-toolsai.jupyter",
+				"yzhang.markdown-all-in-one",
+				"DavidAnson.vscode-markdownlint",
+				"mhutchie.git-graph",
+				"eamodio.gitlens",
+				"mechatroner.rainbow-csv"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"python.formatting.provider": "black",
+				"editor.formatOnSave": true,
+				"files.associations": {
+					"*.csv": "csv"
+				}
+			}
+		}
+	},
+
+	"postCreateCommand": "pip install --upgrade pip && pip install pandas numpy zipfile36",
+
+	"forwardPorts": [],
+
+	"remoteUser": "vscode"
+}

@@ -1,187 +1,187 @@
 # Power BI Performance Dashboard
 
-An interactive **end-to-end business performance dashboard** built in **Power BI**, designed to analyze **Sales, Customers, Orders, and Returns** across regions, channels, and time.
+Ein interaktives **End-to-End Business Performance Dashboard** in **Power BI**, entwickelt zur Analyse von **Verkäufen, Kunden, Bestellungen und Rücksendungen** über Regionen, Kanäle und Zeiträume hinweg.
 
-The dashboard focuses on **executive KPIs**, **operational insights**, and **driver analysis**, with an app-like user experience (focus mode, navigation, and slicer toggle).
-
----
-
-## 📋 Table of Contents
-
-- [Dashboard Walkthrough](#-dashboard-walkthrough-demo)
-- [Key Features](#-key-features)
-- [Dashboard Pages](#-dashboard-pages-overview)
-- [Quick Start](#-quick-start)
-- [Data & Model](#-data--model)
-- [Documentation](#-documentation)
-- [Tools & Technologies](#-tools--technologies)
-- [Design Notes](#-design-notes)
+Das Dashboard konzentriert sich auf **Executive KPIs**, **operative Einblicke** und **Treiberanalysen** mit einer app-ähnlichen Benutzererfahrung (Fokusmodus, Navigation und Datenschnitt-Umschaltung).
 
 ---
 
-## 🎥 Dashboard Walkthrough (Demo)
+## 📋 Inhaltsverzeichnis
 
-A short walkthrough demonstrating dashboard navigation, slicers, focus mode, and key insights across all pages.
+- [Dashboard-Walkthrough](#-dashboard-walkthrough-demo)
+- [Hauptfunktionen](#-hauptfunktionen)
+- [Dashboard-Seiten](#-dashboard-seiten-übersicht)
+- [Schnellstart](#-schnellstart)
+- [Daten & Modell](#-daten--modell)
+- [Dokumentation](#-dokumentation)
+- [Tools & Technologien](#-tools--technologien)
+- [Design-Hinweise](#-design-hinweise)
+
+---
+
+## 🎥 Dashboard-Walkthrough (Demo)
+
+Ein kurzer Walkthrough, der die Dashboard-Navigation, Datenschnitte, den Fokusmodus und wichtige Einblicke auf allen Seiten demonstriert.
 
 https://github.com/user-attachments/assets/c8376858-bfeb-4149-b9aa-04d0635b48e8
 
 ---
 
-## 🎯 Key Features
+## 🎯 Hauptfunktionen
 
-- Dynamic KPI cards with **Current Year vs Previous Year**
-- **Focus Mode** for deep dives (trend analysis & key drivers)
-- Centralized **slicer panel** with toggle control
-- App-style **page navigation**
-- Drill-down into **regions, countries, products, customers, and channels**
-- Detailed **transaction-level matrices** for analysis
+- Dynamische KPI-Karten mit **Aktuelles Jahr vs. Vorjahr**
+- **Fokusmodus** für tiefgehende Analysen (Trendanalyse & Haupttreiber)
+- Zentrales **Datenschnitt-Panel** mit Umschaltsteuerung
+- App-ähnliche **Seitennavigation**
+- Drill-down in **Regionen, Länder, Produkte, Kunden und Kanäle**
+- Detaillierte **Matrizen auf Transaktionsebene** für Analysen
 
 ---
 
-## 📊 Dashboard Pages Overview
+## 📊 Dashboard-Seiten Übersicht
 
-### 1️⃣ Overview
-High-level business snapshot with:
-- Core KPIs: **Sales, Customers, Orders, Returns**
-- Monthly performance trends
-- Regional performance (America, Europe, Asia)
-- Top brands, channels, categories, and customer types (B2B / B2C)
+### 1️⃣ Übersicht
+Geschäftsüberblick auf hoher Ebene mit:
+- Kern-KPIs: **Verkäufe, Kunden, Bestellungen, Rücksendungen**
+- Monatliche Performance-Trends
+- Regionale Performance (Amerika, Europa, Asien)
+- Top-Marken, Kanäle, Kategorien und Kundentypen (B2B / B2C)
 
 ![Overview](assets/overview.png)
 
 ---
 
-### 2️⃣ Sales Analysis
-Sales performance and financial drivers:
-- Net Sales, Quantity Sold, Avg Sales per Order
-- Country-level sales & map view
-- Top sub-categories and SKUs
-- Financial summary: **Gross Sales, COGS, Gross Profit**
-- Sales vs Profit correlation and monthly trends
+### 2️⃣ Verkaufsanalyse
+Verkaufsperformance und finanzielle Treiber:
+- Nettoumsatz, verkaufte Menge, durchschnittlicher Umsatz pro Bestellung
+- Verkäufe auf Länderebene & Kartenansicht
+- Top-Unterkategorien und SKUs
+- Finanzzusammenfassung: **Bruttoumsatz, Wareneinsatz, Bruttogewinn**
+- Korrelation zwischen Verkauf und Gewinn sowie monatliche Trends
 
 ![Sales](assets/sales.png)
 
 ---
 
-### 3️⃣ Customers Analysis
-Customer behavior and retention insights:
-- Total, New, Returning Customers
-- Customer Retention Rate
-- Breakdown by country and customer type
-- Customer segmentation (priority, channel, loyalty)
-- Detailed customer matrix with sales & order metrics
+### 3️⃣ Kundenanalyse
+Kundenverhalten und Retention-Einblicke:
+- Gesamt-, Neu- und wiederkehrende Kunden
+- Kundenbindungsrate
+- Aufschlüsselung nach Land und Kundentyp
+- Kundensegmentierung (Priorität, Kanal, Loyalität)
+- Detaillierte Kundenmatrix mit Verkaufs- und Bestellkennzahlen
 
 ![Customers](assets/customers.png)
 
 ---
 
-### 4️⃣ Orders Analysis
-Operational and order efficiency metrics:
-- Total Orders, AOV, Completion & Cancellation Rates
-- Orders by country, customer type, and status
-- On-time delivery performance
-- Order value segmentation & delivery time correlation
+### 4️⃣ Bestellanalyse
+Operative und Bestelleffizienz-Kennzahlen:
+- Gesamtbestellungen, AOV, Abschluss- & Stornierungsraten
+- Bestellungen nach Land, Kundentyp und Status
+- Pünktliche Lieferperformance
+- Bestellwertsegmentierung & Lieferzeitkorrelation
 
 ![Orders](assets/orders.png)
 
 ---
 
-### 5️⃣ Returns Analysis
-Return behavior and quality insights:
-- Return volume, rate, and return sales value
-- Breakdown by country, customer type, and category
-- Reasons for returns (chart & heatmap)
-- Detailed return-level matrix with processing status
+### 5️⃣ Rücksendungsanalyse
+Rücksendeverhalten und Qualitätseinblicke:
+- Rücksendevolumen, -rate und Rücksendewert
+- Aufschlüsselung nach Land, Kundentyp und Kategorie
+- Rücksendegründe (Diagramm & Heatmap)
+- Detaillierte Matrix auf Rücksende-Ebene mit Bearbeitungsstatus
 
 ![Returns](assets/returns.png)
 
 ---
 
-## � Quick Start
+## � Schnellstart
 
-1. **Download** the `.pbix` file  
-2. **Open** in **Power BI Desktop**
-3. **Explore** the dashboard using slicers, navigation, and focus mode
-4. **Review** the [documentation](#-documentation) for technical details
-
----
-
-## 📁 Data & Model
-
-### Data Files
-
-The [/data](data/) directory contains CSV files for the data model:
-
-- **Dimension Tables**: Customer, Date, Geography, Product
-- **Fact Tables**: Sales, Orders, Returns
-
-📖 **See [/data/README.md](data/README.md)** for:
-- Data extraction instructions
-- Schema overview
-- How to extract actual data from the PBIX
-
-### Data Model
-
-The semantic model (`Model.bim`) uses a **star schema architecture** with optimized relationships and DAX measures.
-
-📖 **See [Model Documentation](doc/model-documentation.md)** for:
-- Complete model structure
-- Fact and dimension tables
-- DAX measures and calculations
-- Performance optimizations
+1. **Herunterladen** der `.pbix` Datei  
+2. **Öffnen** in **Power BI Desktop**
+3. **Erkunden** des Dashboards mit Datenschnitten, Navigation und Fokusmodus
+4. **Prüfen** der [Dokumentation](#-dokumentation) für technische Details
 
 ---
 
-## 📚 Documentation
+## 📁 Daten & Modell
 
-Comprehensive technical documentation is available in the [/doc](doc/) directory:
+### Datendateien
 
-### Core Documentation
+Das [/data](data/) Verzeichnis enthält CSV-Dateien für das Datenmodell:
 
-- **[Model Documentation](doc/model-documentation.md)**  
-  Complete data model architecture, star schema, fact/dimension tables, relationships, and DAX measures
+- **Dimensionstabellen**: Kunde, Datum, Geografie, Produkt
+- **Faktentabellen**: Verkäufe, Bestellungen, Rücksendungen
 
-- **[Data Extraction Guide](doc/DATA_EXTRACTION_SUMMARY.md)**  
-  How data was extracted from PBIX, available tools, and step-by-step extraction instructions
+📖 **Siehe [/data/README.md](data/README.md)** für:
+- Datenextraktionsanleitungen
+- Schema-Übersicht
+- Anleitung zur Extraktion echter Daten aus der PBIX
 
-- **[Security Summary](doc/SECURITY_SUMMARY.md)**  
-  Security review of all scripts, code safety analysis, and best practices
+### Datenmodell
 
-### Key Topics
+Das semantische Modell (`Model.bim`) verwendet eine **Sternschema-Architektur** mit optimierten Beziehungen und DAX-Measures.
 
-| Topic | Documentation |
+📖 **Siehe [Modell-Dokumentation](doc/model-documentation.md)** für:
+- Vollständige Modellstruktur
+- Fakten- und Dimensionstabellen
+- DAX-Measures und Berechnungen
+- Performance-Optimierungen
+
+---
+
+## 📚 Dokumentation
+
+Umfassende technische Dokumentation ist im [/doc](doc/) Verzeichnis verfügbar:
+
+### Kerndokumentation
+
+- **[Modell-Dokumentation](doc/model-documentation.md)**  
+  Vollständige Datenmodell-Architektur, Sternschema, Fakten-/Dimensionstabellen, Beziehungen und DAX-Measures
+
+- **[Datenextraktions-Leitfaden](doc/DATA_EXTRACTION_SUMMARY.md)**  
+  Wie Daten aus PBIX extrahiert wurden, verfügbare Tools und Schritt-für-Schritt-Anleitungen
+
+- **[Sicherheitszusammenfassung](doc/SECURITY_SUMMARY.md)**  
+  Sicherheitsüberprüfung aller Skripte, Code-Sicherheitsanalyse und Best Practices
+
+### Hauptthemen
+
+| Thema | Dokumentation |
 |-------|--------------|
-| 🗂️ Model Structure | [model-documentation.md](doc/model-documentation.md) |
-| 📊 Data Extraction | [DATA_EXTRACTION_SUMMARY.md](doc/DATA_EXTRACTION_SUMMARY.md) |
-| 🔒 Security | [SECURITY_SUMMARY.md](doc/SECURITY_SUMMARY.md) |
-| 💾 Data Files | [/data/README.md](data/README.md) |
+| 🗂️ Modellstruktur | [model-documentation.md](doc/model-documentation.md) |
+| 📊 Datenextraktion | [DATA_EXTRACTION_SUMMARY.md](doc/DATA_EXTRACTION_SUMMARY.md) |
+| 🔒 Sicherheit | [SECURITY_SUMMARY.md](doc/SECURITY_SUMMARY.md) |
+| 💾 Datendateien | [/data/README.md](data/README.md) |
 
 ---
 
-## 🛠 Tools & Technologies
+## 🛠 Tools & Technologien
 
-- **Power BI Desktop** - Dashboard and reporting
-- **Power Query** - Data cleaning & transformation
-- **DAX** - KPIs, YoY comparisons, retention logic
-- **Data Modeling** - Star schema, relationships
-- **Python** - Data extraction and sample data generation
+- **Power BI Desktop** - Dashboard und Reporting
+- **Power Query** - Datenbereinigung & Transformation
+- **DAX** - KPIs, YoY-Vergleiche, Retention-Logik
+- **Datenmodellierung** - Sternschema, Beziehungen
+- **Python** - Datenextraktion und Beispieldaten-Generierung
 
-### Included Scripts
+### Enthaltene Skripte
 
-- [generate_sample_data.py](tools/generate_sample_data.py) - Generate sample data for testing
-- [extract_pbix_actual.py](tools/extract_pbix_actual.py) - Analyze and extract from PBIX
-- [extract_pbix_data.py](tools/extract_pbix_data.py) - Data extraction utilities
-
----
-
-## 📌 Design Notes
-
-- **Data**: Sample data provided for demonstration purposes
-- **Focus**: Clarity, performance, and usability
-- **Design Inspiration**: User interface layout and visual styling inspired by the work of Nicholas Lea-Trengrouse shared publicly on LinkedIn
+- [generate_sample_data.py](tools/generate_sample_data.py) - Generierung von Beispieldaten zum Testen
+- [extract_pbix_actual.py](tools/extract_pbix_actual.py) - Analysieren und Extrahieren aus PBIX
+- [extract_pbix_data.py](tools/extract_pbix_data.py) - Datenextraktions-Dienstprogramme
 
 ---
 
-## 📄 License
+## 📌 Design-Hinweise
 
-See [LICENSE](LICENSE) for details.
+- **Daten**: Beispieldaten für Demonstrationszwecke bereitgestellt
+- **Fokus**: Klarheit, Performance und Benutzerfreundlichkeit
+- **Design-Inspiration**: Benutzeroberflächen-Layout und visuelle Gestaltung inspiriert durch die Arbeit von Nicholas Lea-Trengrouse, öffentlich geteilt auf LinkedIn
+
+---
+
+## 📄 Lizenz
+
+Siehe [LICENSE](LICENSE) für Details.

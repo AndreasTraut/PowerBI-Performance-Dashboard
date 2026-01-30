@@ -33,7 +33,7 @@ Die CSV-Dateien entsprechen genau dem Schema des Power BI Dashboards:
 
 ## Technische Herausforderung
 
-Das PBIX-Format verwendet Microsoft XPress9-Kompression für den DataModel, was proprietär ist und sich nicht ohne Spezialwerkzeuge extrahieren lässt. 
+Das PBIX-Format verwendet Microsoft XPress9-Kompression für den DataModel, was proprietär ist und sich nicht ohne Spezialwerkzeuge extrahieren lässt.
 
 ### Lösung
 
@@ -46,7 +46,7 @@ Es wurden zwei Ansätze bereitgestellt:
 
 2. **Anleitungen für echte Daten-Extraktion:**
    - Detaillierte Anleitung in `/data/README.md`
-   - Extraction-Skripte: `extract_pbix_actual.py`, `extract_pbix_data.py`
+   - Extraktions-Skripte: `extract_pbix_actual.py`, `extract_pbix_data.py`
    - Empfohlene Tools:
      - DAX Studio (kostenlos)
      - Tabular Editor 2/3 (kostenlos)
@@ -60,7 +60,7 @@ python generate_sample_data.py
 ```
 
 ### Echte Daten extrahieren:
-Siehe `/data/README.md` für detaillierte Anleitungen mit DAX Studio, Tabular Editor, oder Power BI Desktop.
+Siehe `/data/README.md` für detaillierte Anleitungen mit DAX Studio, Tabular Editor oder Power BI Desktop.
 
 ## Dateien im Repository
 

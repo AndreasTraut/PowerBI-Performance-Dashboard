@@ -1,14 +1,14 @@
-# Power BI Performance Dashboard - Data Model Documentation
+# Power BI Performance Dashboard - Datenmodell-Dokumentation
 
-## Overview
+## Übersicht
 
-This document describes the data model (semantic model) for the Power BI Performance Dashboard. The model follows a **star schema** design pattern, optimized for analytical queries and business intelligence reporting.
+Dieses Dokument beschreibt das Datenmodell (semantisches Modell) für das Power BI Performance Dashboard. Das Modell folgt einem **Sternschema**-Designmuster, optimiert für analytische Abfragen und Business Intelligence Reporting.
 
-## Model Architecture
+## Modell-Architektur
 
-The data model is organized around business processes with clearly separated **fact tables** (containing measurable transactions) and **dimension tables** (containing descriptive attributes).
+Das Datenmodell ist um Geschäftsprozesse herum organisiert mit klar getrennten **Faktentabellen** (enthält messbare Transaktionen) und **Dimensionstabellen** (enthält beschreibende Attribute).
 
-### Star Schema Design
+### Sternschema-Design
 
 ```
                     dim_date
@@ -106,370 +106,370 @@ erDiagram
 ```
 
 
-## Fact Tables
+## Faktentabellen
 
-Fact tables contain the quantitative business data and foreign keys to dimension tables.
+Faktentabellen enthalten die quantitativen Geschäftsdaten und Fremdschlüssel zu Dimensionstabellen.
 
 ### 1. fact_sales
-**Purpose**: Tracks sales transactions and revenue metrics
+**Zweck**: Verfolgt Verkaufstransaktionen und Umsatzkennzahlen
 
-**Key Metrics**:
-- Net Sales
-- Gross Sales
-- COGS (Cost of Goods Sold)
-- Gross Profit
-- Quantity Sold
-- Sales per Order
+**Wichtige Kennzahlen**:
+- Nettoumsatz
+- Bruttoumsatz
+- COGS (Wareneinsatz)
+- Bruttogewinn
+- Verkaufte Menge
+- Umsatz pro Bestellung
 
-**Grain**: One row per sales transaction
+**Granularität**: Eine Zeile pro Verkaufstransaktion
 
-**Related Dimensions**: Customer, Product, Date, Region, Channel
+**Verbundene Dimensionen**: Kunde, Produkt, Datum, Region, Kanal
 
 ---
 
 ### 2. fact_orders
-**Purpose**: Tracks order lifecycle and operational metrics
+**Zweck**: Verfolgt Bestelllebenszyklus und operative Kennzahlen
 
-**Key Metrics**:
-- Total Orders
-- Order Status (Completed, Cancelled)
-- Average Order Value (AOV)
-- Order Completion Rate
-- Order Cancellation Rate
-- On-time Delivery Performance
-- Delivery Time
+**Wichtige Kennzahlen**:
+- Gesamtbestellungen
+- Bestellstatus (Abgeschlossen, Storniert)
+- Durchschnittlicher Bestellwert (AOV)
+- Bestellabschlussrate
+- Bestellstornierungsrate
+- Pünktliche Lieferperformance
+- Lieferzeit
 
-**Grain**: One row per order
+**Granularität**: Eine Zeile pro Bestellung
 
-**Related Dimensions**: Customer, Product, Date, Region, Channel
+**Verbundene Dimensionen**: Kunde, Produkt, Datum, Region, Kanal
 
 ---
 
 ### 3. fact_returns
-**Purpose**: Tracks product returns and return behavior
+**Zweck**: Verfolgt Produktrücksendungen und Rücksendeverhalten
 
-**Key Metrics**:
-- Return Volume
-- Return Rate
-- Return Sales Value
-- Return Processing Status
+**Wichtige Kennzahlen**:
+- Rücksendevolumen
+- Rücksendequote
+- Rücksendewert
+- Rücksende-Bearbeitungsstatus
 
-**Grain**: One row per return transaction
+**Granularität**: Eine Zeile pro Rücksende-Transaktion
 
-**Related Dimensions**: Customer, Product, Date, Region, Return Reason
+**Verbundene Dimensionen**: Kunde, Produkt, Datum, Region, Rücksende-Grund
 
 ---
 
 ### 4. fact_visits
-**Purpose**: Tracks customer engagement and website/store visits
+**Zweck**: Verfolgt Kundenengagement und Website-/Ladenbesuche
 
-**Key Metrics**:
-- Visit Count
-- Customer Engagement Metrics
+**Wichtige Kennzahlen**:
+- Besuchsanzahl
+- Kundenengagement-Kennzahlen
 
-**Grain**: One row per customer visit
+**Granularität**: Eine Zeile pro Kundenbesuch
 
-**Related Dimensions**: Customer, Date, Channel
+**Verbundene Dimensionen**: Kunde, Datum, Kanal
 
 ---
 
 ### 5. fact_return_amount
-**Purpose**: Aggregated return amounts and financial impact
+**Zweck**: Aggregierte Rücksendewerte und finanzielle Auswirkungen
 
-**Key Metrics**:
-- Total Return Amount
-- Return Value by Category
+**Wichtige Kennzahlen**:
+- Gesamter Rücksendewert
+- Rücksendewert nach Kategorie
 
-**Grain**: Aggregated return amounts
+**Granularität**: Aggregierte Rücksendewerte
 
-**Related Dimensions**: Date, Product, Customer
+**Verbundene Dimensionen**: Datum, Produkt, Kunde
 
 ---
 
 ### 6. fact_financial_insights
-**Purpose**: Financial summary and performance indicators
+**Zweck**: Finanzzusammenfassung und Performance-Indikatoren
 
-**Key Metrics**:
-- Financial KPIs
-- Profitability Metrics
-- Revenue Analysis
+**Wichtige Kennzahlen**:
+- Finanz-KPIs
+- Rentabilitätskennzahlen
+- Umsatzanalyse
 
-**Grain**: Aggregated financial data
+**Granularität**: Aggregierte Finanzdaten
 
-**Related Dimensions**: Date, Customer, Product
+**Verbundene Dimensionen**: Datum, Kunde, Produkt
 
 ---
 
-## Dimension Tables
+## Dimensionstabellen
 
-Dimension tables provide descriptive context for analyzing facts.
+Dimensionstabellen bieten beschreibenden Kontext für die Analyse von Fakten.
 
 ### 1. dim_customer
-**Purpose**: Customer master data and attributes
+**Zweck**: Kundenstammdaten und Attribute
 
-**Key Attributes**:
-- Customer ID
-- Customer Name
-- Customer Type (B2B / B2C)
-- Customer Priority/Segment
-- Customer Loyalty Status
-- Geographic Location
+**Wichtige Attribute**:
+- Kunden-ID
+- Kundenname
+- Kundentyp (B2B / B2C)
+- Kundenpriorität/Segment
+- Kundenloyalitätsstatus
+- Geografische Lage
 
-**Type**: Slowly Changing Dimension (SCD)
+**Typ**: Slowly Changing Dimension (SCD)
 
 ---
 
 ### 2. dim_product
-**Purpose**: Product hierarchy and classifications
+**Zweck**: Produkthierarchie und Klassifizierungen
 
-**Key Attributes**:
-- Product ID / SKU
-- Product Name
-- Category
-- Sub-category
-- Brand
-- Product Attributes
+**Wichtige Attribute**:
+- Produkt-ID / SKU
+- Produktname
+- Kategorie
+- Unterkategorie
+- Marke
+- Produktattribute
 
-**Hierarchy**: Brand → Category → Sub-category → SKU
+**Hierarchie**: Marke → Kategorie → Unterkategorie → SKU
 
 ---
 
 ### 3. dim_region
-**Purpose**: Geographic hierarchy for location-based analysis
+**Zweck**: Geografische Hierarchie für standortbasierte Analysen
 
-**Key Attributes**:
-- Region ID
-- Region Name (America, Europe, Asia)
-- Country
-- City
-- Geographic Coordinates (for map visualizations)
+**Wichtige Attribute**:
+- Regions-ID
+- Regionsname (Amerika, Europa, Asien)
+- Land
+- Stadt
+- Geografische Koordinaten (für Kartenvisualisierungen)
 
-**Hierarchy**: Region → Country → City
+**Hierarchie**: Region → Land → Stadt
 
 ---
 
 ### 4. dim_date
-**Purpose**: Time intelligence and date-based filtering
+**Zweck**: Time Intelligence und datumsbasierte Filterung
 
-**Key Attributes**:
-- Date
-- Year
-- Quarter
-- Month
-- Month Name
-- Week
-- Day
-- Day of Week
-- Is Weekend
-- Fiscal Period
+**Wichtige Attribute**:
+- Datum
+- Jahr
+- Quartal
+- Monat
+- Monatsname
+- Woche
+- Tag
+- Wochentag
+- Ist Wochenende
+- Geschäftsperiode
 
-**Type**: Date dimension with continuous date range
+**Typ**: Datumsdimension mit kontinuierlichem Datumsbereich
 
-**Special Features**:
-- Supports Year-over-Year (YoY) comparisons
-- Previous Year calculations
-- Month-over-Month trends
+**Besondere Funktionen**:
+- Unterstützt Vorjahresvergleiche (YoY)
+- Vorjahresberechnungen
+- Monat-über-Monat-Trends
 
 ---
 
 ### 5. dim_channel
-**Purpose**: Sales and distribution channel classification
+**Zweck**: Klassifizierung von Verkaufs- und Vertriebskanälen
 
-**Key Attributes**:
-- Channel ID
-- Channel Name
-- Channel Type
-- Channel Category
+**Wichtige Attribute**:
+- Kanal-ID
+- Kanalname
+- Kanaltyp
+- Kanalkategorie
 
-**Examples**: Online, Retail, Wholesale, Partner
+**Beispiele**: Online, Einzelhandel, Großhandel, Partner
 
 ---
 
 ### 6. dim_return_reason
-**Purpose**: Classification of return reasons for quality analysis
+**Zweck**: Klassifizierung von Rücksendegründen für Qualitätsanalysen
 
-**Key Attributes**:
-- Reason ID
-- Reason Code
-- Reason Description
-- Reason Category
+**Wichtige Attribute**:
+- Grund-ID
+- Grundcode
+- Grundbeschreibung
+- Grundkategorie
 
-**Examples**: Defective, Wrong Item, Not as Described, Customer Changed Mind
+**Beispiele**: Defekt, Falscher Artikel, Nicht wie beschrieben, Kunde hat Meinung geändert
 
 ---
 
-## Supporting Tables
+## Unterstützende Tabellen
 
 ### KPI_Summary_Table
-**Purpose**: Pre-calculated KPI summary values for dashboard performance optimization
+**Zweck**: Vorberechnete KPI-Zusammenfassungswerte zur Dashboard-Performance-Optimierung
 
-**Content**:
-- Core business KPIs
-- Aggregated metrics
-- Comparison values (Current vs Previous Period)
+**Inhalt**:
+- Kern-Geschäfts-KPIs
+- Aggregierte Kennzahlen
+- Vergleichswerte (Aktuell vs. Vorperiode)
 
 ---
 
-### Parameter Tables
+### Parametertabellen
 
 #### Parameter
-**Purpose**: User-selected parameters for dynamic filtering and calculations
+**Zweck**: Vom Benutzer ausgewählte Parameter für dynamisches Filtern und Berechnungen
 
-#### Parameter (Overview)
-**Purpose**: Parameters specific to the Overview dashboard page
+#### Parameter (Übersicht)
+**Zweck**: Parameter speziell für die Übersichts-Dashboard-Seite
 
 ---
 
-## Relationships
+## Beziehungen
 
-The model uses standard **star schema relationships**:
+Das Modell verwendet Standard-**Sternschema-Beziehungen**:
 
-- **One-to-Many** relationships from dimensions to facts
-- **Cardinality**: Dimension (1) → Fact (Many)
-- **Cross-filter Direction**: Single direction (from dimension to fact) for most relationships
-- **Referential Integrity**: Enforced through Power BI relationships
+- **Eins-zu-Viele**-Beziehungen von Dimensionen zu Fakten
+- **Kardinalität**: Dimension (1) → Fakt (Viele)
+- **Kreuzfilter-Richtung**: Einzelne Richtung (von Dimension zu Fakt) für die meisten Beziehungen
+- **Referenzielle Integrität**: Durchgesetzt über Power BI-Beziehungen
 
-### Key Relationships:
+### Hauptbeziehungen:
 
-1. **dim_date** → Multiple fact tables (Sales, Orders, Returns, Visits)
+1. **dim_date** → Mehrere Faktentabellen (Sales, Orders, Returns, Visits)
 2. **dim_customer** → fact_sales, fact_orders, fact_returns, fact_visits
 3. **dim_product** → fact_sales, fact_orders, fact_returns
 4. **dim_region** → fact_sales, fact_orders, fact_returns
 5. **dim_channel** → fact_sales, fact_orders, fact_visits
 6. **dim_return_reason** → fact_returns
-7. **fact_returns** → fact_return_amount (aggregation relationship)
+7. **fact_returns** → fact_return_amount (Aggregationsbeziehung)
 
 ---
 
-## DAX Measures and Calculations
+## DAX-Measures und Berechnungen
 
-The model includes extensive DAX (Data Analysis Expressions) calculations for:
+Das Modell enthält umfangreiche DAX (Data Analysis Expressions) Berechnungen für:
 
 ### Time Intelligence
-- Current Year (CY) metrics
-- Previous Year (PY) metrics
-- Year-over-Year (YoY) comparisons
-- YoY Growth %
-- Month-over-Month trends
+- Aktuelles Jahr (CY) Kennzahlen
+- Vorjahr (PY) Kennzahlen
+- Vorjahresvergleiche (YoY)
+- YoY Wachstum %
+- Monat-über-Monat-Trends
 
-### Customer Analytics
-- New Customers
-- Returning Customers
-- Customer Retention Rate
+### Kundenanalysen
+- Neukunden
+- Wiederkehrende Kunden
+- Kundenbindungsrate
 - Customer Lifetime Value
 
-### Sales Metrics
-- Net Sales = Gross Sales - Returns
-- Gross Profit = Sales - COGS
-- Gross Profit Margin %
-- Average Sales per Order
+### Verkaufskennzahlen
+- Nettoumsatz = Bruttoumsatz - Rücksendungen
+- Bruttogewinn = Umsatz - Wareneinsatz
+- Bruttogewinnmarge %
+- Durchschnittlicher Umsatz pro Bestellung
 
-### Order Metrics
-- Order Completion Rate
-- Order Cancellation Rate
-- Average Order Value (AOV)
+### Bestellkennzahlen
+- Bestellabschlussrate
+- Bestellstornierungsrate
+- Durchschnittlicher Bestellwert (AOV)
 
-### Return Metrics
-- Return Rate = Returns / Total Orders
-- Return Value Impact
+### Rücksendekennzahlen
+- Rücksendequote = Rücksendungen / Gesamtbestellungen
+- Rücksendewert-Auswirkung
 
 ---
 
-## Data Model Properties
+## Datenmodell-Eigenschaften
 
 ### Format
-- **Model Type**: Tabular (Analysis Services)
-- **Compatibility Level**: 1520 or higher
-- **Compression**: XPress9 (VertiPaq)
-- **Storage Mode**: Import
+- **Modelltyp**: Tabellarisch (Analysis Services)
+- **Kompatibilitätslevel**: 1520 oder höher
+- **Komprimierung**: XPress9 (VertiPaq)
+- **Speichermodus**: Import
 
-### Performance Optimizations
-- **Star Schema**: Optimized for query performance
-- **Pre-aggregated Tables**: KPI_Summary_Table for fast dashboard loading
-- **Relationships**: Properly indexed for efficient joins
-- **Data Types**: Optimized column data types
-- **Hierarchies**: Defined for drill-down analysis
-
----
-
-## Usage Context
-
-This data model supports the following dashboard pages:
-
-1. **Overview**: High-level business snapshot with core KPIs
-2. **Sales Analysis**: Revenue and financial performance
-3. **Customers Analysis**: Customer behavior and retention
-4. **Orders Analysis**: Operational efficiency
-5. **Returns Analysis**: Product quality and return patterns
+### Performance-Optimierungen
+- **Sternschema**: Optimiert für Abfrageleistung
+- **Voraggregierte Tabellen**: KPI_Summary_Table für schnelles Dashboard-Laden
+- **Beziehungen**: Ordnungsgemäß indiziert für effiziente Joins
+- **Datentypen**: Optimierte Spaltendatentypen
+- **Hierarchien**: Definiert für Drill-down-Analysen
 
 ---
 
-## Data Sources
+## Verwendungskontext
 
-Based on the model structure, the data is loaded from:
-- Transactional systems (Sales, Orders, Returns)
-- Customer relationship management (CRM) system
-- Product catalog
-- Geographic reference data
-- Date/Calendar table (generated)
+Dieses Datenmodell unterstützt die folgenden Dashboard-Seiten:
 
----
-
-## Model File
-
-The complete model definition is stored in:
-- **File**: `Model.bim` (in repository root)
-- **Format**: Binary (XPress9 compressed Tabular Model)
-- **Source**: Extracted from `Performance Dashboard.pbix`
-
-### Viewing the Model
-
-To view the full model structure:
-
-1. **Using Power BI Desktop**:
-   - Open `Performance Dashboard.pbix`
-   - Go to Model view
-   - View tables, relationships, and measures
-
-2. **Using Tabular Editor** (recommended for advanced model analysis):
-   - Download [Tabular Editor](https://tabulareditor.com/)
-   - File → Open → From Database (connect to PBIX)
-   - or extract and open Model.bim with decompression tools
-
-3. **Using DAX Studio** (for measure analysis):
-   - Download [DAX Studio](https://daxstudio.org/)
-   - Connect to the PBIX file
-   - Analyze measures and performance
+1. **Übersicht**: Geschäftsüberblick auf hoher Ebene mit Kern-KPIs
+2. **Verkaufsanalyse**: Umsatz und finanzielle Performance
+3. **Kundenanalyse**: Kundenverhalten und Retention
+4. **Bestellanalyse**: Operative Effizienz
+5. **Rücksendungsanalyse**: Produktqualität und Rücksendungsmuster
 
 ---
 
-## Best Practices Applied
+## Datenquellen
 
-✅ **Star Schema Design**: Clear separation of facts and dimensions  
-✅ **Naming Conventions**: Consistent `fact_` and `dim_` prefixes  
-✅ **Date Dimension**: Comprehensive date table for time intelligence  
-✅ **Optimized Relationships**: One-to-many, single direction  
-✅ **Measure Organization**: DAX measures grouped logically  
-✅ **Data Types**: Appropriate data types for performance  
-✅ **Hierarchies**: Pre-defined for common drill-downs  
-
----
-
-## Model Maintenance
-
-### Refresh Strategy
-- **Full Refresh**: Updates all tables with latest data
-- **Incremental Refresh**: Can be configured for large fact tables
-- **Refresh Frequency**: Depends on business requirements (daily, weekly, etc.)
-
-### Version Control
-- Model changes should be documented
-- Use Tabular Editor for version control of model metadata
-- Export Model.bim for backup and comparison
+Basierend auf der Modellstruktur werden die Daten geladen aus:
+- Transaktionssystemen (Verkäufe, Bestellungen, Rücksendungen)
+- Kundenbeziehungsmanagement-System (CRM)
+- Produktkatalog
+- Geografischen Referenzdaten
+- Datums-/Kalendertabelle (generiert)
 
 ---
 
-## Additional Resources
+## Modelldatei
+
+Die vollständige Modelldefinition ist gespeichert in:
+- **Datei**: `Model.bim` (im Repository-Hauptverzeichnis)
+- **Format**: Binär (XPress9-komprimiertes Tabular Model)
+- **Quelle**: Extrahiert aus `Performance Dashboard.pbix`
+
+### Anzeigen des Modells
+
+Um die vollständige Modellstruktur anzuzeigen:
+
+1. **Mit Power BI Desktop**:
+   - Öffnen Sie `Performance Dashboard.pbix`
+   - Gehen Sie zur Modellansicht
+   - Zeigen Sie Tabellen, Beziehungen und Measures an
+
+2. **Mit Tabular Editor** (empfohlen für erweiterte Modellanalyse):
+   - Laden Sie [Tabular Editor](https://tabulareditor.com/) herunter
+   - Datei → Öffnen → Von Datenbank (Verbindung zur PBIX)
+   - oder extrahieren und öffnen Sie Model.bim mit Dekomprimierungstools
+
+3. **Mit DAX Studio** (für Measure-Analyse):
+   - Laden Sie [DAX Studio](https://daxstudio.org/) herunter
+   - Verbinden Sie sich mit der PBIX-Datei
+   - Analysieren Sie Measures und Performance
+
+---
+
+## Angewandte Best Practices
+
+✅ **Sternschema-Design**: Klare Trennung von Fakten und Dimensionen  
+✅ **Namenskonventionen**: Konsistente `fact_` und `dim_` Präfixe  
+✅ **Datumsdimension**: Umfassende Datumstabelle für Time Intelligence  
+✅ **Optimierte Beziehungen**: Eins-zu-Viele, einzelne Richtung  
+✅ **Measure-Organisation**: DAX-Measures logisch gruppiert  
+✅ **Datentypen**: Geeignete Datentypen für Performance  
+✅ **Hierarchien**: Vordefiniert für häufige Drill-downs  
+
+---
+
+## Modellwartung
+
+### Aktualisierungsstrategie
+- **Vollständige Aktualisierung**: Aktualisiert alle Tabellen mit neuesten Daten
+- **Inkrementelle Aktualisierung**: Kann für große Faktentabellen konfiguriert werden
+- **Aktualisierungshäufigkeit**: Abhängig von Geschäftsanforderungen (täglich, wöchentlich, etc.)
+
+### Versionskontrolle
+- Modelländerungen sollten dokumentiert werden
+- Verwenden Sie Tabular Editor für Versionskontrolle von Modell-Metadaten
+- Exportieren Sie Model.bim für Backup und Vergleich
+
+---
+
+## Zusätzliche Ressourcen
 
 - [Power BI Data Modeling Best Practices](https://docs.microsoft.com/en-us/power-bi/guidance/star-schema)
 - [DAX Reference](https://dax.guide/)
@@ -477,5 +477,5 @@ To view the full model structure:
 
 ---
 
-*Last Updated: January 2026*  
-*Model Version: Compatible with the Performance Dashboard PBIX file*
+*Zuletzt aktualisiert: Januar 2026*  
+*Modellversion: Kompatibel mit der Performance Dashboard PBIX-Datei*

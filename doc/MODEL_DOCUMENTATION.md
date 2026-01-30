@@ -1,46 +1,46 @@
-# Documentation Directory
+# Dokumentationsverzeichnis
 
-This directory contains technical documentation for the Power BI Performance Dashboard project.
+Dieses Verzeichnis enthält die technische Dokumentation für das Power BI Performance Dashboard-Projekt.
 
-## Contents
+## Inhalt
 
 ### [model-documentation.md](model-documentation.md)
-Comprehensive documentation of the data model (semantic model) including:
-- Star schema architecture
-- Fact tables (Sales, Orders, Returns, Visits, etc.)
-- Dimension tables (Customer, Product, Date, Region, etc.)
-- Relationships and DAX measures
-- Performance optimizations
-- Usage guidelines
+Umfassende Dokumentation des Datenmodells (semantisches Modell) einschließlich:
+- Sternschema-Architektur
+- Faktentabellen (Sales, Orders, Returns, Visits, etc.)
+- Dimensionstabellen (Customer, Product, Date, Region, etc.)
+- Beziehungen und DAX-Measures
+- Performance-Optimierungen
+- Verwendungsrichtlinien
 
-## Model File
+## Modelldatei
 
-The data model is also available in the repository root:
-- **File**: `../Model.bim`
-- **Format**: Binary (XPress9 compressed Analysis Services Tabular Model)
-- **Size**: ~5 MB
-- **Source**: Extracted from `Performance Dashboard.pbix`
+Das Datenmodell ist auch im Repository-Hauptverzeichnis verfügbar:
+- **Datei**: `../Model.bim`
+- **Format**: Binär (XPress9-komprimiertes Analysis Services Tabular Model)
+- **Größe**: ~5 MB
+- **Quelle**: Extrahiert aus `Performance Dashboard.pbix`
 
-### About Model.bim Format
+### Über das Model.bim Format
 
-The `Model.bim` file is stored in its native compressed format as extracted from the PBIX file. This is the standard format used by Power BI Desktop and Analysis Services.
+Die `Model.bim` Datei ist in ihrem nativen komprimierten Format gespeichert, wie sie aus der PBIX-Datei extrahiert wurde. Dies ist das Standardformat, das von Power BI Desktop und Analysis Services verwendet wird.
 
-**To view or edit the model:**
-1. Open `Performance Dashboard.pbix` in Power BI Desktop
-2. Use Tabular Editor (open-source tool) to connect to the PBIX
-3. Use DAX Studio to analyze measures and performance
+**Um das Modell anzuzeigen oder zu bearbeiten:**
+1. Öffnen Sie `Performance Dashboard.pbix` in Power BI Desktop
+2. Verwenden Sie Tabular Editor (Open-Source-Tool), um sich mit der PBIX zu verbinden
+3. Verwenden Sie DAX Studio, um Measures und Performance zu analysieren
 
-The model documentation in this directory provides a human-readable overview of the model structure without requiring specialized tools.
+Die Modelldokumentation in diesem Verzeichnis bietet eine menschenlesbare Übersicht der Modellstruktur, ohne dass spezialisierte Tools erforderlich sind.
 
-## Purpose
+## Zweck
 
-This documentation helps developers, analysts, and stakeholders:
-- Understand the data model architecture
-- Learn about available metrics and dimensions
-- Plan report development and extensions
-- Maintain and optimize the model
-- Onboard new team members
+Diese Dokumentation hilft Entwicklern, Analysten und Stakeholdern:
+- Die Datenmodell-Architektur zu verstehen
+- Verfügbare Metriken und Dimensionen kennenzulernen
+- Report-Entwicklung und -Erweiterungen zu planen
+- Das Modell zu warten und zu optimieren
+- Neue Teammitglieder einzuarbeiten
 
 ---
 
-For questions or suggestions about the documentation, please open an issue in the repository.
+Für Fragen oder Anregungen zur Dokumentation öffnen Sie bitte ein Issue im Repository.

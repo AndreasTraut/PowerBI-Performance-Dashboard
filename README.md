@@ -258,6 +258,20 @@ Die vollständige technische Dokumentation des Modells finden Sie in der [Modell
 
 ---
 
+### DAX Code-Bibliothek
+
+Das [/dax](dax/) Verzeichnis enthält wiederverwendbaren DAX-Code für erweiterte Analysen:
+
+- **Warenkorbanalyse**: Analyse, welche Produkte häufig zusammen gekauft werden
+- **Berechnete Tabellen**: Unverbundene Tabellen für vergleichende Analysen
+- **Erweiterte Measures**: Co-Occurrence-Analyse und Produktaffinität
+
+📖 **Siehe [/dax/README.md](dax/README.md)** für:
+- Implementierung der Warenkorbanalyse
+- DAX-Code für berechnete Tabellen und Measures
+- Schritt-für-Schritt-Implementierungsanleitung
+- Verwendungsbeispiele und Best Practices
+
 ## 📚 Dokumentation
 
 Umfassende technische Dokumentation ist im [/doc](doc/) Verzeichnis verfügbar:

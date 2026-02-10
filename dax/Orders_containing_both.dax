@@ -1,0 +1,28 @@
+// Measure: Orders containing both
+// Purpose: Market Basket Analysis - Count unique OrderIDs that contain BOTH products
+// - Product 1: Selected from dim_product (connected to model, filtered by slicers)
+// - Product 2: Selected from dim_product_comparison (disconnected, independent selection)
+// 
+// How it works:
+// 1. Get the selected product from dim_product_comparison (comparison product)
+// 2. Get all OrderIDs that contain the comparison product
+// 3. Filter fact_orders to only those OrderIDs
+// 4. Count distinct OrderIDs (this automatically respects the filter from dim_product for Product 1)
+
+Orders containing both = 
+VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductKey])
+VAR OrdersWithComparisonProduct = 
+    CALCULATETABLE(
+        VALUES(fact_orders[OrderID]),
+        ALL(dim_product),
+        fact_orders[ProductKey] = SelectedComparisonProduct
+    )
+RETURN
+    IF(
+        NOT ISBLANK(SelectedComparisonProduct),
+        CALCULATE(
+            DISTINCTCOUNT(fact_orders[OrderID]),
+            fact_orders[OrderID] IN OrdersWithComparisonProduct
+        ),
+        BLANK()
+    )

@@ -1,0 +1,55 @@
+table dim_region
+	lineageTag: b2b05a06-cd0e-49ef-b0f5-a3b68d6c0919
+
+	column RegionID
+		dataType: string
+		lineageTag: 907c10e1-92bf-4135-b790-534820b48e56
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionName
+		dataType: string
+		lineageTag: ace170b7-2ab9-40ce-a605-51bedc13d9bc
+		summarizeBy: none
+		sourceColumn: RegionName
+
+		annotation SummarizationSetBy = Automatic
+
+	column RepresentativeCountry
+		dataType: string
+		lineageTag: cca4bc55-6b21-4156-a003-2fd49caaba8d
+		summarizeBy: none
+		sourceColumn: RepresentativeCountry
+
+		annotation SummarizationSetBy = Automatic
+
+	column Continent = SWITCH('dim_region'[RegionName],"North America","America","South America","America", "Oceania","Asia","Africa","Asia",'dim_region'[RegionName])
+		lineageTag: a488a8e2-7327-4cbb-9b3e-9cd19209f820
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country = SWITCH('dim_region'[RepresentativeCountry],"Nigeria","Japan", "United States","USA",'dim_region'[RepresentativeCountry])
+		lineageTag: 60b7d6b3-7704-4c3e-999e-db471d544dbe
+		dataCategory: Country
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_region = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\BI Project\DIM\dim_region.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"RegionID", type text}, {"RegionName", type text}, {"RepresentativeCountry", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

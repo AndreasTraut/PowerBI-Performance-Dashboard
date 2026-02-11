@@ -1,0 +1,75 @@
+table fact_return_amount
+	lineageTag: 87f7715a-8951-4817-ab36-41b2723c4d05
+
+	measure return_amount_min_max =
+			VAR CurrentMonthTotal =
+			    -- 1. Get the total return amount for the current month in the visual
+			    SUM ( 'fact_return_amount'[sales returns amount] )
+			VAR AllMonthsReturns =
+			    -- 2. Create a table of all monthly totals (Month Name and Total Return)
+			    --    This is the key to correctly finding the global max/min total.
+			    CALCULATETABLE (
+			        ADDCOLUMNS (
+			            VALUES ( 'dim_date'[month name] ),
+			            "MonthlyTotal", SUM ( 'fact_return_amount'[sales returns amount] )
+			        ),
+			        ALLSELECTED ( 'dim_date' ) -- Clear filter on 'dim_date' table
+			    )
+			VAR MaxReturnAmount =
+			    -- 3. Find the maximum value from the "MonthlyTotal" column in the table above
+			    MAXX ( AllMonthsReturns, [MonthlyTotal] )
+			VAR MinReturnAmount =
+			    -- 4. Find the minimum value from the "MonthlyTotal" column in the table above
+			    MINX ( AllMonthsReturns, [MonthlyTotal] )
+			RETURN
+			    -- 5. Check if the current month's total matches the global max or min total
+			    IF (
+			        CurrentMonthTotal = MaxReturnAmount,
+			        -- Color Red for Max:
+			        "#FF0000",
+			        IF (
+			            CurrentMonthTotal = MinReturnAmount,
+			            -- Color Green (00B050) for Min:
+			            "#00B050",
+			            -- Color Blue (118DFF) for others:
+			            "#118DFF"
+			        )
+			    )
+		lineageTag: 8ba526f6-3f46-4728-a10e-09f3c59f2a9d
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c585f32f-0846-4853-8005-271fc5b21ed4
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Sales Returns Amount'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 17811b8d-79ea-4124-9b1e-60cbf25385c3
+		summarizeBy: sum
+		sourceColumn: Sales Returns Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition fact_return_amount = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\BI Project\Sales\DIM\fact_return_amount.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Sales Returns Amount", Currency.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

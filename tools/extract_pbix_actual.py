@@ -161,7 +161,7 @@ if (Test-Path $te3) {{
 3. Run queries like: EVALUATE 'TableName'
 4. Export results to CSV
 
-See data/README.md for complete step-by-step instructions.
+See data/DATA.md for complete step-by-step instructions.
 """
     
     instructions_path = os.path.join(output_dir, "EXTRACTION_INSTRUCTIONS.txt")
@@ -241,7 +241,7 @@ def main():
         print("  https://tabulareditor.com/")
         print("\n✓ Power BI Desktop:")
         print("  Transform Data → Export tables")
-        print("\nSee data/README.md for detailed instructions.")
+        print("\nSee data/DATA.md for detailed instructions.")
         print("="*70)
         
     finally:

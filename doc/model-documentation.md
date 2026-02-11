@@ -453,6 +453,9 @@ Um die vollständige Modellstruktur anzuzeigen:
 ✅ **Datentypen**: Geeignete Datentypen für Performance  
 ✅ **Hierarchien**: Vordefiniert für häufige Drill-downs  
 
+![Best Practice Analyzer](../assets/Best%20Practise%20Analyser.png)
+*Überprüfung mit dem Best Practice Analyzer in Tabular Editor*
+
 ---
 
 ## Modellwartung

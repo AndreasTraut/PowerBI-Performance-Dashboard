@@ -1,0 +1,158 @@
+table dim_customer
+	lineageTag: 73d7a258-db38-4dad-8eb9-ddd60bfb66df
+
+	column CustomerID
+		dataType: string
+		lineageTag: 3a398a92-4659-4856-b5ff-c65694a4390f
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullName
+		dataType: string
+		lineageTag: 9731cb82-0b94-4198-b407-a537117b198b
+		summarizeBy: none
+		sourceColumn: FullName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerType
+		dataType: string
+		lineageTag: 8188d4d4-bd09-46a3-9d30-5e93ca17a573
+		summarizeBy: none
+		sourceColumn: CustomerType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: ab7b76e1-2533-4384-9310-279fce8d7a4d
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column Phone
+		dataType: string
+		lineageTag: 5ce38b19-5d03-4d79-89f3-38392d24e257
+		summarizeBy: none
+		sourceColumn: Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column Address
+		dataType: string
+		lineageTag: 004775a5-2cb0-4477-baf6-7ce82184d5db
+		summarizeBy: none
+		sourceColumn: Address
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 8f896bf6-0d30-4283-bd77-8d79b71571ea
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 04ecf00c-cd37-4d9b-a2a4-28467c9ef74a
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 6942604e-f968-4a84-a93c-5d1750679e70
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 6767082a-0cd1-4a5b-a409-a1f606b2a88b
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column PostalCode
+		dataType: int64
+		formatString: 0
+		lineageTag: 01f2fdbf-c964-4c45-a4a2-51b0a9ff56b6
+		summarizeBy: count
+		sourceColumn: PostalCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column SignupDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 86169a63-1a27-4b7a-843b-c53d8d45a18c
+		summarizeBy: none
+		sourceColumn: SignupDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LoyaltyStatus
+		dataType: string
+		lineageTag: 6c9f6d70-439b-4966-a632-00aff7c9c376
+		summarizeBy: none
+		sourceColumn: LoyaltyStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Priority = ```
+			
+			VAR MaxOrder =
+			    CALCULATE(
+			        MAX('fact_orders'[OrderAmount]),
+			        FILTER('fact_orders', 'fact_orders'[CustomerID] = 'dim_customer'[CustomerID])
+			    )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    MaxOrder < 500, "Low",
+			    MaxOrder >= 500 && MaxOrder < 2500, "Medium",
+			    MaxOrder >= 2500 && MaxOrder < 7000, "High",
+			    MaxOrder >= 7000, "Very High",
+			    "Other"
+			)
+			
+			```
+		lineageTag: c4099980-4bc2-401b-bfa8-c953827e6000
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LoyaltyStatus (2)' = SWITCH('dim_customer'[LoyaltyStatus],"New","Inactive",'dim_customer'[LoyaltyStatus])
+		lineageTag: 65aec20f-cbf0-40e6-a6bb-e303440915b2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country (2)' = SWITCH('dim_customer'[Country],"Nigeria","Japan", "United States","USA",'dim_customer'[Country])
+		lineageTag: b533544d-6205-437f-9c7d-fbc4481b2511
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\BI Project\DIM\dim_customer.csv"),[Delimiter=",", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CustomerID", type text}, {"FullName", type text}, {"CustomerType", type text}, {"Email", type text}, {"Phone", type text}, {"Address", type text}, {"City", type text}, {"State", type text}, {"Country", type text}, {"Region", type text}, {"PostalCode", Int64.Type}, {"SignupDate", type date}, {"LoyaltyStatus", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

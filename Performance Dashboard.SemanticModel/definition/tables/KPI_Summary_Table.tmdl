@@ -1,0 +1,146 @@
+table KPI_Summary_Table
+	lineageTag: 1c6ec32a-7b85-446c-af04-71873eff9fb3
+
+	column 'KPI Category'
+		lineageTag: 40842d83-dfe6-47b1-a9eb-486cdacd8e70
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [KPI Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'KPI Name'
+		lineageTag: fd324d9f-7602-4cc4-b18c-3cacf4b4d2d4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [KPI Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'KPI Value'
+		lineageTag: 5386a76f-4aad-4d42-9962-b5c345f4fa89
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [KPI Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Metric Name'
+		lineageTag: 2e24d854-1dde-4fc8-9d4c-e386e0160c4a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Metric Value'
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 0508367d-4aa6-4795-ac3d-611aec700f4b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Metric Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition KPI_Summary_Table = calculated
+		mode: import
+		source =
+				
+				// Variables for calculations (not used for % of total, but good practice to keep)
+				VAR TotalSales = CALCULATE(SUM(fact_sales[netsales]), ALL('fact_sales'))
+				VAR TotalProfit = CALCULATE(SUM(fact_sales[grossprofit]), ALL('fact_sales'))
+				
+				// 1. Most Sales Generating Country (dim_region[country])
+				VAR CountrySales =
+				    TOPN(
+				        1,
+				        SUMMARIZE(
+				            ALL('dim_region'[country]),
+				            'dim_region'[country],
+				            "Sales", SUM(fact_sales[netsales])
+				        ),
+				        [Sales], DESC
+				    )
+				VAR FormattedCountry =
+				    SELECTCOLUMNS(
+				        CountrySales,
+				        "KPI Category", "Most Sales Generating Country",
+				        "KPI Name", "Country Name",
+				        "KPI Value", 'dim_region'[country],
+				        "Metric Name", "Total Sales",
+				        "Metric Value", [Sales]
+				    )
+				
+				// 2. Most Profitable Region (dim_region[continent])
+				VAR RegionProfit =
+				    TOPN(
+				        1,
+				        SUMMARIZE(
+				            ALL('dim_region'[continent]),
+				            'dim_region'[continent],
+				            "Gross Profit", SUM(fact_sales[grossprofit])
+				        ),
+				        [Gross Profit], DESC
+				    )
+				VAR FormattedRegion =
+				    SELECTCOLUMNS(
+				        RegionProfit,
+				        "KPI Category", "Most Profitable Region",
+				        "KPI Name", "Region Name",
+				        "KPI Value", 'dim_region'[continent],
+				        "Metric Name", "Total Gross Profit",
+				        "Metric Value", [Gross Profit]
+				    )
+				
+				// 3. Top Selling Product (dim_product[productname])
+				VAR ProductSales =
+				    TOPN(
+				        1,
+				        SUMMARIZE(
+				            ALL('dim_product'[productname]),
+				            'dim_product'[productname],
+				            "Sales", SUM(fact_sales[netsales])
+				        ),
+				        [Sales], DESC
+				    )
+				VAR FormattedProduct =
+				    SELECTCOLUMNS(
+				        ProductSales,
+				        "KPI Category", "Top Selling Product",
+				        "KPI Name", "Product Name",
+				        "KPI Value", 'dim_product'[productname],
+				        "Metric Name", "Total Sales",
+				        "Metric Value", [Sales]
+				    )
+				
+				// 4. Top Buying Customer (NEW - dim_customer[fullname])
+				VAR CustomerSales =
+				    TOPN(
+				        1,
+				        SUMMARIZE(
+				            ALL('dim_customer'[fullname]),
+				            'dim_customer'[fullname],
+				            "Sales", SUM(fact_sales[netsales])
+				        ),
+				        [Sales], DESC
+				    )
+				VAR FormattedCustomer =
+				    SELECTCOLUMNS(
+				        CustomerSales,
+				        "KPI Category", "Top Buying Customer",
+				        "KPI Name", "Customer Name",
+				        "KPI Value", 'dim_customer'[fullname],
+				        "Metric Name", "Total Sales",
+				        "Metric Value", [Sales]
+				    )
+				
+				RETURN
+				    UNION(
+				        FormattedCountry,
+				        FormattedRegion,
+				        FormattedProduct,
+				        FormattedCustomer // Added the new customer table
+				    )
+
+	annotation PBI_Id = 9b1fbef8dfbc4fea9f2c8b7cb76b749c
+

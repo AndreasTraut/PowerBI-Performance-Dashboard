@@ -94,7 +94,7 @@ PowerBI-Performance-Dashboard/        # ✨ Verbessertes Repository
 
 **Problem im vorherigen Repository**: Die Daten waren ausschließlich in der PBIX-Datei eingebettet und konnten nicht außerhalb von Power BI verwendet werden.
 
-**Lösung**: Das aktuelle Repository stellt **7 CSV-Dateien im standardisierten Format** bereit, die insgesamt etwa 22 MB an Daten enthalten. Diese Dateien sind sofort einsatzbereit für verschiedene Analysen, Tests und Machine-Learning-Modelle. Das vollständige Datenschema ist detailliert in der [/data/README.md](data/README.md) dokumentiert. Darüber hinaus werden drei verschiedene Extraktionsmethoden beschrieben (DAX Studio, Tabular Editor und Power BI Desktop), sodass Nutzer die für sie passende Methode wählen können. Ein zusätzliches Python-Skript ermöglicht die automatische Regenerierung von Beispieldaten für Testzwecke.
+**Lösung**: Das aktuelle Repository stellt **7 CSV-Dateien im standardisierten Format** bereit, die insgesamt etwa 22 MB an Daten enthalten. Diese Dateien sind sofort einsatzbereit für verschiedene Analysen, Tests und Machine-Learning-Modelle. Das vollständige Datenschema ist detailliert in der [/data/DATA.md](data/DATA.md) dokumentiert. Darüber hinaus werden drei verschiedene Extraktionsmethoden beschrieben (DAX Studio, Tabular Editor und Power BI Desktop), sodass Nutzer die für sie passende Methode wählen können. Ein zusätzliches Python-Skript ermöglicht die automatische Regenerierung von Beispieldaten für Testzwecke.
 
 #### 2️⃣ Umfassende technische Dokumentation ([/doc](doc/))
 
@@ -294,7 +294,7 @@ Umfassende technische Dokumentation ist im [/doc](doc/) Verzeichnis verfügbar:
 | 🗂️ Modellstruktur | [model-documentation.md](doc/model-documentation.md) |
 | 📊 Datenextraktion | [DATA_EXTRACTION_SUMMARY.md](doc/DATA_EXTRACTION_SUMMARY.md) |
 | 🔒 Sicherheit | [SECURITY_SUMMARY.md](doc/SECURITY_SUMMARY.md) |
-| 💾 Datendateien | [/data/README.md](data/README.md) |
+| 💾 Datendateien | [/data/DATA.md](data/DATA.md) |
 
 ---
 

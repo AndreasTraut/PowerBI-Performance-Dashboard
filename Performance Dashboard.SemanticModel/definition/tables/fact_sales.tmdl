@@ -1,0 +1,759 @@
+table fact_sales
+	lineageTag: ccb692f1-5575-4741-a555-57fc8e4babdf
+
+	measure percentage_diff_prv_year_sales = ```
+			
+			VAR curr_year =
+			    YEAR ( MAX ( 'fact_sales'[SalesDate] ) )
+			
+			VAR curr_year_sales =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[NetSales] ),
+			        YEAR ( 'fact_sales'[SalesDate] ) = curr_year
+			    )
+			
+			VAR prev_year_sales =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[NetSales] ),
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			    )
+			
+			VAR pct_change =
+			    DIVIDE ( curr_year_sales - prev_year_sales, prev_year_sales )
+			
+			VAR sign =
+			    IF ( pct_change > 0, "+", "" )   -- negative already has "-" automatically
+			
+			RETURN
+			sign & FORMAT( pct_change, "0.0%" )
+			
+			```
+		lineageTag: ead0e184-77be-4a9f-ae5f-99b5c36cb712
+
+	measure curr_year_sales =
+			VAR curr_year = Year(MAX('fact_sales'[SalesDate]))
+			var curr_year_sales = CALCULATE(
+			    SUM(
+			        'fact_sales'[NetSales]),
+			        YEAR('fact_sales'[SalesDate]) = curr_year
+			)
+			
+			var prev_year_sales = CALCULATE(
+			    SUM(
+			        'fact_sales'[NetSales]),
+			        YEAR('fact_sales'[SalesDate]) = curr_year -1
+			)
+			
+			RETURN
+			curr_year_sales
+		lineageTag: eb4bb721-2ed6-4b46-a2af-75a2245676b9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure prev_year_sales =
+			VAR curr_year = Year(MAX('fact_sales'[SalesDate]))
+			var curr_year_sales = CALCULATE(
+			    SUM(
+			        'fact_sales'[NetSales]),
+			        YEAR('fact_sales'[SalesDate]) = curr_year
+			)
+			
+			var prev_year_sales = CALCULATE(
+			    SUM(
+			        'fact_sales'[NetSales]),
+			       DATEADD('dim_date'[Date],-1,YEAR)
+			)
+			
+			RETURN
+			prev_year_sales
+		lineageTag: 9eb626a7-0eb1-4ecc-b04c-9ff81b70024a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure sales_growth_color_kpi_rule =
+			IF(
+			    [curr_year_sales]>[prev_year_sales],
+			    "Green",
+			    "Red"
+			    )
+		lineageTag: 67874eba-822f-473a-81be-74455df88252
+
+	measure sales_growth_color_kpi_box_rule =
+			
+			IF(
+			    [curr_year_sales] > [prev_year_sales],
+			    "#C6EFCE",     -- light green
+			    "#FFC7CE"      -- light red
+			)
+		lineageTag: d9366aa2-0762-45c8-9567-b6e35371f42e
+
+	measure 'Sales YoY Arrow' =
+			
+			VAR SalesCY =
+			    [curr_year_sales]      -- your current year measure
+			
+			VAR SalesPY =
+			    [prev_year_sales]      -- your previous year measure
+			
+			VAR Change =
+			    DIVIDE( SalesCY - SalesPY, SalesPY )
+			
+			RETURN
+			IF(
+			    ISBLANK(Change),
+			    BLANK(),
+			    IF( Change > 0, "▲", "▼" )
+			)
+		lineageTag: 92f0dfe9-4a15-4d83-9956-231a6c315290
+
+	measure 'Sales YoY Change Numeric' =
+			
+			VAR SalesCY = [curr_year_sales]      -- current year sales
+			VAR SalesPY = [prev_year_sales]      -- previous year sales
+			RETURN
+			DIVIDE(SalesCY - SalesPY, SalesPY)
+		lineageTag: b2626db3-f8dd-471f-801d-8f8f3d975f28
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales YoY Change Text' = ```
+			
+			VAR SalesCY = [curr_year_sales]      -- current year sales
+			VAR SalesPY = [prev_year_sales]      -- previous year sales
+			VAR Change = DIVIDE(SalesCY - SalesPY, SalesPY)
+			VAR Sign = 
+			    IF(Change >= 0, "+", "-")
+			RETURN
+			Sign & FORMAT( ABS(Change), "0.000" )
+			```
+		lineageTag: 07959623-483a-43ce-9760-164d433ec16c
+
+	measure avg_order_value = SUM('fact_sales'[NetSales])/[number_of_orders]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 1e46fa58-ad7f-473b-b7a1-e5377fe3f8ee
+
+	measure quantity_sold = COUNT('fact_sales'[QuantitySold])
+		formatString: #,0
+		lineageTag: 417e19f0-981e-43a9-a24a-80af6eabfe42
+
+	measure ReturnedOrderAmountCY = ```
+			
+			CALCULATE (
+			    [ReturnedOrderAmount],
+			    DATESYTD ( dim_date[date] )
+			)
+			
+			```
+		lineageTag: c1d534b6-7ac9-484e-a4e2-a443e42a5611
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure returns_damaged =
+			CALCULATE(
+			    [number_of_returns],
+			    'dim_return_reason'[ReturnReason] = "Damaged"
+			)
+		formatString: 0
+		lineageTag: 45334cbc-0fca-4351-b8b7-03e6fc3e5def
+
+	measure returns_changedmind =
+			CALCULATE(
+			    [number_of_returns],
+			    'dim_return_reason'[ReturnReason] = "Changed Mind"
+			)
+		formatString: 0
+		lineageTag: fcb3af80-1ed7-49a8-bc81-a7fdcc59ba79
+
+	measure returns_size =
+			CALCULATE(
+			    [number_of_returns],
+			    'dim_return_reason'[ReturnReason] = "size issue"
+			)
+		formatString: 0
+		lineageTag: 283f0642-0a5a-42aa-9066-c44660fc6f91
+
+	measure returns_notasdescribed =
+			CALCULATE(
+			    [number_of_returns],
+			    'dim_return_reason'[ReturnReason] = "not as described"
+			)
+		formatString: 0
+		lineageTag: aa4aff26-f390-493f-a932-d143595bbd2b
+
+	measure label_b2c = ```
+			VAR BaseSalesB2C = 
+			    CALCULATE(
+			        SUM('fact_sales'[NetSales]),
+			        'dim_channel'[ChannelName (3)] = "B2C"
+			    )
+			
+			VAR TotalSales = SUM('fact_sales'[NetSales])
+			
+			-- STEP 1: Explicitly convert the sales amount to millions (e.g., 25,750,000 becomes 25.75)
+			VAR SalesB2CInMillions = 
+			    DIVIDE(BaseSalesB2C, 1000000)
+			
+			-- STEP 2: Format the millions value with a dollar sign, two decimals, and the 'M' suffix
+			VAR SalesB2CFormatted = 
+			    FORMAT(
+			        SalesB2CInMillions,
+			        "$ 0.0 M" -- The format "0.00" ensures two decimal places.
+			    )
+			
+			-- STEP 3: Calculate the percentage (e.g., 0.2575)
+			VAR PercentageB2C = 
+			    DIVIDE(
+			        BaseSalesB2C,
+			        TotalSales
+			    )
+			
+			-- STEP 4: Format the percentage value with two decimal places (e.g., 25.75 %)
+			VAR PercentageB2CFormatted = 
+			    FORMAT(
+			        PercentageB2C,
+			        "0 %" -- The format "0.00 %" ensures two decimal places for the percentage.
+			    )
+			
+			RETURN 
+			    -- Concatenate all parts into the final string
+			    SalesB2CFormatted & " (" & PercentageB2CFormatted & ")"
+			```
+		lineageTag: 8450d139-e76b-4010-ae0e-62f241fd4d5b
+
+	measure label_b2b = ```
+			
+			VAR BaseSalesB2B = 
+			    CALCULATE(
+			        SUM('fact_sales'[NetSales]),
+			        -- Filter changed to B2B
+			        'dim_channel'[ChannelName (3)] = "B2B" 
+			    )
+			
+			VAR TotalSales = SUM('fact_sales'[NetSales])
+			
+			-- STEP 1: Explicitly convert the sales amount to millions 
+			VAR SalesB2BInMillions = 
+			    DIVIDE(BaseSalesB2B, 1000000)
+			
+			-- STEP 2: Format the millions value with a dollar sign, two decimals, and the 'M' suffix
+			VAR SalesB2BFormatted = 
+			    FORMAT(
+			        SalesB2BInMillions,
+			        "$ 0.0 M"
+			    )
+			
+			-- STEP 3: Calculate the percentage 
+			VAR PercentageB2B = 
+			    DIVIDE(
+			        BaseSalesB2B,
+			        TotalSales
+			    )
+			
+			-- STEP 4: Format the percentage value with two decimal places
+			VAR PercentageB2BFormatted = 
+			    FORMAT(
+			        PercentageB2B,
+			        "0 %"
+			    )
+			
+			RETURN 
+			    -- Concatenate all parts into the final string
+			    SalesB2BFormatted & " (" & PercentageB2BFormatted & ")"
+			```
+		lineageTag: 9a36f171-b070-4927-9247-91ede0a060cd
+
+	measure NetSales_YoY_Diff =
+			
+			VAR CurrSales = SUM ( 'fact_sales'[NetSales] )
+			VAR PrevYearSales =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[NetSales] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR SalesDiff = CurrSales - PrevYearSales
+			VAR SalesDiffPct = DIVIDE ( SalesDiff, PrevYearSales )
+			
+			-- Only add + symbol if the difference is positive
+			VAR PlusSymbol = IF ( SalesDiff > 0, "+", "" )
+			
+			RETURN
+			    -- Format the absolute difference (e.g., -$1,500 or +$5,000)
+			    FORMAT ( SalesDiff, "$#,##0" )
+			        & "  |  "
+			        -- Format the percentage difference (e.g., +15% vs PY)
+			        & PlusSymbol & FORMAT ( SalesDiffPct, "0%" )
+			        & " vs PY"
+		lineageTag: 41699488-78d5-4fb0-90d1-bae3640e195e
+
+	measure NetSales_YOY_Arrow = ```
+			
+			VAR CurrSales = SUM ( 'fact_sales'[NetSales] )
+			VAR PrevMonthSales =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[NetSales] ),
+			        DATEADD ( 'dim_date'[Date], -1, Year )
+			    )
+			VAR SalesDiff = CurrSales - PrevMonthSales
+			RETURN 
+			    IF ( 
+			        SalesDiff > 0, 
+			        "▲",
+			        IF ( 
+			            SalesDiff < 0, 
+			            "▼",
+			            "▪"
+			        )
+			    )
+			```
+		lineageTag: efa3aa55-770f-4810-bb7a-050d8b99ce12
+
+	measure NetSales_YoY_Color = ```
+			
+			VAR CurrSales = SUM ( 'fact_sales'[NetSales] )
+			VAR PrevYearSales =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[NetSales] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR SalesDiff = CurrSales - PrevYearSales
+			RETURN 
+			    IF ( 
+			        SalesDiff > 0, 
+			        "#00B050", -- Green for positive change
+			        IF ( 
+			            SalesDiff < 0, 
+			            "#FF0000", -- Red for negative change
+			            "#808080" -- Grey for no change (optional, but good practice)
+			        )
+			    )
+			```
+		lineageTag: aca34d11-3b52-49b1-8880-469f5441ea83
+
+	measure QuantitySold_YoY_Arrow = ```
+			
+			VAR CurrQty = [quantity_sold]
+			VAR PrevYearQty =
+			    CALCULATE (
+			        [quantity_sold],
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR QtyDiff = CurrQty - PrevYearQty
+			RETURN 
+			    IF ( 
+			        QtyDiff > 0, 
+			        "▲", -- Up arrow for increase
+			        IF ( 
+			            QtyDiff < 0, 
+			            "▼", -- Down arrow for decrease
+			            "▪" -- Solid square for no change
+			        )
+			    )
+			```
+		lineageTag: c4a379da-cf4d-48c9-a8f8-e1e57fade6e5
+
+	measure QuantitySold_YoY_Color = ```
+			
+			VAR CurrQty = [quantity_sold]
+			VAR PrevYearQty =
+			    CALCULATE (
+			        [quantity_sold],
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR QtyDiff = CurrQty - PrevYearQty
+			RETURN 
+			    IF ( 
+			        QtyDiff > 0, 
+			        "#00B050", -- Green for increase
+			        IF ( 
+			            QtyDiff < 0, 
+			            "#FF0000", -- Red for decrease
+			            "#808080" -- Grey for no change
+			        )
+			    )
+			```
+		lineageTag: e98d855a-0752-405b-84e1-baa4c1e96c62
+
+	measure QuantitySold_YoY_Diff =
+			
+			VAR CurrQty = [quantity_sold]
+			VAR PrevYearQty =
+			    CALCULATE (
+			        [quantity_sold],
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR QtyDiff = CurrQty - PrevYearQty
+			VAR QtyDiffPct = DIVIDE ( QtyDiff, PrevYearQty )
+			
+			-- Only add + symbol if the difference is positive
+			VAR PlusSymbol = IF ( QtyDiff > 0, "+", "" )
+			
+			RETURN
+			    -- Format the absolute difference (e.g., -150 or +500)
+			    FORMAT ( QtyDiff, "#,##0" )
+			        & "  |  "
+			        -- Format the percentage difference (e.g., +15% vs PY)
+			        & PlusSymbol & FORMAT ( QtyDiffPct, "0%" )
+			        & " vs PY"
+		lineageTag: 84fd7d93-9212-4b7e-9f32-38e41f4b7955
+
+	measure GrossSales_YoY_Diff =
+			
+			VAR CurrGrossSales = SUM ( 'fact_sales'[GrossSales] )
+			VAR PrevYearGrossSales =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[GrossSales] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR GrossSalesDiff = CurrGrossSales - PrevYearGrossSales
+			VAR GrossSalesDiffPct = DIVIDE ( GrossSalesDiff, PrevYearGrossSales )
+			
+			-- Only add + symbol if the difference is positive
+			VAR PlusSymbol = IF ( GrossSalesDiff > 0, "+", "" )
+			
+			RETURN
+			    -- Format the absolute dollar difference (e.g., +$10,500 or -$2,000)
+			    FORMAT ( GrossSalesDiff, "$#,##0" )
+			        & "  |  "
+			        -- Format the percentage difference (e.g., +8% vs PY)
+			        & PlusSymbol & FORMAT ( GrossSalesDiffPct, "0%" )
+			        & " vs PY"
+		lineageTag: 7113971e-5168-4ac1-91f2-767be21696e8
+
+	measure GrossSales_YoY_Arrow = ```
+			
+			VAR CurrGrossSales = SUM ( 'fact_sales'[GrossSales] )
+			VAR PrevYearGrossSales =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[GrossSales] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR GrossSalesDiff = CurrGrossSales - PrevYearGrossSales
+			RETURN 
+			    IF ( 
+			        GrossSalesDiff > 0, 
+			        "▲", -- Up arrow for increase
+			        IF ( 
+			            GrossSalesDiff < 0, 
+			            "▼", -- Down arrow for decrease
+			            "▪" -- Solid square for no change
+			        )
+			    )
+			```
+		lineageTag: 99fa2ce7-faa1-4d0f-b011-8f84b9ef4ef5
+
+	measure GrossSales_YoY_Color = ```
+			
+			VAR CurrGrossSales = SUM ( 'fact_sales'[GrossSales] )
+			VAR PrevYearGrossSales =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[GrossSales] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR GrossSalesDiff = CurrGrossSales - PrevYearGrossSales
+			RETURN 
+			    IF ( 
+			        GrossSalesDiff > 0, 
+			        "#00B050", -- Green for increase
+			        IF ( 
+			            GrossSalesDiff < 0, 
+			            "#FF0000", -- Red for decrease
+			            "#808080" -- Grey for no change
+			        )
+			    )
+			```
+		lineageTag: d3a5104d-3674-4454-8c9a-3bbb41d14f8d
+
+	measure GrossProfit_YoY_Diff =
+			
+			VAR CurrProfit = SUM ( 'fact_sales'[GrossProfit] )
+			VAR PrevYearProfit =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[GrossProfit] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR ProfitDiff = CurrProfit - PrevYearProfit
+			VAR ProfitDiffPct = DIVIDE ( ProfitDiff, PrevYearProfit )
+			
+			-- Only add + symbol if the difference is positive
+			VAR PlusSymbol = IF ( ProfitDiff > 0, "+", "" )
+			
+			RETURN
+			    -- Format the absolute dollar difference (e.g., +$5,000 or -$1,000)
+			    FORMAT ( ProfitDiff, "$#,##0" )
+			        & "  |  "
+			        -- Format the percentage difference (e.g., +12% vs PY)
+			        & PlusSymbol & FORMAT ( ProfitDiffPct, "0%" )
+			        & " vs PY"
+		lineageTag: 91f5c8f1-2e60-4ae3-accd-dea637f8cb60
+
+	measure GrossProfit_YoY_Arrow = ```
+			
+			VAR CurrProfit = SUM ( 'fact_sales'[GrossProfit] )
+			VAR PrevYearProfit =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[GrossProfit] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR ProfitDiff = CurrProfit - PrevYearProfit
+			RETURN 
+			    IF ( 
+			        ProfitDiff > 0, 
+			        "▲", -- Up arrow for increase (good)
+			        IF ( 
+			            ProfitDiff < 0, 
+			            "▼", -- Down arrow for decrease (bad)
+			            "▪" -- Solid square for no change
+			        )
+			    )
+			```
+		lineageTag: 835a7dfc-fe3a-487b-a8a9-76a95a902715
+
+	measure GrossProfit_YoY_Color = ```
+			
+			VAR CurrProfit = SUM ( 'fact_sales'[GrossProfit] )
+			VAR PrevYearProfit =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[GrossProfit] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR ProfitDiff = CurrProfit - PrevYearProfit
+			RETURN 
+			    IF ( 
+			        ProfitDiff > 0, 
+			        "#00B050", -- Green for increase
+			        IF ( 
+			            ProfitDiff < 0, 
+			            "#FF0000", -- Red for decrease
+			            "#808080" -- Grey for no change
+			        )
+			    )
+			```
+		lineageTag: e73c265a-3363-4612-8a34-dbd6b5d4d643
+
+	measure 'Measure 3'
+		lineageTag: 05203a34-5d59-43b4-a7a3-66ec1a6a5ad8
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure COGS_YoY_Arrow = ```
+			
+			VAR CurrCOGS = SUM ( 'fact_sales'[COGS] )
+			VAR PrevYearCOGS =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[COGS] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR COGSDiff = CurrCOGS - PrevYearCOGS
+			RETURN 
+			    IF ( 
+			        COGSDiff > 0, 
+			        "▲", -- Up arrow for increase in COGS
+			        IF ( 
+			            COGSDiff < 0, 
+			            "▼", -- Down arrow for decrease in COGS
+			            "▪" -- Solid square for no change
+			        )
+			    )
+			```
+		lineageTag: f93d311c-749f-43a5-995d-d629bc98eeba
+
+	measure COGS_YoY_Color = ```
+			VAR CurrCOGS = SUM ( 'fact_sales'[COGS] )
+			VAR PrevYearCOGS =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[COGS] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR COGSDiff = CurrCOGS - PrevYearCOGS
+			RETURN 
+			    IF ( 
+			        COGSDiff > 0, 
+			        "#FF0000", -- Red for increase in cost (Bad performance)
+			        IF ( 
+			            COGSDiff < 0, 
+			            "#00B050", -- Green for decrease in cost (Good performance)
+			            "#808080" -- Grey for no change
+			        )
+			    )
+			```
+		lineageTag: 80c854a1-de25-44dc-841b-ec8dea4341fb
+
+	measure COGS_YoY_Diff =
+			
+			VAR CurrCOGS = SUM ( 'fact_sales'[COGS] )
+			VAR PrevYearCOGS =
+			    CALCULATE (
+			        SUM ( 'fact_sales'[COGS] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR COGSDiff = CurrCOGS - PrevYearCOGS
+			VAR COGSDiffPct = DIVIDE ( COGSDiff, PrevYearCOGS )
+			
+			-- Only add + symbol if the difference is positive
+			VAR PlusSymbol = IF ( COGSDiff > 0, "+", "" )
+			
+			RETURN
+			    -- Format the absolute dollar difference (e.g., +$500 or -$1,000)
+			    FORMAT ( COGSDiff, "$#,##0" )
+			        & "  |  "
+			        -- Format the percentage difference (e.g., +10% vs PY)
+			        & PlusSymbol & FORMAT ( COGSDiffPct, "0%" )
+			        & " vs PY"
+		lineageTag: 9521c394-7d56-4493-ae45-e805874f5f3a
+
+	measure 'COGS (1)' = SUM('fact_financial_insights'[COGS])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 7a384047-d0dc-451c-b07e-42774384792b
+
+	measure 'Gross Sales (1)' = SUM('fact_financial_insights'[Gross Sales])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 98d8088d-3cd8-402d-88b4-e494e01124a7
+
+	measure 'Gross Profit (1)' = SUM('fact_financial_insights'[Gross Profit])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: c3e144f3-fcb0-4129-a316-9c22fedc1838
+
+	measure net_sales = SUM('fact_sales'[NetSales])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 6ba04ff7-bf78-438d-9951-752903076b3f
+
+	column SalesID
+		dataType: string
+		lineageTag: 04efea54-3047-4c8e-a132-3855c7091d21
+		summarizeBy: none
+		sourceColumn: SalesID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderID
+		dataType: string
+		lineageTag: 15c36bea-55bb-40a5-ba1c-b9fbcda9bace
+		summarizeBy: none
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: string
+		lineageTag: 2b569856-0dd8-44e8-a627-5ee10e43ad21
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuantitySold
+		dataType: int64
+		formatString: 0
+		lineageTag: 3fb52d87-b171-44c1-888a-a078d5d31be3
+		summarizeBy: sum
+		sourceColumn: QuantitySold
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: double
+		lineageTag: bcccedcc-7383-4532-82ca-0a1a2dbcc6ef
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discount
+		dataType: double
+		lineageTag: c4821523-2d56-42bb-8f3f-ed17450c04f1
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COGS
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 9f87e8e9-72c3-494e-9df5-a3ba21da4301
+		summarizeBy: sum
+		sourceColumn: COGS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column GrossProfit
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: e1b9a617-f3e4-4ca7-93ab-1fc984b62f39
+		summarizeBy: sum
+		sourceColumn: GrossProfit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column SalesDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f750eec6-80d3-4275-a837-b6808e5cd719
+		summarizeBy: none
+		sourceColumn: SalesDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ChannelID
+		dataType: string
+		lineageTag: cb6aaa29-bb63-4eb7-8f23-1d7276a307e5
+		summarizeBy: none
+		sourceColumn: ChannelID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionID
+		dataType: string
+		lineageTag: 88fe4b42-02c6-4620-a86d-512e3df2977d
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column NetSales = ```
+			VAR GrossSales = 'fact_sales'[QuantitySold] * 'fact_sales'[UnitPrice]
+			RETURN GrossSales - 'fact_sales'[Discount] 
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 5dcf6008-53c3-44c9-9057-386dc867938f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column GrossSales = 'fact_sales'[QuantitySold] * 'fact_sales'[UnitPrice]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: c403b5e4-3750-4368-a0c0-d6b90e9c650d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition fact_sales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\BI Project\DIM\fact_sales.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SalesID", type text}, {"OrderID", type text}, {"ProductID", type text}, {"QuantitySold", Int64.Type}, {"UnitPrice", type number}, {"Discount", type number}, {"COGS", type number}, {"GrossProfit", type number}, {"SalesDate", type date}, {"ChannelID", type text}, {"RegionID", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

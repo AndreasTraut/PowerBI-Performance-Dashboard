@@ -1,0 +1,208 @@
+table dim_date
+	lineageTag: 6a61a872-916b-4338-abd9-fb7c617afffc
+
+	column Date
+		formatString: General Date
+		lineageTag: 5018bf8d-fe19-4bf4-b9e3-a62718963159
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: c6cea8f3-1a21-4b1b-b862-3c0c5e190555
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month'
+		lineageTag: 7ad76f45-fcd4-425d-b262-ce7b415f863b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: 1864d82e-6651-47b2-9b88-534eacfd76b6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: d8501b1d-4433-4c3e-9caa-d73309d198d2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Name]
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Short Month'
+		lineageTag: 5ccc4093-834d-4a55-bad5-d8c665cb91ae
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Short Month]
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 7e6124e5-4c2c-43ca-a00b-90af5920d737
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter'
+		lineageTag: 328ae3d2-f112-4a0d-bb5d-04066cb607fe
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week Number'
+		formatString: 0
+		lineageTag: b833dd10-16ae-402f-abd8-cfd30c9fc3e2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Week Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		formatString: 0
+		lineageTag: 71ca6ca2-01d5-4ee8-88fd-5e69ecd2712d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		lineageTag: b0af8a3a-8b74-4ce9-b158-ad302de720c2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Day Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Short Day'
+		lineageTag: aa5c0864-e2e6-43bf-bd3c-ad847d6707ad
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Short Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Weekend'
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 77e4b205-cbbc-499d-90e4-44d2d8381a03
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Is Weekend]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Month'
+		formatString: General Date
+		lineageTag: 102fda65-76be-4c36-9904-8bbd0bac874e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Start of Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End of Month'
+		formatString: General Date
+		lineageTag: 71293e18-39fe-4a69-a7c1-9c2842eb471e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [End of Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Quarter'
+		formatString: General Date
+		lineageTag: 27f9db45-1e0f-4de1-a170-e67f56efabe6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Start of Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End of Quarter'
+		formatString: General Date
+		lineageTag: 6d45d94d-1c27-452d-bd05-08c160da94b0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [End of Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Year'
+		formatString: General Date
+		lineageTag: fc2f41d8-2882-4b4b-a7b3-38f5a91e15e2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Start of Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End of Year'
+		formatString: General Date
+		lineageTag: ce75c46c-da0a-488f-a181-c98ec62a41ea
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [End of Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = calculated
+		mode: import
+		source = ```
+				
+				VAR MinDate =
+				    CALCULATE ( MIN ( 'fact_sales'[SalesDate] ), ALL ( 'fact_sales' ) )
+				
+				VAR MaxDate =
+				    CALCULATE ( MAX ( 'fact_sales'[SalesDate] ), ALL ( 'fact_sales' ) )
+				
+				RETURN
+				ADDCOLUMNS (
+				    CALENDAR ( MinDate, MaxDate ),
+				    "Year", YEAR ( [Date] ),
+				    "Year Month", FORMAT ( [Date], "YYYY-MM" ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month Name", FORMAT ( [Date], "MMMM" ),
+				    "Short Month", FORMAT ( [Date], "MMM" ),
+				    "Quarter", "Q" & FORMAT ( [Date], "Q" ),
+				    "Year Quarter", FORMAT ( [Date], "YYYY" ) & "-Q" & FORMAT ( [Date], "Q" ),
+				    "Week Number", WEEKNUM ( [Date], 2 ),
+				    "Day", DAY ( [Date] ),
+				    "Day Name", FORMAT ( [Date], "DDDD" ),
+				    "Short Day", FORMAT ( [Date], "DDD" ),
+				    "Is Weekend", IF ( WEEKDAY ( [Date], 2 ) > 5, TRUE(), FALSE() ),
+				    "Start of Month", EOMONTH ( [Date], -1 ) + 1,
+				    "End of Month", EOMONTH ( [Date], 0 ),
+				    "Start of Quarter",
+				        DATE ( YEAR ( [Date] ), ( ( QUARTER ( [Date] ) - 1 ) * 3 ) + 1, 1 ),
+				    "End of Quarter",
+				        EOMONTH ( DATE ( YEAR ( [Date] ), ( ( QUARTER ( [Date] ) - 1 ) * 3 ) + 3, 1 ), 0 ),
+				    "Start of Year", DATE ( YEAR ( [Date] ), 1, 1 ),
+				    "End of Year", DATE ( YEAR ( [Date] ), 12, 31 )
+				)
+				
+				```
+
+	annotation PBI_Id = 4ab66b9dbf2149879de431f817c09d00
+

@@ -1,0 +1,473 @@
+table fact_returns
+	lineageTag: 6b9642b8-3cd0-4fc5-891c-48dbd133a14f
+
+	measure number_of_returns = DISTINCTCOUNT('fact_returns'[ReturnID])
+		formatString: #,0
+		lineageTag: e3a26be9-6048-4a2f-a595-f102083ea7b8
+
+	measure percentage_diff_prv_year_returns = ```
+			
+			VAR curr_year =
+			    YEAR ( MAX ( 'fact_returns'[ReturnDate] ) )
+			
+			VAR curr_year_orders =
+			    CALCULATE (
+			        [number_of_returns],
+			        YEAR ( 'fact_returns'[ReturnDate] ) = curr_year
+			    )
+			
+			VAR prev_year_orders =
+			    CALCULATE (
+			        [number_of_returns],
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			    )
+			
+			
+			VAR pct_change =
+			    DIVIDE ( curr_year_orders - prev_year_orders, prev_year_orders )
+			
+			VAR sign =
+			    IF ( pct_change > 0, "+", "" )   -- negative already has "-" automatically
+			
+			RETURN
+			sign & FORMAT( pct_change, "0.00%" )
+			
+			```
+		lineageTag: f5e7f54b-44ab-4646-a506-328f7928421b
+
+	measure curr_year_returns =
+			VAR curr_year = Year(MAX('fact_returns'[ReturnDate]))
+			var curr_year_ORDERS = CALCULATE(
+			    [number_of_returns],
+			        YEAR('fact_returns'[ReturnDate]) = curr_year
+			)
+			
+			var prev_year_ORDERS = CALCULATE(
+			    [number_of_returns],
+			        YEAR('fact_returns'[ReturnDate]) = curr_year-1
+			)
+			
+			RETURN
+			curr_year_ORDERS
+		formatString: 0
+		lineageTag: f47aec25-3269-4709-a076-fb01d0fc7726
+
+	measure prev_year_returns =
+			VAR curr_year = Year(MAX('fact_returns'[ReturnDate]))
+			var curr_year_ORDERS = CALCULATE(
+			    [number_of_returns],
+			        YEAR('fact_returns'[ReturnDate]) = curr_year
+			)
+			
+			var prev_year_ORDERS = CALCULATE(
+			    [number_of_returns],
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			)
+			
+			RETURN
+			prev_year_ORDERS
+		formatString: 0
+		lineageTag: b75f7959-cd19-48da-887b-da110204ac8b
+
+	measure returns_growth_color_kpi_rule =
+			IF(
+			    [curr_year_returns]>[prev_year_returns],
+			    "Red",
+			    "Green"
+			    )
+		lineageTag: d78851b5-dfe5-4c6c-8e31-c7fbde8c39ed
+
+	measure returns_growth_color_kpi_box_rule =
+			
+			IF(
+			    [curr_year_returns] > [prev_year_returns],
+			    "#FFC7CE",      -- light red
+			    "#C6EFCE"     -- light green
+			)
+		lineageTag: 5668ddbc-347d-4552-b922-f09d07aa261c
+
+	measure 'Returns YoY Change Text' = ```
+			
+			VAR ReturnsCY = [curr_year_returns]      -- current year sales
+			VAR ReturnsPY = [prev_year_returns]      -- previous year sales
+			VAR Change = DIVIDE(ReturnsCY - ReturnsPY, ReturnsPY)
+			VAR Sign = 
+			    IF(Change >= 0, "+", "-")
+			RETURN
+			Sign & FORMAT( ABS(Change), "0.000" )
+			```
+		lineageTag: 6a7b5cf2-dbdb-4524-8179-50bbca047fb9
+
+	measure 'Total Returns' = COUNT('fact_returns'[ReturnID])
+		formatString: 0
+		lineageTag: c6cb02d2-b980-4f51-be68-d364c2e78854
+
+	measure return_rate = [number_of_returns] / [number_of_orders]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 966a7371-4aa2-442a-b511-f3afd1298c20
+
+	measure curr_year_return_rate =
+			VAR curr_year = Year(MAX('fact_returns'[ReturnDate]))
+			var curr_year_ORDERS = CALCULATE(
+			    [return_rate],
+			        YEAR('fact_returns'[ReturnDate]) = curr_year
+			)
+			
+			var prev_year_ORDERS = CALCULATE(
+			    [return_rate],
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			)
+			
+			RETURN
+			curr_year_ORDERS
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7fde3e43-fa55-4740-a5a1-698844f56a82
+
+	measure prev_year_return_rate =
+			VAR curr_year = Year(MAX('fact_returns'[ReturnDate]))
+			var curr_year_ORDERS = CALCULATE(
+			    [return_rate],
+			        YEAR('fact_returns'[ReturnDate]) = curr_year
+			)
+			
+			var prev_year_ORDERS = CALCULATE(
+			    [return_rate],
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			)
+			
+			RETURN
+			prev_year_ORDERS
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 41cc8a75-feb8-44d3-a530-e304d1139091
+
+	measure 'Returns Rate YoY Change Text' = ```
+			
+			VAR ReturnsCY = [curr_year_return_rate]      -- current year sales
+			VAR ReturnsPY = [prev_year_return_rate]      -- previous year sales
+			VAR Change = DIVIDE(ReturnsCY - ReturnsPY, ReturnsPY)
+			VAR Sign = 
+			    IF(Change >= 0, "+", "-")
+			RETURN
+			Sign & FORMAT( ABS(Change), "0.000" )
+			```
+		lineageTag: 2fb58e20-9555-4db0-9c7e-6f592cc924c3
+
+	measure ReturnedOrderAmount = ```
+			
+			CALCULATE (
+			    SUM ( fact_orders[orderamount] ),
+			    TREATAS ( VALUES ( fact_returns[orderid] ), fact_orders[orderid] )
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 4ddce276-d192-4ea9-9e86-3a4d60566325
+
+	measure ReturnedOrderAmountPY =
+			
+			CALCULATE (
+			    [ReturnedOrderAmount],
+			    DATEADD ( dim_date[date], -1, YEAR )
+			)
+		lineageTag: 0bc2a43d-0e98-4261-b5e5-379008662708
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ReturnsYoYChangeText = ```
+			
+			VAR ReturnsCY = [ReturnedOrderAmountCY]
+			VAR ReturnsPY = [ReturnedOrderAmountPY]
+			VAR Change = DIVIDE(ReturnsCY - ReturnsPY, ReturnsPY)
+			VAR Sign =
+			    IF ( Change >= 0, "+", "-" )
+			RETURN
+			    Sign & FORMAT ( ABS ( Change ), "0.000" )
+			
+			
+			```
+		lineageTag: 962488e7-5f14-4eac-a197-dc4919ba8ac6
+
+	measure Returns_Detail_Measure =
+			
+			---------------------------------------------
+			-- Current period
+			---------------------------------------------
+			VAR Curr =
+			    [number_of_returns]
+			
+			---------------------------------------------
+			-- Previous year (YoY)
+			---------------------------------------------
+			VAR PrevYear =
+			    CALCULATE(
+			        [number_of_returns],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			---------------------------------------------
+			-- Differences
+			---------------------------------------------
+			VAR Diff = Curr - PrevYear
+			VAR DiffPct = DIVIDE(Diff, PrevYear)
+			
+			VAR PlusSign = IF(DiffPct > 0, "+", "")
+			
+			RETURN
+			FORMAT(Diff, "#,0")
+			    & " | "
+			    & PlusSign
+			    & FORMAT(DiffPct, "0.0%")
+			    & " vs PY"
+		lineageTag: 6b3c2f8e-2f95-4258-80fb-00ed98f38492
+
+	measure Returns_Arrow_Measure =
+			
+			VAR Curr =
+			    [number_of_returns]
+			
+			VAR PrevYear =
+			    CALCULATE(
+			        [number_of_returns],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			RETURN
+			IF(Curr < PrevYear, "▼", "▲")
+		lineageTag: 2871620b-6dcd-4265-9df5-26e3450e6a3f
+
+	measure Return_Rate_Detail_Measure =
+			
+			VAR Curr =
+			    [return_rate]
+			
+			VAR PrevYear =
+			    CALCULATE(
+			        [return_rate],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR Diff =
+			    Curr - PrevYear
+			
+			RETURN
+			FORMAT(Diff, "0.00%")
+			    & " vs PY"
+		lineageTag: 1e255db7-d98a-40d0-9153-25f5661f4347
+
+	measure Return_Rate_Arrow_Measure =
+			
+			VAR Curr =
+			    [return_rate]
+			
+			VAR PrevYear =
+			    CALCULATE(
+			        [return_rate],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			RETURN
+			IF(Curr < PrevYear, "▼", "▲")
+		lineageTag: a8a62d03-bf1d-4ed0-ad2d-4c5c5ee88c51
+
+	measure Return_Rate_Color_Measure =
+			
+			VAR Curr =
+			    [return_rate]
+			
+			VAR PrevYear =
+			    CALCULATE(
+			        [return_rate],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			RETURN
+			IF(Curr < PrevYear, "#00B050", "#FF0000")
+		lineageTag: 24433fad-d3fd-48ef-ba9a-b3d2b55e3f27
+
+	measure returns_growth_color_kpi_rule_2 = ```
+			IF(
+			    [curr_year_returns]>[prev_year_returns],
+			   "#FF0000","#00B050" 
+			    )
+			```
+		lineageTag: 570c6b4a-b155-4334-bab2-cf2dbb4425d2
+
+	measure ReturnedOrderAmount_Detail =
+			VAR Curr =
+			    [ReturnedOrderAmount]
+			
+			VAR PrevYear =
+			    CALCULATE(
+			        [ReturnedOrderAmount],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR Diff = Curr - PrevYear
+			VAR DiffPct = DIVIDE(Diff, PrevYear)
+			
+			-- Display amount in K
+			VAR DiffK = DIVIDE(ABS(Diff), 1000)
+			
+			VAR PlusSign = IF(DiffPct > 0, "+", "")
+			
+			-- Determine sign for currency
+			VAR SignAmt = IF(Diff < 0, "- ", "")
+			
+			RETURN
+			SignAmt & "$" & FORMAT(DiffK, "#,0") & "K | "
+			    & PlusSign & FORMAT(DiffPct, "0.0%") & " vs PY"
+		lineageTag: 82298bfd-6f2e-4419-b935-9b1724793529
+
+	measure ReturnedOrderAmount_Arrow =
+			
+			VAR Curr =
+			    [ReturnedOrderAmount]
+			
+			VAR PrevYear =
+			    CALCULATE(
+			        [ReturnedOrderAmount],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			RETURN
+			IF(Curr < PrevYear, "▼", "▲")
+		lineageTag: e4855131-933b-4963-bdb3-7741414dac61
+
+	measure ReturnedOrderAmount_Color =
+			
+			VAR Curr =
+			    [ReturnedOrderAmount]
+			
+			VAR PrevYear =
+			    CALCULATE(
+			        [ReturnedOrderAmount],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			RETURN
+			IF(Curr < PrevYear, "#00B050", "#FF0000")
+		lineageTag: ebe4f1b3-82ee-4eb7-be7b-f3e0459e8f33
+
+	column ReturnID
+		dataType: string
+		lineageTag: 48e0277c-5238-48b2-99c5-c379c9a154a8
+		summarizeBy: none
+		sourceColumn: ReturnID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderID
+		dataType: string
+		lineageTag: d0f5dfef-40b6-4a44-88fc-101eb3a9fa70
+		summarizeBy: none
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: string
+		lineageTag: 982ee446-4ec5-4a10-83ea-34991aceb31f
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: string
+		lineageTag: 0793bba3-6009-429a-b018-218e10c4f382
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionID
+		dataType: string
+		lineageTag: 9b1eac63-f3d0-4e36-ba7e-83f876ed7265
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelID
+		dataType: string
+		lineageTag: 2eee1678-9933-47e5-82aa-a6e5232fa729
+		summarizeBy: none
+		sourceColumn: ChannelID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnReasonID
+		dataType: string
+		lineageTag: 0add2d4f-cc29-4560-a8ba-d378fd2255de
+		summarizeBy: none
+		sourceColumn: ReturnReasonID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8ec55b43-081c-41a5-9226-0858415ee9a4
+		summarizeBy: none
+		sourceColumn: ReturnDate
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column InspectionDate
+		dataType: string
+		lineageTag: 14fe8129-c82d-41c7-b087-d9addff5dc80
+		summarizeBy: none
+		sourceColumn: InspectionDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column RefundDate
+		dataType: string
+		lineageTag: 8d8e78be-a1d9-4f31-b8c3-e231f0f55946
+		summarizeBy: none
+		sourceColumn: RefundDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column RejectedDate
+		dataType: string
+		lineageTag: 3a1f67e6-5bdc-4134-b7ca-9ab99df3f081
+		summarizeBy: none
+		sourceColumn: RejectedDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Processing Status' =
+			VAR _val = TRIM ( fact_returns[rejecteddate] )
+			RETURN
+			IF (
+			    _val = "" || _val = BLANK (),
+			    "Refund Issued",
+			    "Return Claim Rejected"
+			)
+		lineageTag: 86c7aea9-8307-4f74-9233-7c2d3c69ebb2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_returns = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\returns_table_fixed.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}, {"Column6", type text}, {"Column7", type text}, {"Column8", type text}, {"Column9", type text}, {"Column10", type text}, {"Column11", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"ReturnID", type text}, {"OrderID", type text}, {"ProductID", type text}, {"CustomerID", type text}, {"RegionID", type text}, {"ChannelID", type text}, {"ReturnReasonID", type text}, {"ReturnDate", type text}, {"InspectionDate", type text}, {"RefundDate", type text}, {"RejectedDate", type text}})
+				in
+				    #"Changed Type1"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

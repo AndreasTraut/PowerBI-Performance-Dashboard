@@ -1,0 +1,84 @@
+relationship 11ec6937-c75f-852f-2ae6-6ec03616dcc1
+	fromColumn: fact_visits.ChannelID
+	toColumn: dim_channel.ChannelID
+
+relationship 8ed8b1d9-2a3f-6b14-69e6-6a73ed38f0e7
+	fromColumn: fact_visits.CustomerID
+	toColumn: dim_customer.CustomerID
+
+relationship 14143c22-3e29-e48b-2165-855f033e8e2f
+	fromColumn: fact_sales.ChannelID
+	toColumn: dim_channel.ChannelID
+
+relationship e1653248-11e6-d6d7-4e1f-595e5965382c
+	fromColumn: fact_sales.ProductID
+	toColumn: dim_product.ProductID
+
+relationship 9d9860b9-1b81-f583-6791-8ab68c9cf69e
+	fromColumn: fact_sales.RegionID
+	toColumn: dim_region.RegionID
+
+relationship a44be92b-2b5c-7bb5-5e20-5bca4c842aa1
+	fromColumn: fact_orders.ChannelID
+	toColumn: dim_channel.ChannelID
+
+relationship c04ab984-a132-0bf6-3a75-0cfba2f9d4cb
+	fromColumn: fact_orders.CustomerID
+	toColumn: dim_customer.CustomerID
+
+relationship 164f8991-e748-807d-54fb-52a200919c24
+	fromColumn: fact_orders.RegionID
+	toColumn: dim_region.RegionID
+
+relationship 3c8a4799-816c-a84e-ff9d-1cdbba5f83af
+	fromColumn: fact_visits.RegionID
+	toColumn: dim_region.RegionID
+
+relationship AutoDetected_4af7675b-c2b9-4366-a6f0-927bb5498779
+	fromColumn: fact_returns.ChannelID
+	toColumn: dim_channel.ChannelID
+
+relationship AutoDetected_9709f58e-144a-4c58-a623-d425da0a7ec5
+	fromColumn: fact_returns.CustomerID
+	toColumn: dim_customer.CustomerID
+
+relationship AutoDetected_14ea9d44-2152-4794-98de-f6d2fa44a54a
+	fromColumn: fact_returns.ProductID
+	toColumn: dim_product.ProductID
+
+relationship AutoDetected_95af446f-6c0d-4648-8d15-628c4e04672e
+	fromColumn: fact_returns.RegionID
+	toColumn: dim_region.RegionID
+
+relationship AutoDetected_3dd78157-c764-4c79-9825-2dc061cd2d72
+	fromColumn: fact_returns.ReturnReasonID
+	toColumn: dim_return_reason.ReturnReasonID
+
+relationship fe6ea51a-1ed5-d55a-667c-a054284b4a24
+	fromColumn: fact_returns.ReturnDate
+	toColumn: dim_date.Date
+
+relationship 2d3d68c2-051e-00dc-d235-98df1dd77f28
+	fromColumn: fact_orders.OrderDate
+	toColumn: dim_date.Date
+
+relationship f0278624-a79a-fef3-a843-4e1b7334bea6
+	fromColumn: fact_sales.SalesDate
+	toColumn: dim_date.Date
+
+relationship 670f150b-d8e5-4f71-2268-6cae0107732f
+	fromColumn: fact_visits.VisitDate
+	toColumn: dim_date.Date
+
+relationship aade68bb-1747-3ae9-7749-e12adc34b356
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: fact_return_amount.Date
+	toColumn: dim_date.Date
+
+relationship 3e574fd4-b0a6-9cd6-fafd-b11bc9a90c60
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: fact_financial_insights.Date
+	toColumn: dim_date.Date
+

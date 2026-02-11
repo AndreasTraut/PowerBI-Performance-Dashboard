@@ -1,0 +1,1293 @@
+table fact_orders
+	lineageTag: ed2d3a59-7f3d-4abf-98ac-e0c393723fe0
+
+	measure number_of_orders = DISTINCTCOUNT('fact_orders'[OrderID])
+		formatString: #,0
+		lineageTag: 577617f3-baf0-470a-a9ca-9a697de956ae
+
+	measure curr_year_orders =
+			VAR curr_year = Year(MAX('fact_orders'[OrderDate]))
+			var curr_year_ORDERS = CALCULATE(
+			    [number_of_orders],
+			        YEAR('fact_orders'[OrderDate]) = curr_year
+			)
+			
+			var prev_year_ORDERS = CALCULATE(
+			    [number_of_orders],
+			        YEAR('fact_orders'[OrderDate]) = curr_year-1
+			)
+			
+			RETURN
+			curr_year_ORDERS
+		formatString: 0
+		lineageTag: a4f23be6-2086-4fff-8a00-2cfe9b2f9433
+
+	measure prev_year_orders =
+			VAR curr_year = Year(MAX('fact_orders'[OrderDate]))
+			var curr_year_ORDERS = CALCULATE(
+			    [number_of_orders],
+			        YEAR('fact_orders'[OrderDate]) = curr_year
+			)
+			
+			var prev_year_ORDERS = CALCULATE(
+			    [number_of_orders],
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			)
+			
+			RETURN
+			prev_year_ORDERS
+		formatString: 0
+		lineageTag: 0f886b68-e050-4665-a97e-ddcec50e908a
+
+	measure 'orders YoY Change Text' = ```
+			
+			VAR OrdersCY = [curr_year_orders]      -- current year sales
+			VAR OrdersPY = [prev_year_orders]      -- previous year sales
+			VAR Change = DIVIDE(OrdersCY - OrdersPY, OrdersPY)
+			VAR Sign = 
+			    IF(Change >= 0, "+", "-")
+			RETURN
+			Sign & FORMAT( ABS(Change), "0.000" )
+			```
+		lineageTag: 72c7c2f7-a80d-4d72-86bb-8520fd609830
+
+	measure percentage_diff_prv_year_orders = ```
+			
+			VAR curr_year =
+			    YEAR ( MAX ( 'fact_orders'[OrderDate] ) )
+			
+			VAR curr_year_orders =
+			    CALCULATE (
+			        [number_of_orders],
+			        YEAR ( 'fact_orders'[OrderDate] ) = curr_year
+			    )
+			
+			VAR prev_year_orders =
+			    CALCULATE (
+			        [number_of_orders],
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			    )
+			
+			VAR pct_change =
+			    DIVIDE ( curr_year_orders - prev_year_orders, prev_year_orders )
+			
+			VAR sign =
+			    IF ( pct_change > 0, "+", "" )   -- negative already has "-" automatically
+			
+			RETURN
+			sign & FORMAT( pct_change, "0.00%" )
+			
+			```
+		lineageTag: 171c51a2-dc0f-4c15-8709-0449e995cc46
+
+	measure orders_growth_color_kpi_rule =
+			IF(
+			    [curr_year_orders]>[prev_year_orders],
+			    "Green",
+			    "Red"
+			    )
+		lineageTag: b5ea0117-1a9d-49d4-b45a-883271c86b02
+
+	measure customers_growth_color_kpi_box_rule =
+			
+			IF(
+			    [curr_year_customers] > [prev_year_customers],
+			    "#C6EFCE",     -- light green
+			    "#FFC7CE"      -- light red
+			)
+		lineageTag: 5aeda13a-636b-4a53-9fa1-c08802da2fa0
+
+	measure number_of_customers = DISTINCTCOUNT('fact_orders'[CustomerID])
+		formatString: #,0
+		lineageTag: 16a0475d-d08c-4f67-89cd-4695f6669a3b
+
+	measure percentage_diff_prv_year_customers = ```
+			
+			VAR curr_year =
+			    YEAR ( MAX ( 'fact_orders'[OrderDate] ) )
+			
+			VAR curr_year_orders =
+			    CALCULATE (
+			        [number_of_customers],
+			        YEAR ( 'fact_orders'[OrderDate] ) = curr_year
+			    )
+			
+			VAR prev_year_orders =
+			    CALCULATE (
+			        [number_of_customers],
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			    )
+			
+			VAR pct_change =
+			    DIVIDE ( curr_year_orders - prev_year_orders, prev_year_orders )
+			
+			VAR sign =
+			    IF ( pct_change > 0, "+", "" )   -- negative already has "-" automatically
+			
+			RETURN
+			sign & FORMAT( pct_change, "0.00%" )
+			
+			```
+		lineageTag: acc3f1cf-884a-482f-9dc2-06dabe795b95
+
+	measure curr_year_customers =
+			VAR curr_year = Year(MAX('fact_orders'[OrderDate]))
+			var curr_year_ORDERS = CALCULATE(
+			    [number_of_customers],
+			        YEAR('fact_orders'[OrderDate]) = curr_year
+			)
+			
+			var prev_year_ORDERS = CALCULATE(
+			    [number_of_customers],
+			        YEAR('fact_orders'[OrderDate]) = curr_year-1
+			)
+			
+			RETURN
+			curr_year_ORDERS
+		formatString: 0
+		lineageTag: ed8884f6-02a9-42f2-a3bb-0deece2a84b1
+
+	measure prev_year_customers =
+			VAR curr_year = Year(MAX('fact_orders'[OrderDate]))
+			var curr_year_ORDERS = CALCULATE(
+			    [number_of_customers],
+			        YEAR('fact_orders'[OrderDate]) = curr_year
+			)
+			
+			var prev_year_ORDERS = CALCULATE(
+			    [number_of_customers],
+			        DATEADD('dim_date'[Date],-1,YEAR)
+			)
+			
+			RETURN
+			[prev_year_orders]
+		formatString: 0
+		lineageTag: 712bbc29-7b8d-4641-b8c2-36d693d4bf57
+
+	measure customers_growth_color_kpi_rule =
+			IF(
+			    [curr_year_customers]>[prev_year_customers],
+			    "Green",
+			    "Red"
+			    )
+		lineageTag: 9b7e0879-1447-4479-a3da-6be42223c5a6
+
+	measure 'customers YoY Change Text' = ```
+			
+			VAR OrdersCY = [curr_year_customers]      -- current year sales
+			VAR OrdersPY = [prev_year_customers]      -- previous year sales
+			VAR Change = DIVIDE(OrdersCY - OrdersPY, OrdersPY)
+			VAR Sign = 
+			    IF(Change >= 0, "+", "-")
+			RETURN
+			Sign & FORMAT( ABS(Change), "0.000" )
+			```
+		lineageTag: 35a83c59-5a63-4d84-96fe-7a6825e7d576
+
+	measure 'Customer Churn Rate (%)' = ```
+			
+			VAR CurrYearCustomers =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        ALL('dim_date'),
+			        KEEPFILTERS('dim_date'),
+			        VALUES('dim_date'[Year])     -- current slicer selection
+			    )
+			
+			VAR PrevYearCustomers =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        DATEADD('dim_date'[Date], -1, YEAR)
+			    )
+			
+			VAR LostCustomers =
+			    COUNTROWS(
+			        EXCEPT(PrevYearCustomers, CurrYearCustomers)
+			    )
+			
+			VAR StartOfYearCustomers =
+			    COUNTROWS(PrevYearCustomers)
+			
+			RETURN
+			    DIVIDE(LostCustomers, StartOfYearCustomers)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2fc6af54-1828-4061-b37a-b934d4c9848e
+
+	measure 'Returning Customers' =
+			
+			---------------------------------------------
+			-- Customers in current period
+			---------------------------------------------
+			VAR CurrCust =
+			    VALUES ( 'fact_orders'[CustomerID] )
+			
+			-- Customers in prior period (e.g., last year)
+			VAR Prev1_Cust =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        DATEADD ( 'dim_date'[Date], -1, YEAR )
+			    )
+			
+			-- Customers in prior-2 period (two years ago)
+			VAR Prev2_Cust =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        DATEADD ( 'dim_date'[Date], -2, YEAR )
+			    )
+			
+			---------------------------------------------
+			-- Returning customers = bought 2 years ago,
+			-- skipped last year, bought this period
+			---------------------------------------------
+			VAR ReturningCust =
+			    INTERSECT (
+			        Prev2_Cust,              -- bought 2 years ago
+			        EXCEPT ( CurrCust, Prev1_Cust )  -- bought this period but NOT last period
+			    )
+			
+			RETURN
+			    COUNTROWS ( ReturningCust )
+		formatString: 0
+		lineageTag: 2493a391-adf1-46cd-9065-19060948acbf
+
+	measure 'New Customers' = ```
+			
+			VAR CurrYear =
+			    SELECTEDVALUE ( 'dim_date'[Year] )
+			
+			VAR PrevYear =
+			    CurrYear - 1
+			
+			-- Customers who bought in previous year
+			VAR Cust_PrevYear =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        'dim_date'[Year] = PrevYear
+			    )
+			
+			-- Customers who bought in current year
+			VAR Cust_CurrYear =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        'dim_date'[Year] = CurrYear
+			    )
+			
+			-- New customers = customers in current year
+			-- who were NOT customers in previous year
+			VAR NewCust =
+			    EXCEPT ( Cust_CurrYear, Cust_PrevYear )
+			
+			RETURN
+			    COUNTROWS ( NewCust )
+			
+			```
+		formatString: #,0
+		lineageTag: 0bf12359-53d8-4057-98e7-b64e3af611f6
+
+	measure avg_revenue_per_customer = SUM('fact_orders'[OrderAmount]) / [number_of_customers]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 685691b5-7616-4004-a701-51def70b1f15
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Customer_MoM_Diff =
+			VAR Curr = [number_of_customers]
+			VAR Prev =
+			    CALCULATE (
+			        [number_of_customers],
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR Diff = Curr - Prev
+			VAR DiffPct = DIVIDE ( Diff, Prev )
+			
+			-- Only add + if positive, otherwise nothing
+			VAR PlusSymbol = IF ( Diff > 0, "+", "" )
+			
+			RETURN
+			    -- Diff shows negative automatically if < 0
+			    FORMAT ( Diff, "#,##0" )
+			        & "  |  "
+			        & PlusSymbol & FORMAT ( DiffPct, "0%" )
+			        & " vs PY"
+		lineageTag: 951849d2-9465-4317-b570-b94e6303c372
+
+	measure Customer_MoM_Color =
+			VAR Curr =
+			    [number_of_customers]
+			VAR Prev =
+			    CALCULATE(
+			        [number_of_customers],
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			VAR Diff = Curr - Prev
+			RETURN
+			IF( Diff > 0, "#00B050", "#FF0000" )
+		lineageTag: 5016d7e4-3621-4be2-a490-066cb6b414a5
+
+	measure New_Customers_MoM_Diff =
+			
+			VAR CurrentCustomers =
+			    VALUES ( 'fact_orders'[CustomerID] )
+			
+			VAR PriorCustomers =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        DATEADD ( 'dim_date'[Date], -1, YEAR )
+			    )
+			
+			VAR NewCurr =
+			    COUNTROWS ( EXCEPT ( CurrentCustomers, PriorCustomers ) )
+			
+			VAR PrevPeriodCustomers =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR PrevPeriodCustomers_Prior =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        DATEADD ( SAMEPERIODLASTYEAR ( 'dim_date'[Date] ), -1, YEAR )
+			    )
+			
+			VAR NewPrev =
+			    COUNTROWS ( EXCEPT ( PrevPeriodCustomers, PrevPeriodCustomers_Prior ) )
+			
+			VAR Diff = NewCurr - NewPrev
+			VAR DiffPct = DIVIDE( Diff, NewPrev )
+			
+			VAR Plus = IF( Diff > 0, "+", "" )
+			
+			RETURN
+			    FORMAT( Diff, "#,##0" )
+			        & "  |  "
+			        & Plus & FORMAT( DiffPct, "0%" )
+			        & " vs PY"
+		lineageTag: d7d06170-3009-46d9-8c9e-c509505150f7
+
+	measure New_Customers_MoM_Color = ```
+			
+			VAR CurrentCustomers =
+			    VALUES ( 'fact_orders'[CustomerID] )
+			
+			VAR PriorCustomers =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        DATEADD ( 'dim_date'[Date], -1, YEAR )
+			    )
+			
+			VAR NewCurr =
+			    COUNTROWS ( EXCEPT ( CurrentCustomers, PriorCustomers ) )
+			
+			VAR PrevPeriodCustomers =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR PrevPeriodCustomers_Prior =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        DATEADD ( SAMEPERIODLASTYEAR ( 'dim_date'[Date] ), -1, YEAR )
+			    )
+			
+			VAR NewPrev =
+			    COUNTROWS ( EXCEPT ( PrevPeriodCustomers, PrevPeriodCustomers_Prior ) )
+			
+			VAR Diff = NewCurr - NewPrev
+			RETURN
+			IF( Diff > 0, "#00B050", "#FF0000" )
+			
+			```
+		lineageTag: a4b0c2ad-5dec-4df8-bbe4-4976b2fb3e0c
+
+	measure Returning_Customers_MoM_Diff =
+			VAR CurrCust = VALUES( 'fact_orders'[CustomerID] )
+			VAR Prev1_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( 'dim_date'[Date], -1, YEAR )
+			    )
+			VAR Prev2_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( 'dim_date'[Date], -2, YEAR )
+			    )
+			VAR ReturningCurr =
+			    COUNTROWS(
+			        INTERSECT(
+			            Prev2_Cust,
+			            EXCEPT( CurrCust, Prev1_Cust )
+			        )
+			    )
+			
+			VAR PY_CurrCust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        SAMEPERIODLASTYEAR( 'dim_date'[Date] )
+			    )
+			VAR PY_Prev1_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( SAMEPERIODLASTYEAR( 'dim_date'[Date] ), -1, YEAR )
+			    )
+			VAR PY_Prev2_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( SAMEPERIODLASTYEAR( 'dim_date'[Date] ), -2, YEAR )
+			    )
+			VAR ReturningPrev =
+			    COUNTROWS(
+			        INTERSECT(
+			            PY_Prev2_Cust,
+			            EXCEPT( PY_CurrCust, PY_Prev1_Cust )
+			        )
+			    )
+			
+			VAR Diff = ReturningCurr - ReturningPrev
+			VAR DiffPct = DIVIDE( Diff, ReturningPrev )
+			VAR Plus = IF( Diff > 0, "+", "" )
+			
+			RETURN
+			    FORMAT( Diff, "#,##0" )
+			        & "  |  "
+			        & Plus & FORMAT( DiffPct, "0%" )
+			        & " vs PY"
+		lineageTag: e6eeb921-486b-4c2c-ab3c-61bc68f53e01
+
+	measure Returning_Customers_MoM_Color =
+			
+			VAR CurrCust = VALUES( 'fact_orders'[CustomerID] )
+			VAR Prev1_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( 'dim_date'[Date], -1, YEAR )
+			    )
+			VAR Prev2_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( 'dim_date'[Date], -2, YEAR )
+			    )
+			VAR ReturningCurr =
+			    COUNTROWS(
+			        INTERSECT(
+			            Prev2_Cust,
+			            EXCEPT( CurrCust, Prev1_Cust )
+			        )
+			    )
+			
+			VAR PY_CurrCust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        SAMEPERIODLASTYEAR( 'dim_date'[Date] )
+			    )
+			VAR PY_Prev1_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( SAMEPERIODLASTYEAR( 'dim_date'[Date] ), -1, YEAR )
+			    )
+			VAR PY_Prev2_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( SAMEPERIODLASTYEAR( 'dim_date'[Date] ), -2, YEAR )
+			    )
+			VAR ReturningPrev =
+			    COUNTROWS(
+			        INTERSECT(
+			            PY_Prev2_Cust,
+			            EXCEPT( PY_CurrCust, PY_Prev1_Cust )
+			        )
+			    )
+			
+			VAR Diff = ReturningCurr - ReturningPrev
+			RETURN IF( Diff > 0, "#00B050", "#FF0000" )
+		lineageTag: 2cf42e54-66b9-4e1e-9b22-c09ea6c78940
+
+	measure Customer_Churn_MoM_Diff =
+			VAR CurrCust = VALUES('fact_orders'[CustomerID])
+			VAR PrevCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        DATEADD('dim_date'[Date], -1, YEAR)
+			    )
+			VAR RetainedCurr = COUNTROWS(INTERSECT(CurrCust, PrevCust))
+			VAR TotalPrevCust = COUNTROWS(PrevCust)
+			VAR RetentionCurr = DIVIDE(RetainedCurr, TotalPrevCust)
+			
+			VAR PY_CurrCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			VAR PY_PrevCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        DATEADD(SAMEPERIODLASTYEAR('dim_date'[Date]), -1, YEAR)
+			    )
+			VAR RetainedPrev = COUNTROWS(INTERSECT(PY_CurrCust, PY_PrevCust))
+			VAR TotalPrevPrev = COUNTROWS(PY_PrevCust)
+			VAR RetentionPrev = DIVIDE(RetainedPrev, TotalPrevPrev)
+			
+			VAR Diff = RetentionCurr - RetentionPrev
+			VAR Plus = IF(Diff > 0, "+", "")
+			
+			RETURN
+			Plus & FORMAT(Diff, "0%") & " vs PY"
+		lineageTag: 707c52b1-53cd-466f-a58e-223d7e1006df
+
+	measure %_of_completed_orders = ```
+			VAR completed_orders = CALCULATE(
+			    [number_of_orders],
+			'fact_orders'[OrderStatus] = "Delivered"
+			)
+			RETURN
+			DIVIDE(completed_orders,[number_of_orders])
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 43ea76c1-3d5b-423b-ab72-17cbf063b763
+
+	measure %_of_cancelled_orders = ```
+			VAR cancelled_orders = CALCULATE(
+			    [number_of_orders],
+			'fact_orders'[OrderStatus] = "Cancelled"
+			)
+			RETURN
+			DIVIDE(cancelled_orders,[number_of_orders])
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6a3d0871-f0f7-4177-aa41-d1bd8d47a605
+
+	measure Customer_Retention_Rate = ```
+			
+			VAR CurrYearCustomers =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        ALL('dim_date'),
+			        KEEPFILTERS('dim_date'),
+			        VALUES('dim_date'[Year])   -- current slicer selection
+			    )
+			
+			VAR PrevYearCustomers =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        DATEADD('dim_date'[Date], -1, YEAR)
+			    )
+			
+			-- Customers who bought both last year AND this year
+			VAR RetainedCustomers =
+			    COUNTROWS(
+			        INTERSECT(PrevYearCustomers, CurrYearCustomers)
+			    )
+			
+			-- Total customers last year
+			VAR TotalPrevYearCustomers =
+			    COUNTROWS(PrevYearCustomers)
+			
+			RETURN
+			    DIVIDE(RetainedCustomers, TotalPrevYearCustomers)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2e0ba392-f771-4ecd-9249-ba47918f0524
+
+	measure Customer_Retention_YoY_Color =
+			
+			VAR CurrCust = VALUES('fact_orders'[CustomerID])
+			VAR PrevCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        DATEADD('dim_date'[Date], -1, YEAR)
+			    )
+			VAR RetainedCurr = COUNTROWS(INTERSECT(CurrCust, PrevCust))
+			VAR TotalPrevCust = COUNTROWS(PrevCust)
+			VAR RetentionCurr = DIVIDE(RetainedCurr, TotalPrevCust)
+			
+			VAR PY_CurrCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			VAR PY_PrevCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        DATEADD(SAMEPERIODLASTYEAR('dim_date'[Date]), -1, YEAR)
+			    )
+			VAR RetainedPrev = COUNTROWS(INTERSECT(PY_CurrCust, PY_PrevCust))
+			VAR TotalPrevPrev = COUNTROWS(PY_PrevCust)
+			VAR RetentionPrev = DIVIDE(RetainedPrev, TotalPrevPrev)
+			
+			VAR Diff = RetentionCurr - RetentionPrev
+			RETURN IF(Diff > 0, "#00B050", "#FF0000")
+		lineageTag: a70fb1e1-857c-43c3-9b9e-699905169f6b
+
+	measure Number_of_Orders_YoY_Color =
+			
+			VAR CurrOrders = DISTINCTCOUNT('fact_orders'[OrderID])
+			VAR PrevOrders = CALCULATE(DISTINCTCOUNT('fact_orders'[OrderID]), SAMEPERIODLASTYEAR('dim_date'[Date]))
+			RETURN
+			IF(CurrOrders > PrevOrders, "Green", "Red")
+		lineageTag: ba5b8732-7035-4743-b5f2-ec5668c648bd
+
+	measure Number_of_Orders_YoY_Diff =
+			VAR CurrOrders =
+			    DISTINCTCOUNT('fact_orders'[OrderID])
+			
+			VAR PrevOrders =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR Diff = CurrOrders - PrevOrders
+			VAR DiffPct = DIVIDE(Diff, PrevOrders)
+			
+			VAR PlusPct = IF(DiffPct > 0, "+", "")
+			
+			RETURN
+			FORMAT(Diff, "#,##0")
+			    & " | "
+			    & PlusPct & FORMAT(DiffPct, "0.00%")
+			    & " vs PY"
+		lineageTag: 088be450-a4ab-47a1-b07f-8cca864756fc
+
+	measure Avg_Order_Value_YoY_Color = ```
+			
+			VAR CurrAOV = SUM('fact_sales'[NetSales]) / DISTINCTCOUNT('fact_orders'[OrderID])
+			VAR PrevAOV = 
+			    CALCULATE(
+			        SUM('fact_sales'[NetSales]) / DISTINCTCOUNT('fact_orders'[OrderID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			RETURN
+			IF(CurrAOV > PrevAOV, "#00B050", "#FF0000")
+			
+			```
+		lineageTag: a081a351-93aa-4293-9d30-5b04ba1b2710
+
+	measure Avg_Order_Value_YoY_Diff =
+			
+			VAR CurrAOV =
+			    DIVIDE(
+			        SUM('fact_sales'[NetSales]),
+			        DISTINCTCOUNT('fact_orders'[OrderID])
+			    )
+			
+			VAR PrevAOV =
+			    CALCULATE(
+			        DIVIDE(
+			            SUM('fact_sales'[NetSales]),
+			            DISTINCTCOUNT('fact_orders'[OrderID])
+			        ),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR Diff = CurrAOV - PrevAOV
+			VAR DiffPct = DIVIDE(Diff, PrevAOV)
+			
+			-- Detect if negative
+			VAR SignAmt = IF(Diff < 0, "-", "")
+			
+			-- Absolute amount for formatting
+			VAR AbsDiff = ABS(Diff)
+			
+			VAR PlusPct = IF(DiffPct > 0, "+", "")
+			
+			RETURN
+			SignAmt & "$" & FORMAT(AbsDiff, "#,##0.00")
+			    & " | "
+			    & PlusPct & FORMAT(DiffPct, "0%")
+			    & " vs PY"
+		lineageTag: 6d643856-0e73-4fb2-893b-c0714d19da6a
+
+	measure Completed_Orders_YoY_Diff =
+			VAR CurrCompleted =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Delivered"
+			    )
+			
+			VAR CurrTotal =
+			    DISTINCTCOUNT('fact_orders'[OrderID])
+			
+			VAR CurrPct =
+			    DIVIDE(CurrCompleted, CurrTotal)
+			
+			VAR PrevCompleted =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Delivered",
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR PrevTotal =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR PrevPct =
+			    DIVIDE(PrevCompleted, PrevTotal)
+			
+			VAR Diff = CurrPct - PrevPct
+			
+			RETURN
+			FORMAT(Diff, "0.00%") & " vs PY"
+		lineageTag: b19b0750-418f-4f14-96e6-4bc9653dc912
+
+	measure Completed_Orders_YoY_Color =
+			
+			---------------------------------------------
+			-- Current period
+			---------------------------------------------
+			VAR CurrCompleted = CALCULATE(
+			    DISTINCTCOUNT('fact_orders'[OrderID]),
+			    'fact_orders'[OrderStatus] = "Delivered"
+			)
+			VAR CurrTotal = DISTINCTCOUNT('fact_orders'[OrderID])
+			VAR CurrPct = DIVIDE(CurrCompleted, CurrTotal)
+			
+			---------------------------------------------
+			-- Previous year's equivalent period
+			---------------------------------------------
+			VAR PrevCompleted = CALCULATE(
+			    DISTINCTCOUNT('fact_orders'[OrderID]),
+			    'fact_orders'[OrderStatus] = "Delivered",
+			    SAMEPERIODLASTYEAR('dim_date'[Date])
+			)
+			VAR PrevTotal = CALCULATE(
+			    DISTINCTCOUNT('fact_orders'[OrderID]),
+			    SAMEPERIODLASTYEAR('dim_date'[Date])
+			)
+			VAR PrevPct = DIVIDE(PrevCompleted, PrevTotal)
+			
+			---------------------------------------------
+			-- Return Color
+			---------------------------------------------
+			RETURN
+			IF(CurrPct > PrevPct, "Green", "Red")
+		lineageTag: aa14bd88-bc12-43d2-9fda-3ba89d5eda99
+
+	measure Cancelled_Orders_YoY_Diff =
+			VAR CurrCancelled =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Cancelled"
+			    )
+			
+			VAR CurrTotal =
+			    DISTINCTCOUNT('fact_orders'[OrderID])
+			
+			VAR CurrPct =
+			    DIVIDE(CurrCancelled, CurrTotal)
+			
+			VAR PrevCancelled =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Cancelled",
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR PrevTotal =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR PrevPct =
+			    DIVIDE(PrevCancelled, PrevTotal)
+			
+			VAR Diff = CurrPct - PrevPct
+			
+			RETURN
+			FORMAT(Diff, "0.00%") & " vs PY"
+		lineageTag: bb2a5a8c-f2d9-4b42-b33f-f3502f652e82
+
+	measure Cancelled_Orders_YoY_Color =
+			VAR CurrCancelled =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Cancelled"
+			    )
+			
+			VAR PrevCancelled =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Cancelled",
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			RETURN
+			IF(CurrCancelled < PrevCancelled, "#00B050", "#FF0000")
+		lineageTag: 1b2c8063-b730-4c6a-bfbe-767da479c280
+
+	measure 'Avg. Delivery Time (Days)' =
+			VAR deliverytime =AVERAGE('fact_orders'[DeliveryDays])
+			RETURN FORMAT(deliverytime,"0.00") & " Days"
+		lineageTag: 4b00f1e1-8737-43c3-91ba-7f6b273b3ccc
+
+	measure 'Avg. Target Delivery Time (Days)' = 4
+		formatString: 0
+		lineageTag: 9affa23e-3fe9-46b3-a88a-d59178f8d146
+
+	measure Measure
+		lineageTag: 362aca22-a12a-424a-b25d-1ebed0dc10c1
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'On-Time Delivery Rate' =
+			VAR ontimeorders = CALCULATE(
+			    COUNT(
+			        'fact_orders'[OrderID]),
+			        'fact_orders'[Delivery On Time vs Delayed] = "On-Time")
+			        RETURN
+			        DIVIDE(ontimeorders,[number_of_orders])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bc348829-300c-480f-8026-87559029b9d7
+
+	measure Customer_MoM_Arrow = ```
+			
+			VAR Curr = [number_of_customers]
+			VAR Prev =
+			    CALCULATE (
+			        [number_of_customers],
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			VAR Diff = Curr - Prev
+			RETURN IF ( Diff > 0, "▲", "▼" )
+			
+			```
+		lineageTag: 52c1a86a-8fa1-41ed-be69-66110a97a095
+
+	measure New_Customers_MoM_Arrow = ```
+			
+			VAR CurrentCustomers =
+			    VALUES ( 'fact_orders'[CustomerID] )
+			
+			VAR PriorCustomers =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        DATEADD ( 'dim_date'[Date], -1, YEAR )
+			    )
+			
+			VAR NewCurr =
+			    COUNTROWS ( EXCEPT ( CurrentCustomers, PriorCustomers ) )
+			
+			VAR PrevPeriodCustomers =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        SAMEPERIODLASTYEAR ( 'dim_date'[Date] )
+			    )
+			
+			VAR PrevPeriodCustomers_Prior =
+			    CALCULATETABLE (
+			        VALUES ( 'fact_orders'[CustomerID] ),
+			        DATEADD ( SAMEPERIODLASTYEAR ( 'dim_date'[Date] ), -1, YEAR )
+			    )
+			
+			VAR NewPrev =
+			    COUNTROWS ( EXCEPT ( PrevPeriodCustomers, PrevPeriodCustomers_Prior ) )
+			
+			VAR Diff = NewCurr - NewPrev
+			RETURN
+			IF( Diff > 0, "▲", "▼" )
+			
+			```
+		lineageTag: 85009c96-c78d-4fcb-9fe7-c79bea1dea5d
+
+	measure Returning_Customers_MoM_Arrow = ```
+			
+			VAR CurrCust = VALUES( 'fact_orders'[CustomerID] )
+			VAR Prev1_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( 'dim_date'[Date], -1, YEAR )
+			    )
+			VAR Prev2_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( 'dim_date'[Date], -2, YEAR )
+			    )
+			VAR ReturningCurr =
+			    COUNTROWS(
+			        INTERSECT(
+			            Prev2_Cust,
+			            EXCEPT( CurrCust, Prev1_Cust )
+			        )
+			    )
+			
+			VAR PY_CurrCust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        SAMEPERIODLASTYEAR( 'dim_date'[Date] )
+			    )
+			VAR PY_Prev1_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( SAMEPERIODLASTYEAR( 'dim_date'[Date] ), -1, YEAR )
+			    )
+			VAR PY_Prev2_Cust =
+			    CALCULATETABLE(
+			        VALUES( 'fact_orders'[CustomerID] ),
+			        DATEADD( SAMEPERIODLASTYEAR( 'dim_date'[Date] ), -2, YEAR )
+			    )
+			VAR ReturningPrev =
+			    COUNTROWS(
+			        INTERSECT(
+			            PY_Prev2_Cust,
+			            EXCEPT( PY_CurrCust, PY_Prev1_Cust )
+			        )
+			    )
+			
+			VAR Diff = ReturningCurr - ReturningPrev
+			RETURN IF( Diff > 0, "▲", "▼" )
+			
+			```
+		lineageTag: 49b089cf-6a8c-480b-a459-dc7040562be1
+
+	measure Customer_Churn_MoM_Arrow = ```
+			
+			VAR CurrCust = VALUES('fact_orders'[CustomerID])
+			VAR PrevCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        DATEADD('dim_date'[Date], -1, YEAR)
+			    )
+			VAR RetainedCurr = COUNTROWS(INTERSECT(CurrCust, PrevCust))
+			VAR TotalPrevCust = COUNTROWS(PrevCust)
+			VAR RetentionCurr = DIVIDE(RetainedCurr, TotalPrevCust)
+			
+			VAR PY_CurrCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			VAR PY_PrevCust =
+			    CALCULATETABLE(
+			        VALUES('fact_orders'[CustomerID]),
+			        DATEADD(SAMEPERIODLASTYEAR('dim_date'[Date]), -1, YEAR)
+			    )
+			VAR RetainedPrev = COUNTROWS(INTERSECT(PY_CurrCust, PY_PrevCust))
+			VAR TotalPrevPrev = COUNTROWS(PY_PrevCust)
+			VAR RetentionPrev = DIVIDE(RetainedPrev, TotalPrevPrev)
+			
+			VAR Diff = RetentionCurr - RetentionPrev
+			RETURN IF(Diff > 0, "▲", "▼")
+			
+			```
+		lineageTag: 56927776-970e-467e-899f-373b9e4ffe0b
+
+	measure Number_of_Orders_YoY_Arrow = ```
+			
+			VAR CurrOrders =
+			    DISTINCTCOUNT('fact_orders'[OrderID])
+			
+			VAR PrevOrders =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR Diff = CurrOrders - PrevOrders
+			
+			RETURN IF(Diff > 0, "▲", "▼")
+			
+			```
+		lineageTag: 57e983d2-568a-46b2-bd5c-a07d8b1ea2e5
+
+	measure AOV_YoY_Arrow = ```
+			
+			VAR CurrAOV =
+			    DIVIDE(
+			        SUM('fact_sales'[NetSales]),
+			        DISTINCTCOUNT('fact_orders'[OrderID])
+			    )
+			
+			VAR PrevAOV =
+			    CALCULATE(
+			        DIVIDE(
+			            SUM('fact_sales'[NetSales]),
+			            DISTINCTCOUNT('fact_orders'[OrderID])
+			        ),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR Diff = CurrAOV - PrevAOV
+			RETURN
+			IF( Diff > 0, "▲", "▼" )
+			
+			```
+		lineageTag: c27d6653-3efa-4646-8baa-6260881436cd
+
+	measure Completed_Orders_YoY_Arrow = ```
+			
+			VAR CurrCompleted =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Delivered"
+			    )
+			
+			VAR CurrTotal =
+			    DISTINCTCOUNT('fact_orders'[OrderID])
+			
+			VAR CurrPct = DIVIDE(CurrCompleted, CurrTotal)
+			
+			VAR PrevCompleted =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Delivered",
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR PrevTotal =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR PrevPct = DIVIDE(PrevCompleted, PrevTotal)
+			
+			VAR Diff = CurrPct - PrevPct
+			
+			RETURN
+			IF(Diff > 0, "▲", "▼")
+			
+			```
+		lineageTag: 5f7863b3-02ad-468f-8601-23bc306af2e5
+
+	measure Cancelled_Orders_YoY_Arrow_Color =
+			
+			VAR CurrCancelled =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Cancelled"
+			    )
+			
+			VAR CurrTotal =
+			    DISTINCTCOUNT('fact_orders'[OrderID])
+			
+			VAR CurrPct =
+			    DIVIDE(CurrCancelled, CurrTotal)
+			
+			VAR PrevCancelled =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Cancelled",
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR PrevTotal =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			VAR PrevPct =
+			    DIVIDE(PrevCancelled, PrevTotal)
+			
+			VAR Diff = CurrPct - PrevPct
+			
+			RETURN
+			IF(Diff > 0, "▲", "▼")
+		lineageTag: 70fb9f04-13c3-41e9-822e-a075178af357
+
+	measure 'Measure 2'
+		lineageTag: d1669a3f-1b3e-4151-9eff-1e2a980fd004
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure Cancelled_Orders_Color =
+			
+			VAR CurrCancelled =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Cancelled"
+			    )
+			
+			VAR PrevCancelled =
+			    CALCULATE(
+			        DISTINCTCOUNT('fact_orders'[OrderID]),
+			        'fact_orders'[OrderStatus] = "Cancelled",
+			        SAMEPERIODLASTYEAR('dim_date'[Date])
+			    )
+			
+			RETURN
+			IF(CurrCancelled < PrevCancelled, "#00B050", "#FF0000")
+		lineageTag: 21b52a39-de8f-4ac0-afe1-a936bd01de53
+
+	measure 'Order Amount Difference Text' =
+			
+			VAR CurrentSales = SUM(fact_orders[orderamount])
+			VAR PriorSales =
+			    CALCULATE(
+			        SUM(fact_orders[orderamount]),
+			        SAMEPERIODLASTYEAR('dim_date'[date])
+			    )
+			VAR SalesDifference = CurrentSales - PriorSales
+			
+			RETURN
+			    FORMAT(
+			        SalesDifference,
+			        "+$#,##0;-$#,##0;$#,##0"
+			    )
+		lineageTag: 7c3adda2-2e66-4277-8b7d-5c97996f7989
+
+	column OrderID
+		dataType: string
+		lineageTag: afd8b56c-77ee-44f7-93a4-fb211b7a349f
+		summarizeBy: none
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8c0b1898-f65d-482f-bc47-cb61b90c58f0
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerID
+		dataType: string
+		lineageTag: 251591be-9637-40f4-b16b-339c84411e57
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelID
+		dataType: string
+		lineageTag: 2e55d7e4-95ec-4cca-82b5-459c4a61755c
+		summarizeBy: none
+		sourceColumn: ChannelID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionID
+		dataType: string
+		lineageTag: a5ecd894-c386-41f5-948f-e557cab5ae5a
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderStatus
+		dataType: string
+		lineageTag: 22101321-1d92-493c-89cb-e52256509f24
+		summarizeBy: none
+		sourceColumn: OrderStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderAmount
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 4d4ce98d-0fb9-42a5-a239-ed09a1629b7d
+		summarizeBy: sum
+		sourceColumn: OrderAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column ShippingCost
+		dataType: double
+		lineageTag: 722e3759-b66d-4130-ab60-b015f0a190bc
+		summarizeBy: sum
+		sourceColumn: ShippingCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DeliveryDays
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c88f350-934f-4f46-99ff-680554b064b0
+		summarizeBy: sum
+		sourceColumn: DeliveryDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentMethod
+		dataType: string
+		lineageTag: 0b2c3476-04f4-4829-af9b-8e39962f3555
+		summarizeBy: none
+		sourceColumn: PaymentMethod
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'OrderStatus (2)' = SWITCH('fact_orders'[OrderStatus],"Pending","In-Process", "Processing","In-Process","Returned","Cancelled",'fact_orders'[OrderStatus])
+		lineageTag: d534618b-76c5-473d-a723-749fd94f658d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_Value_Category_Col = ```
+			
+			SWITCH(
+			    TRUE(),
+			    'fact_orders'[OrderAmount] < 50, "Very Low",
+			    'fact_orders'[OrderAmount] >= 50 && 'fact_orders'[OrderAmount] < 100, "Low",
+			    'fact_orders'[OrderAmount] >= 100 && 'fact_orders'[OrderAmount] < 250, "Medium-Low",
+			    'fact_orders'[OrderAmount] >= 250 && 'fact_orders'[OrderAmount] < 500, "Medium",
+			    'fact_orders'[OrderAmount] >= 500 && 'fact_orders'[OrderAmount] < 1000, "Medium-High",
+			    'fact_orders'[OrderAmount] >= 1000 && 'fact_orders'[OrderAmount] < 2000, "High",
+			    'fact_orders'[OrderAmount] >= 2000 && 'fact_orders'[OrderAmount] < 5000, "Very High",
+			    'fact_orders'[OrderAmount] >= 5000, "Premium",
+			    "Other"
+			)
+			
+			```
+		lineageTag: d1fae63a-5187-4c28-b5ee-abf17507e9bf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_Value_Category_Col_2 = ```
+			
+			SWITCH(
+			    TRUE(),
+			    'fact_orders'[OrderAmount] < 50, "Low Value",
+			    'fact_orders'[OrderAmount] >= 50 && 'fact_orders'[OrderAmount] < 250, "Medium Value",
+			    'fact_orders'[OrderAmount] >= 250 && 'fact_orders'[OrderAmount] < 1000, "High Value",
+			    'fact_orders'[OrderAmount] >= 1000, "Very High Value",
+			    "Other"
+			)
+			
+			```
+		lineageTag: 152eca1d-bdad-40c2-930d-76e340788b8c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery On Time vs Delayed' =
+			SWITCH(
+			    TRUE(),
+			    'fact_orders'[DeliveryDays]<= 6, "On-Time", "Delayed"
+			)
+		lineageTag: a7d6a337-2cc5-4ab5-b837-4871e898cc1c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_orders = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\BI Project\DIM\fact_orders.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OrderID", type text}, {"OrderDate", type date}, {"CustomerID", type text}, {"ChannelID", type text}, {"RegionID", type text}, {"OrderStatus", type text}, {"OrderAmount", type number}, {"ShippingCost", type number}, {"DeliveryDays", Int64.Type}, {"PaymentMethod", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

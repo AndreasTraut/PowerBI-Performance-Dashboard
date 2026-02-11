@@ -1,0 +1,204 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.1.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": {
+        "visual": "1.8.95",
+        "report": "2.0.95",
+        "page": "1.3.95"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "box22012110340855373.png",
+          "path": "box22012110340855373.png",
+          "type": "Image"
+        },
+        {
+          "name": "cat6895773748872586.png",
+          "path": "cat6895773748872586.png",
+          "type": "Image"
+        },
+        {
+          "name": "chanel_with_most_orders9272658775805909.png",
+          "path": "chanel_with_most_orders9272658775805909.png",
+          "type": "Image"
+        },
+        {
+          "name": "channel_with_most_customers3621988361962233.png",
+          "path": "channel_with_most_customers3621988361962233.png",
+          "type": "Image"
+        },
+        {
+          "name": "city_with_most_customers03345318148866305.png",
+          "path": "city_with_most_customers03345318148866305.png",
+          "type": "Image"
+        },
+        {
+          "name": "company_logo7866448975554899.png",
+          "path": "company_logo7866448975554899.png",
+          "type": "Image"
+        },
+        {
+          "name": "country9649668389388509.png",
+          "path": "country9649668389388509.png",
+          "type": "Image"
+        },
+        {
+          "name": "cross2949814777941915.png",
+          "path": "cross2949814777941915.png",
+          "type": "Image"
+        },
+        {
+          "name": "cross38099710999938974.png",
+          "path": "cross38099710999938974.png",
+          "type": "Image"
+        },
+        {
+          "name": "glass24153632574416317.png",
+          "path": "glass24153632574416317.png",
+          "type": "Image"
+        },
+        {
+          "name": "glass5845179329784473.png",
+          "path": "glass5845179329784473.png",
+          "type": "Image"
+        },
+        {
+          "name": "glass_black2300411272504166.png",
+          "path": "glass_black2300411272504166.png",
+          "type": "Image"
+        },
+        {
+          "name": "image3940830759169215.png",
+          "path": "image3940830759169215.png",
+          "type": "Image"
+        },
+        {
+          "name": "legend944328720522764.PNG",
+          "path": "legend944328720522764.PNG",
+          "type": "Image"
+        },
+        {
+          "name": "most_visited_customer5425906150315254.png",
+          "path": "most_visited_customer5425906150315254.png",
+          "type": "Image"
+        },
+        {
+          "name": "region9616836077912302.png",
+          "path": "region9616836077912302.png",
+          "type": "Image"
+        },
+        {
+          "name": "search-interface-symbol47191900765797157.png",
+          "path": "search-interface-symbol47191900765797157.png",
+          "type": "Image"
+        },
+        {
+          "name": "shadow_glass03213473459579452.png",
+          "path": "shadow_glass03213473459579452.png",
+          "type": "Image"
+        },
+        {
+          "name": "shadow_glass18657329822216762.png",
+          "path": "shadow_glass18657329822216762.png",
+          "type": "Image"
+        },
+        {
+          "name": "shadow_glass33650017455499837.png",
+          "path": "shadow_glass33650017455499837.png",
+          "type": "Image"
+        },
+        {
+          "name": "shadow_glass5285595089166557.png",
+          "path": "shadow_glass5285595089166557.png",
+          "type": "Image"
+        },
+        {
+          "name": "unnamed-removebg-preview7931885252122122.png",
+          "path": "unnamed-removebg-preview7931885252122122.png",
+          "type": "Image"
+        },
+        {
+          "name": "unnamed3231058753350876.jpg",
+          "path": "unnamed3231058753350876.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "category_retgg1884720699850876.png",
+          "path": "category_retgg1884720699850876.png",
+          "type": "Image"
+        },
+        {
+          "name": "category_return45419082819517476.png",
+          "path": "category_return45419082819517476.png",
+          "type": "Image"
+        },
+        {
+          "name": "returns8344381965999575.png",
+          "path": "returns8344381965999575.png",
+          "type": "Image"
+        },
+        {
+          "name": "returns_23649340738873522.png",
+          "path": "returns_23649340738873522.png",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

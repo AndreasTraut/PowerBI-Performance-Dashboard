@@ -1,0 +1,50 @@
+table 'Parameter (Overview)'
+	lineageTag: 396d8a5d-b49b-48ef-a64a-3d9dd2dcb7c7
+
+	column 'Parameter (Overview)'
+		lineageTag: ef475dc8-15f1-460a-9c5e-779ab544e8a4
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter (Overview) Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter (Overview) Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter (Overview) Fields'
+		isHidden
+		lineageTag: 45c337f4-33b0-4112-aa79-108400510978
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter (Overview) Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter (Overview) Order'
+		isHidden
+		formatString: 0
+		lineageTag: fb58ad49-56db-4cbd-8ac6-1e6563f3b64e
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parameter (Overview)' = calculated
+		mode: import
+		source =
+				{
+				    ("Sales", NAMEOF('fact_sales'[net_sales]), 0),
+				    ("Customers", NAMEOF('fact_orders'[number_of_customers]), 1),
+				    ("Orders", NAMEOF('fact_orders'[number_of_orders]), 2),
+				    ("Returns", NAMEOF('fact_returns'[number_of_returns]), 3)
+				}
+
+	annotation PBI_Id = 3646e45c86e74d32970a7e3540d6c68a
+

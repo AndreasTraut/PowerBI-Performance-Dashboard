@@ -1,0 +1,79 @@
+table fact_visits
+	lineageTag: 3c58a8d1-27c0-41f4-a200-a5e665995f31
+
+	measure number_of_visits = count('fact_visits'[VisitID])
+		formatString: 0
+		lineageTag: 651e3d4a-e841-4147-97ca-3f629c4a17c2
+
+	column VisitID
+		dataType: string
+		lineageTag: 69b7ce0c-ebf7-4247-88c4-a43f67839ecf
+		summarizeBy: none
+		sourceColumn: VisitID
+
+		annotation SummarizationSetBy = Automatic
+
+	column VisitDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 93bc1e7b-4b95-4c6b-8496-7a6a195ff5cb
+		summarizeBy: none
+		sourceColumn: VisitDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerID
+		dataType: string
+		lineageTag: bd5adb1a-a251-4cb3-95da-6fa3473e5be2
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelID
+		dataType: string
+		lineageTag: 7095187d-abcd-40d4-b707-b133b1c128cc
+		summarizeBy: none
+		sourceColumn: ChannelID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionID
+		dataType: string
+		lineageTag: 6cf6fea3-3137-4112-a599-a01d69dd8330
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ConvertedFlag
+		dataType: int64
+		formatString: 0
+		lineageTag: 16ed1e81-135d-494a-bcdd-7250c5f7b11e
+		summarizeBy: sum
+		sourceColumn: ConvertedFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column ConversionOrderID
+		dataType: string
+		lineageTag: c375af35-722c-48ab-80e2-a4dbf5b962d2
+		summarizeBy: none
+		sourceColumn: ConversionOrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_visits = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\BI Project\DIM\fact_visits.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"VisitID", type text}, {"VisitDate", type date}, {"CustomerID", type text}, {"ChannelID", type text}, {"RegionID", type text}, {"ConvertedFlag", Int64.Type}, {"ConversionOrderID", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

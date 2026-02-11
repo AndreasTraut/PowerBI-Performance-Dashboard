@@ -1,0 +1,142 @@
+table dim_product
+	lineageTag: ed550f9c-8249-4709-9b43-c56e74ee86f5
+
+	column ProductID
+		dataType: string
+		lineageTag: a0a54dfc-c659-4bdf-9eba-be03166dcaab
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SKU
+		dataType: string
+		lineageTag: a2a6161f-2072-4e42-b181-a8645a67c7ea
+		summarizeBy: none
+		sourceColumn: SKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: 3c3aad17-be61-4626-905a-6ab4abe101ab
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 0292bb53-2666-4420-b91f-62ae7ea17e1e
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory
+		dataType: string
+		lineageTag: 6f3e1600-d903-436e-8601-de70ff4f241e
+		summarizeBy: none
+		sourceColumn: SubCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: 8944a76e-d4c6-4c0a-b39b-669bd678ae0f
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitCost
+		dataType: double
+		lineageTag: 0cd00bb2-5234-4e67-8054-a633838e76bc
+		summarizeBy: sum
+		sourceColumn: UnitCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitPrice
+		dataType: double
+		lineageTag: d2d7842f-651b-4a44-beb7-872969e576d4
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ProfitMargin
+		dataType: double
+		lineageTag: 17280f58-423d-40ca-8530-72a44fd08240
+		summarizeBy: sum
+		sourceColumn: ProfitMargin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LaunchDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9e63e69e-2f0d-41b9-8de8-cd3b3a3094e9
+		summarizeBy: none
+		sourceColumn: LaunchDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Discontinued
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f31bbe72-aedc-4837-a9bb-a4ac8017508a
+		summarizeBy: none
+		sourceColumn: Discontinued
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column
+		type: calculated
+		lineageTag: 4b5a7be0-5c21-475a-aa8c-323f606b1e7d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy Product
+		lineageTag: b1402714-05c2-43e6-a976-993681a9bc85
+
+		level Category
+			lineageTag: 7a68f025-e259-4a67-b4b7-6a36c09d87b9
+			column: Category
+
+		level SubCategory
+			lineageTag: 3dbb23ed-d60e-4489-bfa4-775f05dee92d
+			column: SubCategory
+
+		level Brand
+			lineageTag: 0e59448a-2e48-425f-bb81-e1e5f680c5c8
+			column: Brand
+
+		level ProductName
+			lineageTag: 31429181-b35c-48fa-ad60-dade8e6aebe2
+			column: ProductName
+
+	partition dim_product = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\BI Project\Sales\DIM\dim_product.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductID", type text}, {"SKU", type text}, {"ProductName", type text}, {"Category", type text}, {"SubCategory", type text}, {"Brand", type text}, {"UnitCost", type number}, {"UnitPrice", type number}, {"ProfitMargin", type number}, {"LaunchDate", type date}, {"Discontinued", type logical}}),
+				    #"Extracted Text Before Delimiter" = Table.TransformColumns(#"Changed Type", {{"ProductName", each Text.BeforeDelimiter(_, " ", 1), type text}})
+				in
+				    #"Extracted Text Before Delimiter"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

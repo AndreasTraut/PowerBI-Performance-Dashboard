@@ -1,0 +1,32 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["dim_channel","dim_customer","dim_product","dim_region","dim_return_reason","fact_orders","fact_sales","fact_visits","fact_returns","fact_return_amount","fact_financial_insights"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_channel
+ref table dim_customer
+ref table dim_product
+ref table dim_region
+ref table dim_return_reason
+ref table fact_orders
+ref table fact_sales
+ref table fact_visits
+ref table fact_returns
+ref table dim_date
+ref table fact_return_amount
+ref table Parameter
+ref table 'Parameter (Overview)'
+ref table fact_financial_insights
+ref table KPI_Summary_Table
+
+ref cultureInfo en-US
+

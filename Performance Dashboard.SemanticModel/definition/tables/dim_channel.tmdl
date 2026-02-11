@@ -1,0 +1,52 @@
+table dim_channel
+	lineageTag: 664c86ce-30ca-4ae1-b57c-c81441dabaf9
+
+	column ChannelID
+		dataType: string
+		lineageTag: 65da6c0f-9587-4eed-ad60-2986b028f468
+		summarizeBy: none
+		sourceColumn: ChannelID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelName
+		dataType: string
+		lineageTag: c33b9523-45eb-43a6-b3ab-f2f9ea2b3f77
+		summarizeBy: none
+		sourceColumn: ChannelName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ChannelName (2)' = SWITCH('dim_channel'[ChannelName],"Marketplace","B2B","Wholesale (B2B)","B2B",'dim_channel'[ChannelName])
+		lineageTag: 33cc725b-a188-4ea6-b4cc-2bceef345b36
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ChannelName (3)' = SWITCH('dim_channel'[ChannelName],"Marketplace","B2B","Wholesale (B2B)","B2B", "Retail","B2C","Online","B2C",'dim_channel'[ChannelName])
+		lineageTag: e21c45bf-ca9c-4129-a551-2038da219b04
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ChannelName (4)' = SWITCH('dim_channel'[ChannelName],"Wholesale (B2B)","Wholesale",'dim_channel'[ChannelName])
+		lineageTag: 5f87fe34-7627-49ed-bd76-601e9025fa34
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_channel = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\CAM Tech\Downloads\BI Project\DIM\dim_channel.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"ChannelID", type text}, {"ChannelName", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

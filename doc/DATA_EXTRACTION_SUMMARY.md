@@ -45,7 +45,7 @@ Es wurden zwei Ansätze bereitgestellt:
    - Generiert mit `generate_sample_data.py`
 
 2. **Anleitungen für echte Daten-Extraktion:**
-   - Detaillierte Anleitung in `/data/README.md`
+   - Detaillierte Anleitung in `/data/DATA.md`
    - Extraktions-Skripte: `extract_pbix_actual.py`, `extract_pbix_data.py`
    - Empfohlene Tools:
      - DAX Studio (kostenlos)
@@ -60,7 +60,7 @@ python generate_sample_data.py
 ```
 
 ### Echte Daten extrahieren:
-Siehe `/data/README.md` für detaillierte Anleitungen mit DAX Studio, Tabular Editor oder Power BI Desktop.
+Siehe `/data/DATA.md` für detaillierte Anleitungen mit DAX Studio, Tabular Editor oder Power BI Desktop.
 
 ## Dateien im Repository
 

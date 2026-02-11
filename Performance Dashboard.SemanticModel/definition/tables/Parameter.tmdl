@@ -1,0 +1,49 @@
+table Parameter
+	lineageTag: 6e25710f-6bbf-4467-b5a4-f49f5b4a255c
+
+	column Parameter
+		lineageTag: b9662ac5-a2c8-4723-a620-dbc4e103421a
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: ae899f1b-fe62-45b6-9f40-e6817f32a4e3
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 39392e4f-d61d-4f42-8314-454453d9c1e1
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Gross Sales", NAMEOF([Gross Sales (1)]), 0),
+				    ("COGS ", NAMEOF([COGS (1)]), 1),
+				    ("Gross Profit", NAMEOF([Gross Profit (1)]), 2)
+				}
+
+	annotation PBI_Id = 142715d5f7244267a496b396db6ebc71
+

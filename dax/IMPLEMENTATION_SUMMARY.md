@@ -43,30 +43,30 @@ Contains 10 supplementary measures for enhanced analysis:
 ### 3. Documentation
 
 #### English Documentation
-- **`README.md`** (276 lines)
-  - Complete technical documentation
-  - Implementation instructions
-  - DAX pattern explanations
-  - Troubleshooting guide
-  
 - **`EXAMPLES.md`** (345 lines)
   - Visual setup examples
   - 6 different visualization patterns
   - Business use case scenarios
   - Advanced analysis techniques
 
-- **`IMPLEMENTATION_CHECKLIST.md`** (311 lines)
+- **`IMPLEMENTATION_CHECKLIST.md`** (EN) (311 lines)
   - Step-by-step implementation guide
   - Testing and validation procedures
   - Troubleshooting checklist
   - Post-implementation tasks
 
 #### German Documentation
-- **`SCHNELLANLEITUNG.md`** (206 lines)
+- **`WARENKORBANALYSE.md`** (DE) (276 lines)
+  - Complete German technical documentation.
+- **`SCHNELLANLEITUNG.md`** (DE) (206 lines)
   - Quick start guide in German
   - Step-by-step instructions (Schritt-für-Schritt)
   - Examples and use cases
   - Data model requirements
+- **`IMPLEMENTIERUNGS_CHECKLISTE.md`** (DE) (311 lines)
+  - German version of the implementation checklist.
+- **`IMPLEMENTIERUNGS_ZUSAMMENFASSUNG.md`** (DE) (224 lines)
+  - German version of this summary.
 
 ### 4. Repository Updates
 
@@ -80,11 +80,14 @@ Contains 10 supplementary measures for enhanced analysis:
 /dax/
 ├── dim_product_comparison.dax       # Calculated table (6 lines)
 ├── Orders_containing_both.dax       # Main measure (28 lines)
-├── additional_measures.dax          # Optional measures (240 lines)
-├── README.md                        # Full documentation (276 lines)
-├── SCHNELLANLEITUNG.md              # German quick guide (206 lines)
-├── EXAMPLES.md                      # Usage examples (345 lines)
-└── IMPLEMENTATION_CHECKLIST.md      # Implementation guide (311 lines)
+├── additional_measures.dax          # Optional advanced measures (240 lines)
+├── WARENKORBANALYSE.md              # Full German documentation (276 lines)
+├── SCHNELLANLEITUNG.md              # German quick start guide (206 lines)
+├── EXAMPLES.md                      # Visualization examples (345 lines)
+├── IMPLEMENTATION_CHECKLIST.md      # English implementation checklist (311 lines)
+├── IMPLEMENTIERUNGS_CHECKLISTE.md   # German implementation checklist (311 lines)
+├── IMPLEMENTATION_SUMMARY.md        # This file (English summary)
+└── IMPLEMENTIERUNGS_ZUSAMMENFASSUNG.md # German summary (224 lines)
 ```
 
 **Total**: 7 files, 1,412 lines of code and documentation
@@ -131,7 +134,7 @@ Contains 10 supplementary measures for enhanced analysis:
 
 ### Detailed Implementation
 
-See `IMPLEMENTATION_CHECKLIST.md` for complete step-by-step guide with:
+See the Implementation Checklist (EN / DE) for a complete step-by-step guide with:
 - Pre-implementation checks
 - Detailed instructions
 - Testing procedures
@@ -212,7 +215,7 @@ See `IMPLEMENTATION_CHECKLIST.md` for complete step-by-step guide with:
 
 ## Testing
 
-All implementations should be tested using the checklist in `IMPLEMENTATION_CHECKLIST.md`:
+All implementations should be tested using the checklists (EN / DE):
 
 - ✅ Data accuracy (known product pairs)
 - ✅ Performance (matrix loads quickly)
@@ -222,9 +225,9 @@ All implementations should be tested using the checklist in `IMPLEMENTATION_CHEC
 ## Support & Documentation
 
 ### For Implementation Help:
-1. Start with `SCHNELLANLEITUNG.md` (German) or `README.md` (English)
-2. Follow `IMPLEMENTATION_CHECKLIST.md` step-by-step
-3. Refer to `EXAMPLES.md` for visualization ideas
+1. Start with SCHNELLANLEITUNG.md (German) or this summary file.
+2. Follow the Implementation Checklist (EN) / Implementierungs-Checkliste (DE) step-by-step.
+3. Refer to EXAMPLES.md for visualization ideas.
 4. Check troubleshooting sections for common issues
 
 ### For Advanced Usage:

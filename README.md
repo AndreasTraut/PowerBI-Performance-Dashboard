@@ -6,6 +6,16 @@ Das Dashboard konzentriert sich auf **Executive KPIs**, **operative Einblicke** 
 
 ---
 
+## 👨‍💻 Über den Autor
+
+**Andreas Traut** ist ein Senior BI-Entwickler, der sich auf Data Warehousing, SQL Server und Microsoft BI Stack spezialisiert hat. Dieses Projekt ist ein privates Beispiel dafür, wie KI-gesteuerte Entwicklung und Python reale Herausforderungen bei der Datenorganisation lösen können.
+
+🔗 [Vernetze dich auf LinkedIn](https://www.linkedin.com/in/andreas-traut-89340/)
+
+🔗 [Schaue dir weitere, interessante BI Umsetzungen an](https://github.com/AndreasTraut)
+
+---
+
 ## 📋 Inhaltsverzeichnis
 
 - [Projektübersicht & Status](#-projektübersicht--status)
@@ -262,7 +272,7 @@ Die Implementierung basiert auf dem **Disconnected Table Pattern** in Power BI. 
     -   **DAX Studio**: Ein kostenloses Werkzeug zur Ausführung und Analyse von DAX-Abfragen gegen Power BI-Modelle. Es ist unerlässlich für die Performance-Optimierung und das Debugging komplexer Berechnungen.
     -   **Tabular Editor**: Ein Editor für fortgeschrittene Datenmodellierung in Power BI. Er ermöglicht Operationen, die in der Power BI-Oberfläche nicht verfügbar sind, wie das Skripten von Änderungen, das Erstellen von Berechnungsgruppen und die Überprüfung des Modells anhand von Best-Practice-Regeln. Mit diesem Tool wurde auch die Modelldatei (`Model_Weiterentwicklung.bim`) für die Versionskontrolle extrahiert.
 
-Eine vollständige Schritt-für-Schritt-Anleitung, um diese Analyse selbst zu implementieren, finden Sie in der **Implementierungs-Checkliste**. Die technischen Details, der DAX-Code und die Erklärungen zu den Measures sind in der **WARENKORBANALYSE.md** und der **IMPLEMENTIERUNGS_ZUSAMMENFASSUNG.md** dokumentiert.
+Eine vollständige Schritt-für-Schritt-Anleitung, um diese Analyse selbst zu implementieren, finden Sie in der Implementierungs-Checkliste ( [DE](/dax/IMPLEMENTIERUNGS_CHECKLISTE.md) / [EN](/dax/IMPLEMENTATION_CHECKLIST.md) ). Die technischen Details, der DAX-Code und die Erklärungen zu den Measures sind in der [WARENKORBANALYSE.md](/dax/WARENKORBANALYSE.md) und den Zusammenfassungen ( [DE](/dax/IMPLEMENTIERUNGS_ZUSAMMENFASSUNG.md) / [EN](/dax/IMPLEMENTATION_SUMMARY.md) ) dokumentiert.
 
 ---
 

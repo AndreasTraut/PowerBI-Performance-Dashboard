@@ -9,7 +9,7 @@ Verwenden Sie diese Checkliste bei der Implementierung der Warenkorbanalyse in P
 - [ ] Power BI Desktop ist installiert und auf dem neuesten Stand
 - [ ] Die Projektdatei `Performance Dashboard.pbip` ist zugänglich
 - [ ] Ein Backup der ursprünglichen PBIX-Datei wurde erstellt
-- [ ] Sie haben die Dokumentation in `/dax/WARENKORBANALYSE.md` gelesen
+- [ ] Sie haben die Dokumentation in WARENKORBANALYSE.md gelesen
 
 ---
 
@@ -20,7 +20,7 @@ Verwenden Sie diese Checkliste bei der Implementierung der Warenkorbanalyse in P
 - [ ] Öffnen Sie das Projekt, indem Sie die Datei `Performance Dashboard.pbip` in Power BI Desktop öffnen.
 - [ ] Gehen Sie zur Registerkarte **Modellierung**
 - [ ] Klicken Sie auf **Neue Tabelle**
-- [ ] Kopieren Sie den DAX-Code aus `/dax/dim_product_comparison.dax`:
+- [ ] Kopieren Sie den DAX-Code aus dim_product_comparison.dax:
   ```dax
   dim_product_comparison = dim_product
   ```
@@ -273,9 +273,9 @@ Nach erfolgreicher Implementierung:
 
 ## 📚 Zusätzliche Ressourcen
 
-- Siehe `/dax/WARENKORBANALYSE.md` für eine detaillierte technische Dokumentation
-- Siehe `/dax/EXAMPLES.md` für Visualisierungsbeispiele
-- Siehe `/dax/SCHNELLANLEITUNG.md` für eine deutsche Kurzanleitung
+- Siehe WARENKORBANALYSE.md (DE) oder IMPLEMENTATION_SUMMARY.md (EN) für eine detaillierte technische Dokumentation.
+- Siehe EXAMPLES.md für Visualisierungsbeispiele.
+- Siehe SCHNELLANLEITUNG.md für eine deutsche Kurzanleitung.
 - Siehe Power BI-Dokumentation für DAX-Hilfe
 
 ---

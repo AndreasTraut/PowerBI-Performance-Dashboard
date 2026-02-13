@@ -9,7 +9,7 @@ Use this checklist when implementing the Market Basket Analysis in Power BI Desk
 - [ ] Power BI Desktop is installed and up to date
 - [ ] The `Performance Dashboard.pbip` project file is accessible
 - [ ] Backup of the original PBIX file is created
-- [ ] You have reviewed the documentation in `/dax/README.md`
+- [ ] You have reviewed the DAX documentation (WARENKORBANALYSE.md (DE) / IMPLEMENTATION_SUMMARY.md (EN))
 
 ---
 
@@ -20,7 +20,7 @@ Use this checklist when implementing the Market Basket Analysis in Power BI Desk
 - [ ] Open the project by opening the `Performance Dashboard.pbip` file in Power BI Desktop.
 - [ ] Go to **Modeling** tab
 - [ ] Click **New Table**
-- [ ] Copy the DAX code from `/dax/dim_product_comparison.dax`:
+- [ ] Copy the DAX code from dim_product_comparison.dax:
   ```dax
   dim_product_comparison = dim_product
   ```
@@ -273,9 +273,7 @@ After successful implementation:
 
 ## 📚 Additional Resources
 
-- See `/dax/README.md` for detailed technical documentation
-- See `/dax/EXAMPLES.md` for visualization examples
-- See `/dax/SCHNELLANLEITUNG.md` for German quick guide
+- See WARENKORBANALYSE.md (DE) or IMPLEMENTATION_SUMMARY.md (EN) for detailed technical documentation.
 - See Power BI documentation for DAX help
 
 ---

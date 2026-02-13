@@ -1,8 +1,8 @@
 # Warenkorbanalyse - Implementierungsbeispiele
 
-> ➡️ **Details siehe:** Technische Dokumentation  
-> 📖 **Implementierung:** `dax/Orders_containing_both.dax`  
-> 🧠 **Dokumentation:** Implementierungs-Checkliste
+> ➡️ **Details siehe:** [WARENKORBANALYSE.md](/dax/WARENKORBANALYSE.md) / Zusammenassung ( [DE](/dax/IMPLEMENTIERUNGS_ZUSAMMENFASSUNG.md) / [EN](dax/IMPLEMENTATION_SUMMARY.md) )  
+> 📖 **Implementierung:** [Orders_containing_both.dax](/dax/Orders_containing_both.dax)  
+> 🧠 **Dokumentation:** Implementierungs-Checkliste ( [DE](/dax/IMPLEMENTIERUNGS_CHECKLISTE.md) / [EN](/dax/IMPLEMENTATION_CHECKLIST.md) )
 
 ## 🚀 Visueller Einrichtungsleitfaden
 

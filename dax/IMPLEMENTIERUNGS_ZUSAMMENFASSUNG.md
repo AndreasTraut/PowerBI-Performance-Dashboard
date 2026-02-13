@@ -131,7 +131,7 @@ Enthält 10 ergänzende Measures für eine erweiterte Analyse:
 
 ### Detaillierte Implementierung
 
-Siehe `IMPLEMENTIERUNGS_CHECKLISTE.md` für eine vollständige Schritt-für-Schritt-Anleitung mit:
+Siehe die Implementierungs-Checkliste ( [DE](/dax/IMPLEMENTIERUNGS_CHECKLISTE.md) / [EN](/dax/IMPLEMENTATION_CHECKLIST.md) ) für eine vollständige Schritt-für-Schritt-Anleitung mit:
 - Überprüfungen vor der Implementierung
 - Detaillierten Anweisungen
 - Testverfahren
@@ -212,7 +212,7 @@ Siehe `IMPLEMENTIERUNGS_CHECKLISTE.md` für eine vollständige Schritt-für-Schr
 
 ## Testen
 
-Alle Implementierungen sollten mit der Checkliste in `IMPLEMENTIERUNGS_CHECKLISTE.md` getestet werden:
+Alle Implementierungen sollten mit den Checklisten getestet werden (DE / EN):
 
 - ✅ Datengenauigkeit (bekannte Produktpaare)
 - ✅ Performance (Matrix lädt schnell)
@@ -222,9 +222,9 @@ Alle Implementierungen sollten mit der Checkliste in `IMPLEMENTIERUNGS_CHECKLIST
 ## Support & Dokumentation
 
 ### Für Hilfe bei der Implementierung:
-1. Beginnen Sie mit `SCHNELLANLEITUNG.md` (Deutsch) oder `WARENKORBANALYSE.md` (vollständige Doku)
-2. Folgen Sie `IMPLEMENTIERUNGS_CHECKLISTE.md` Schritt für Schritt
-3. Beziehen Sie sich auf `EXAMPLES.md` für Visualisierungsideen
+1. Beginnen Sie mit der SCHNELLANLEITUNG.md (Deutsch) oder dieser Zusammenfassung.
+2. Folgen Sie der Implementierungs-Checkliste ( [DE](/dax/IMPLEMENTIERUNGS_CHECKLISTE.md) / [EN](/dax/IMPLEMENTATION_CHECKLIST.md) ) Schritt für Schritt.
+3. Beziehen Sie sich auf EXAMPLES.md für Visualisierungsideen.
 4. Überprüfen Sie die Abschnitte zur Fehlerbehebung bei häufigen Problemen
 
 ### Für fortgeschrittene Nutzung:

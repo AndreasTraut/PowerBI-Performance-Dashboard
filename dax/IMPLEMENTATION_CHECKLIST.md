@@ -20,7 +20,7 @@ Use this checklist when implementing the Market Basket Analysis in Power BI Desk
 - [ ] Open the project by opening the `Performance Dashboard.pbip` file in Power BI Desktop.
 - [ ] Go to **Modeling** tab
 - [ ] Click **New Table**
-- [ ] Copy the DAX code from dim_product_comparison.dax:
+- [ ] Copy the DAX code from `dim_product_comparison.dax`:
   ```dax
   dim_product_comparison = dim_product
   ```

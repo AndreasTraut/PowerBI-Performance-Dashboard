@@ -20,7 +20,7 @@ Verwenden Sie diese Checkliste bei der Implementierung der Warenkorbanalyse in P
 - [ ] Öffnen Sie das Projekt, indem Sie die Datei `Performance Dashboard.pbip` in Power BI Desktop öffnen.
 - [ ] Gehen Sie zur Registerkarte **Modellierung**
 - [ ] Klicken Sie auf **Neue Tabelle**
-- [ ] Kopieren Sie den DAX-Code aus dim_product_comparison.dax:
+- [ ] Kopieren Sie den DAX-Code aus `dim_product_comparison.dax`:
   ```dax
   dim_product_comparison = dim_product
   ```

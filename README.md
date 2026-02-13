@@ -4,6 +4,18 @@ Ein interaktives **End-to-End Business Performance Dashboard** in **Power BI**, 
 
 Das Dashboard konzentriert sich auf **Executive KPIs**, **operative Einblicke** und **Treiberanalysen** mit einer app-ähnlichen Benutzererfahrung (Fokusmodus, Navigation und Datenschnitt-Umschaltung).
 
+### 🔄 Repository-Evolution & Tutorial
+
+Das ursprüngliche Repository ([archiviert in /legacy](legacy/)) enthielt ausschließlich die Power BI Dashboard-Datei ohne jegliche Entwickler-Ressourcen oder technische Dokumentation. Dieses verbesserte Repository erweitert das Projekt um professionelle Entwicklungstools, vollständige Dokumentation und extrahierte Daten für maximale Wiederverwendbarkeit und Zusammenarbeit.
+
+**Neu hinzugefügt: Warenkorbanalyse & Cross-Selling**
+
+Das Repository wurde um eine vollständige **Warenkorbanalyse (Market Basket Analysis)** erweitert, die Cross-Selling-Potenziale identifiziert. Nutzer können interaktiv analysieren, welche Produkte häufig zusammen gekauft werden – ein wertvolles Werkzeug für Bundle-Strategien und Produktempfehlungen.
+
+**📖 Schritt-für-Schritt-Tutorial**
+
+Zusätzlich enthält dieses Repository eine **umfassende Anleitung**, wie man ausgehend vom ursprünglichen Legacy-Projekt die Cross-Selling-Analyse selbst implementieren kann. Es dient damit nicht nur als fertiges Dashboard, sondern auch als **Lern-Tutorial für Power BI-Entwickler**, die fortgeschrittene DAX-Patterns wie das "Disconnected Table Pattern" erlernen möchten.
+
 ---
 
 ## 👨‍💻 Über den Autor
@@ -24,21 +36,13 @@ Das Dashboard konzentriert sich auf **Executive KPIs**, **operative Einblicke** 
 - [Hauptfunktionen](#-hauptfunktionen)
 - [Dashboard-Seiten](#-dashboard-seiten-übersicht)
 - [Daten & Modell](#-daten--modell)
-- [Dokumentation](#-dokumentation)
 - [Tools & Technologien](#-tools--technologien)
-- [Design-Hinweise](#-design-hinweise)
 
 ---
 
 ## 🚀 Projektübersicht & Status
 
-### 📦 Repository-Evolution
-
-**Dieses Repository ist eine umfassende Weiterentwicklung und Verbesserung eines früheren Repositories.**
-
-Das ursprüngliche Repository ([archiviert in /legacy](legacy/)) enthielt ausschließlich die Power BI Dashboard-Datei ohne jegliche Entwickler-Ressourcen oder technische Dokumentation. Dieses verbesserte Repository erweitert das Projekt um professionelle Entwicklungstools, vollständige Dokumentation und extrahierte Daten für maximale Wiederverwendbarkeit und Zusammenarbeit.
-
-### ✅ Was wurde verbessert und hinzugefügt
+### 📦 Repository-Evolution: Was wurde verbessert und hinzugefügt
 
 #### 📌 Vorheriges Repository (v1.0 - siehe [/legacy](legacy/))
 
@@ -97,36 +101,7 @@ PowerBI-Performance-Dashboard/        # ✨ Verbessertes Repository
 └── LICENSE                          # ✓ Beibehalten
 ```
 
-### 🔄 Verbesserungen im Detail
-
-#### 1️⃣ Datenextraktion & Zugriff ([/data](data/))
-
-**Problem im vorherigen Repository**: Die Daten waren ausschließlich in der PBIX-Datei eingebettet und konnten nicht außerhalb von Power BI verwendet werden.
-
-**Lösung**: Das aktuelle Repository stellt **7 CSV-Dateien im standardisierten Format** bereit, die insgesamt etwa 22 MB an Daten enthalten. Diese Dateien sind sofort einsatzbereit für verschiedene Analysen, Tests und Machine-Learning-Modelle. Das vollständige Datenschema ist detailliert in der [/data/DATA.md](data/DATA.md) dokumentiert. Darüber hinaus werden drei verschiedene Extraktionsmethoden beschrieben (DAX Studio, Tabular Editor und Power BI Desktop), sodass Nutzer die für sie passende Methode wählen können. Ein zusätzliches Python-Skript ermöglicht die automatische Regenerierung von Beispieldaten für Testzwecke.
-
-#### 2️⃣ Umfassende technische Dokumentation ([/doc](doc/))
-
-**Problem im vorherigen Repository**: Es existierte keine Modelldokumentation, sodass Entwickler das PBIX-Modell selbst analysieren mussten, um die Struktur zu verstehen.
-
-**Lösung**: Das Repository bietet nun eine **umfassende Modell-Dokumentation** mit 482 Zeilen detaillierter Beschreibungen. Die Sternschema-Architektur ist vollständig dokumentiert, einschließlich aller 6 Faktentabellen (Sales, Orders, Returns, Visits, Return Amount, Financial Insights) und 6 Dimensionstabellen (Customer, Product, Date, Region, Channel, Return Reason). Alle Beziehungen zwischen den Tabellen, deren Kardinalitäten sowie DAX-Measures und Time-Intelligence-Berechnungen werden ausführlich erklärt. Visuelle Mermaid-Diagramme erleichtern das Verständnis der Modellstruktur, und Performance-Optimierungen sind ebenfalls dokumentiert.
-
-Zusätzlich enthält die **[Extraktionsanleitung](doc/DATA_EXTRACTION_SUMMARY.md)** detaillierte Schritt-für-Schritt-Anleitungen für alle verfügbaren Tools sowie Erklärungen zu technischen Herausforderungen wie der XPress9-Kompression. Die **[Sicherheitsdokumentation](doc/SECURITY_SUMMARY.md)** bestätigt, dass alle Skripte einer vollständigen Code-Sicherheitsanalyse mit 6 verschiedenen Sicherheitsprüfungen unterzogen wurden. Es wurden keine Schwachstellen gefunden, und die Compliance mit Best Practices ist bestätigt.
-
-#### 3️⃣ Entwickler-Tools & Automatisierung ([/tools](tools/))
-
-**Problem im vorherigen Repository**: Es waren keinerlei Werkzeuge oder Skripte für Entwickler verfügbar.
-
-**Lösung**: Das Repository enthält nun **4 spezialisierte Python-Skripte** für unterschiedliche Anwendungsfälle. Diese ermöglichen die automatische Generierung von realistischen Beispieldaten mit authentischen Business-Szenarien, die für Tests und Entwicklung genutzt werden können. PBIX-Analyse-Tools erleichtern die Extraktion von Metadaten aus Power BI-Dateien. Darüber hinaus sind mehrere Extraktionsansätze dokumentiert, sowohl Python-basiert als auch .NET-basiert, sodass Entwickler je nach technischer Umgebung die passende Methode wählen können.
-
-#### 4️⃣ Entwicklungsumgebung & DevOps ([/.devcontainer](.devcontainer/))
-
-**Problem im vorherigen Repository**: Es gab keine standardisierte Entwicklungsumgebung, was das Onboarding neuer Entwickler erschwerte.
-
-**Lösung**: Eine vollständige **DevContainer-Konfiguration für Visual Studio Code** ist nun verfügbar. Diese enthält Python 3.11 mit allen notwendigen Abhängigkeiten vorinstalliert. Beim Start des Containers werden automatisch alle benötigten VS Code Extensions installiert, darunter Python, Pylance und Jupyter für die Entwicklung, Markdown-Tools für die Dokumentation, Git-Tools (Git Graph, GitLens) für die Versionskontrolle sowie Rainbow CSV für die komfortable Arbeit mit CSV-Dateien. Die gesamte Umgebung ist nach dem Container-Start sofort einsatzbereit, ohne dass manuelle Konfigurationsschritte erforderlich sind.
-
-
-### 📊 Vorher/Nachher-Vergleich
+###  Vorher/Nachher-Vergleich
 
 | Kategorie | Vorheriges Repository (v1.0) | Aktuelles Repository (v2.0) | Verbesserung |
 |-----------|------------------------------|------------------------------|--------------|
@@ -142,28 +117,13 @@ Zusätzlich enthält die **[Extraktionsanleitung](doc/DATA_EXTRACTION_SUMMARY.md
 
 ### 🎯 Zielgruppen-Nutzen
 
-**Für Entwickler:**
+| Zielgruppe | Nutzen |
+|------------|--------|
+| **Entwickler** | Direkter Zugriff auf CSV-Daten, DevContainer für sofortigen Start, wiederverwendbare Python-Skripte |
+| **BI-Analysten** | Vollständige Modell-Dokumentation ohne PBIX öffnen, dokumentierte DAX-Measures, Extraktionsanleitungen |
+| **Data Scientists** | Strukturierte Daten für ML-Modelle, realistische Beispieldaten, Schema-Dokumentation für Feature-Engineering |
+| **Projektmanager** | Sicherheitsaudit für Compliance, klare Projektstruktur, reduzierter Schulungsaufwand |
 
-Dieses Repository bietet Entwicklern direkten Zugriff auf strukturierte CSV-Daten, die für Python- und R-Analysen verwendet werden können. Die vorbereitete DevContainer-Umgebung ermöglicht einen sofortigen Start ohne manuelle Konfiguration. Alle bereitgestellten Skripte können als Vorlagen für eigene Projekte wiederverwendet werden.
-
-**Für Analysten:**
-
-Business-Analysten erhalten eine vollständige Übersicht der Modellstruktur, ohne die PBIX-Datei öffnen zu müssen. Die detaillierten Datenextraktionsanleitungen können direkt auf eigene Power BI-Projekte angewendet werden. Alle DAX-Measures sind dokumentiert und nachvollziehbar erklärt.
-
-**Für Data Scientists:**
-
-Data Scientists finden strukturierte CSV-Daten vor, die sofort für Machine-Learning-Modelle genutzt werden können. Die realistischen Beispieldaten eignen sich hervorragend zum Testen von Algorithmen und Modellen. Die umfassende Schema-Dokumentation erleichtert das Feature-Engineering und die Datenaufbereitung.
-
-**Für Projektmanager:**
-
-Projektmanager profitieren von einem vollständigen Sicherheitsaudit, das Compliance-Anforderungen erfüllt. Die technische Dokumentation ist umfassend und erleichtert die Projektplanung und das Stakeholder-Management. Die klare Projektstruktur ermöglicht eine effiziente Ressourcenplanung und Teamkoordination.
-
-### 📂 Legacy-Archiv
-
-Das **vorherige Repository** ist vollständig im [/legacy](legacy/) Verzeichnis archiviert und dient als Referenz für:
-- Vergleich der Projekt-Evolution
-- Historische Nachvollziehbarkeit
-- Backup der ursprünglichen Struktur
 
 ---
 
@@ -282,7 +242,7 @@ Eine vollständige Schritt-für-Schritt-Anleitung, um diese Analyse selbst zu im
 
 Das [/data](data/) Verzeichnis stellt alle Daten des Dashboards in leicht zugänglichen CSV-Dateien bereit. Diese sind in zwei Kategorien organisiert: **Dimensionstabellen** enthalten Stammdaten wie Kundeninformationen, Datumsangaben, geografische Zuordnungen und Produktdetails. **Faktentabellen** speichern die eigentlichen Geschäftstransaktionen wie Verkäufe, Bestellungen und Rücksendungen.
 
-Eine ausführliche Anleitung zur Datenextraktion finden Sie in [/data/README.md](data/README.md). Dort wird das komplette Datenschema erklärt, verschiedene Methoden zur Extraktion echter Daten aus der PBIX-Datei beschrieben und Schritt-für-Schritt-Anleitungen für die Verwendung von DAX Studio, Tabular Editor oder Power BI Desktop bereitgestellt.
+Eine ausführliche Anleitung zur Datenextraktion finden Sie in [/data/DATA.md](data/DATA.md). Dort wird das komplette Datenschema erklärt, verschiedene Methoden zur Extraktion echter Daten aus der PBIX-Datei beschrieben und Schritt-für-Schritt-Anleitungen für die Verwendung von DAX Studio, Tabular Editor oder Power BI Desktop bereitgestellt.
 
 ### Datenmodell
 
@@ -290,45 +250,16 @@ Das semantische Datenmodell (`Model.bim`) basiert auf einer bewährten **Sternsc
 
 Die vollständige technische Dokumentation des Modells finden Sie in der [Modell-Dokumentation](doc/MODEL_DOCUMENTATION.md). Diese beschreibt die komplette Modellstruktur mit allen Fakten- und Dimensionstabellen, erklärt sämtliche DAX-Measures und deren Berechnungslogik im Detail und dokumentiert alle implementierten Performance-Optimierungen für schnelle Dashboard-Reaktionszeiten.
 
----
-
 ### DAX Code-Bibliothek
 
-Das [/dax](dax/) Verzeichnis enthält wiederverwendbaren DAX-Code für erweiterte Analysen:
+Das [/dax](dax/) Verzeichnis enthält wiederverwendbaren DAX-Code für die **Warenkorbanalyse** (Market Basket Analysis). Details zur Implementierung, DAX-Code und Schritt-für-Schritt-Anleitung finden Sie in der [WARENKORBANALYSE.md](/dax/WARENKORBANALYSE.md).
 
-- **Warenkorbanalyse**: Analyse, welche Produkte häufig zusammen gekauft werden
-- **Berechnete Tabellen**: Unverbundene Tabellen für vergleichende Analysen
-- **Erweiterte Measures**: Co-Occurrence-Analyse und Produktaffinität
+### Enthaltene Skripte
 
-📖 **Siehe /dax/WARENKORBANALYSE.md** für:
-- Implementierung der Warenkorbanalyse
-- DAX-Code für berechnete Tabellen und Measures
-- Schritt-für-Schritt-Implementierungsanleitung
-- Verwendungsbeispiele und Best Practices
+- [generate_sample_data.py](tools/generate_sample_data.py) - Generierung von Beispieldaten zum Testen
+- [extract_pbix_actual.py](tools/extract_pbix_actual.py) - Analysieren und Extrahieren aus PBIX
+- [extract_pbix_data.py](tools/extract_pbix_data.py) - Datenextraktions-Dienstprogramme
 
-## 📚 Dokumentation
-
-Umfassende technische Dokumentation ist im [/doc](doc/) Verzeichnis verfügbar:
-
-### Kerndokumentation
-
-- **[Modell-Dokumentation](doc/model-documentation.md)**  
-  Vollständige Datenmodell-Architektur, Sternschema, Fakten-/Dimensionstabellen, Beziehungen und DAX-Measures
-
-- **[Datenextraktions-Leitfaden](doc/DATA_EXTRACTION_SUMMARY.md)**  
-  Wie Daten aus PBIX extrahiert wurden, verfügbare Tools und Schritt-für-Schritt-Anleitungen
-
-- **[Sicherheitszusammenfassung](doc/SECURITY_SUMMARY.md)**  
-  Sicherheitsüberprüfung aller Skripte, Code-Sicherheitsanalyse und Best Practices
-
-### Hauptthemen
-
-| Thema | Dokumentation |
-|-------|--------------|
-| 🗂️ Modellstruktur | [model-documentation.md](doc/model-documentation.md) |
-| 📊 Datenextraktion | [DATA_EXTRACTION_SUMMARY.md](doc/DATA_EXTRACTION_SUMMARY.md) |
-| 🔒 Sicherheit | [SECURITY_SUMMARY.md](doc/SECURITY_SUMMARY.md) |
-| 💾 Datendateien | [/data/DATA.md](data/DATA.md) |
 
 ---
 
@@ -340,22 +271,4 @@ Umfassende technische Dokumentation ist im [/doc](doc/) Verzeichnis verfügbar:
 - **Datenmodellierung** - Sternschema, Beziehungen
 - **Python** - Datenextraktion und Beispieldaten-Generierung
 
-### Enthaltene Skripte
 
-- [generate_sample_data.py](tools/generate_sample_data.py) - Generierung von Beispieldaten zum Testen
-- [extract_pbix_actual.py](tools/extract_pbix_actual.py) - Analysieren und Extrahieren aus PBIX
-- [extract_pbix_data.py](tools/extract_pbix_data.py) - Datenextraktions-Dienstprogramme
-
----
-
-## 📌 Design-Hinweise
-
-- **Daten**: Beispieldaten für Demonstrationszwecke bereitgestellt
-- **Fokus**: Klarheit, Performance und Benutzerfreundlichkeit
-- **Design-Inspiration**: Benutzeroberflächen-Layout und visuelle Gestaltung inspiriert durch die Arbeit von Nicholas Lea-Trengrouse, öffentlich geteilt auf LinkedIn
-
----
-
-## 📄 Lizenz
-
-Siehe [LICENSE](LICENSE) für Details.

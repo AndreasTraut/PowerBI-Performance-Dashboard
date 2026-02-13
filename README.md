@@ -16,6 +16,19 @@ Das Repository wurde um eine vollständige **Warenkorbanalyse (Market Basket Ana
 
 Zusätzlich enthält dieses Repository eine **umfassende Anleitung**, wie man ausgehend vom ursprünglichen Legacy-Projekt die Cross-Selling-Analyse selbst implementieren kann. Es dient damit nicht nur als fertiges Dashboard, sondern auch als **Lern-Tutorial für Power BI-Entwickler**, die fortgeschrittene DAX-Patterns wie das "Disconnected Table Pattern" erlernen möchten.
 
+### 🤖 KI-gestützte Entwicklung
+
+Dieses Projekt wurde mit Unterstützung verschiedener KI-Tools entwickelt, wobei sich unterschiedliche Stärken herauskristallisierten:
+
+| KI-Tool | Stärke | Einsatzbereich in diesem Projekt |
+|---------|--------|----------------------------------|
+| **GitHub Copilot (Claude Opus 4.5)** | Technische Dokumentation & Code | Erstellung der umfassenden README-Struktur, DAX-Code-Dokumentation, DevContainer-Konfiguration |
+| **Google Gemini** | Recherche & Ideenfindung | Konzepte für Datenextraktion mit Python, Warenkorbanalyse-Ansätze, Vorschläge für Weiterentwicklungen |
+
+**💡 Weiterentwicklungsideen (via Google Gemini):**
+- **Dynamische Pareto-Analyse**: Identifikation der Top 20% Produkte/Kunden, die 80% des Umsatzes generieren
+- **Kohortenanalyse (Customer Retention)**: Visualisierung der Kundenbindung über Zeit nach Akquisitionsmonat
+
 ---
 
 ## 👨‍💻 Über den Autor

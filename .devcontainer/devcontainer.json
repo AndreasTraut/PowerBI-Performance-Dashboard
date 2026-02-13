@@ -12,27 +12,33 @@
 			"extensions": [
 				"ms-python.python",
 				"ms-python.vscode-pylance",
+				"ms-python.black-formatter",
+				"ms-python.pylint",
 				"ms-toolsai.jupyter",
 				"yzhang.markdown-all-in-one",
 				"DavidAnson.vscode-markdownlint",
 				"mhutchie.git-graph",
 				"eamodio.gitlens",
-				"mechatroner.rainbow-csv"
+				"mechatroner.rainbow-csv",
+				"daxformatter.dax-formatter",
+				"ms-vscode.powershell"
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
-				"python.linting.enabled": true,
-				"python.linting.pylintEnabled": true,
-				"python.formatting.provider": "black",
 				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "ms-python.black-formatter",
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.black-formatter"
+				},
 				"files.associations": {
-					"*.csv": "csv"
+					"*.csv": "csv",
+					"*.dax": "dax"
 				}
 			}
 		}
 	},
 
-	"postCreateCommand": "pip install --upgrade pip && pip install pandas numpy zipfile36",
+	"postCreateCommand": "pip install --upgrade pip && pip install -r tools/requirements.txt",
 
 	"forwardPorts": [],
 

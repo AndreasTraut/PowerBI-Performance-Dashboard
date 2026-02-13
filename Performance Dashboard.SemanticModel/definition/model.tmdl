@@ -27,6 +27,7 @@ ref table Parameter
 ref table 'Parameter (Overview)'
 ref table fact_financial_insights
 ref table KPI_Summary_Table
+ref table dim_product_comparison
 
 ref cultureInfo en-US
 

@@ -7,7 +7,7 @@ Use this checklist when implementing the Market Basket Analysis in Power BI Desk
 ## ✅ Pre-Implementation Checklist
 
 - [ ] Power BI Desktop is installed and up to date
-- [ ] `Performance Dashboard.pbix` file is accessible
+- [ ] The `Performance Dashboard.pbip` project file is accessible
 - [ ] Backup of the original PBIX file is created
 - [ ] You have reviewed the documentation in `/dax/README.md`
 
@@ -17,7 +17,7 @@ Use this checklist when implementing the Market Basket Analysis in Power BI Desk
 
 ### Step 1: Create Disconnected Table
 
-- [ ] Open `Performance Dashboard.pbix` in Power BI Desktop
+- [ ] Open the project by opening the `Performance Dashboard.pbip` file in Power BI Desktop.
 - [ ] Go to **Modeling** tab
 - [ ] Click **New Table**
 - [ ] Copy the DAX code from `/dax/dim_product_comparison.dax`:
@@ -240,9 +240,9 @@ Test these real-world scenarios:
 If you encounter issues, check:
 
 - [ ] `dim_product_comparison` has no relationships (most common issue)
-- [ ] Column names match exactly (`ProductKey`, `ProductName`, `OrderID`)
-- [ ] `fact_orders` table exists and has required columns
-- [ ] Relationships between `dim_product` and `fact_orders` are active
+- [ ] Column names match exactly (`ProductID`, `ProductName`, `OrderID`)
+- [ ] `fact_sales` table exists and has required columns
+- [ ] Relationships between `dim_product` and `fact_sales` are active
 - [ ] DAX syntax is correct (no typos)
 - [ ] Power BI Desktop version supports DAX functions used
 

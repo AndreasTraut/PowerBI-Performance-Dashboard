@@ -1,0 +1,114 @@
+table dim_product_comparison
+	lineageTag: 019012c0-b15a-457b-ac14-b89824eb4cf2
+
+	column ProductID
+		lineageTag: 8b20b67d-f2c4-493a-9fc9-41fbd65090e1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_product[ProductID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SKU
+		lineageTag: 02facbff-5a49-408c-bb8e-5065dd94a93c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_product[SKU]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		lineageTag: c4bf9350-2605-410a-ab8e-656a09211f5f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_product[ProductName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		lineageTag: bda5c55a-c64b-43ff-9189-2e0742fd4cf8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_product[Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubCategory
+		lineageTag: 9ffbe984-c2d4-439b-9a0a-797c538fc960
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_product[SubCategory]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		lineageTag: 95bce39b-f1d2-41d6-8f50-12f64b396154
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_product[Brand]
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitCost
+		lineageTag: 362e0eeb-df19-491c-b0c6-192ad87bf183
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: dim_product[UnitCost]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitPrice
+		lineageTag: 389aa7f1-e49c-4301-80c9-9b545cceebd0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: dim_product[UnitPrice]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ProfitMargin
+		lineageTag: 68c44bdc-6427-41bd-b091-f137aee26af7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: dim_product[ProfitMargin]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LaunchDate
+		formatString: General Date
+		lineageTag: 7259dde6-2330-41d3-86d0-69ae625bda6f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_product[LaunchDate]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Discontinued
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e6d345ea-7107-4924-a3d4-eab3a4fca2e5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_product[Discontinued]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column
+		formatString: 0
+		lineageTag: d03b362f-ccbf-407a-b6f7-bd161b358209
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: dim_product[Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product_comparison = calculated
+		mode: import
+		source = dim_product
+
+	annotation PBI_Id = 7805eb63c0c14c43b2c9379700b2d19e
+

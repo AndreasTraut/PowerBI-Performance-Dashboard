@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "6171e8eeb4a0e393020a",
+  "position": {
+    "x": 959.32558139534888,
+    "y": 424.34883720930236,
+    "z": 26000,
+    "height": 209.69767441860466,
+    "width": 1248.279069767442,
+    "tabOrder": 26000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI_Summary_Table"
+                    }
+                  },
+                  "Property": "Orders with Product 1"
+                }
+              },
+              "queryRef": "KPI_Summary_Table.Orders with Product 1",
+              "nativeQueryRef": "Orders with Product 1"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI_Summary_Table"
+                    }
+                  },
+                  "Property": "Orders with Product 2"
+                }
+              },
+              "queryRef": "KPI_Summary_Table.Orders with Product 2",
+              "nativeQueryRef": "Orders with Product 2"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI_Summary_Table"
+                    }
+                  },
+                  "Property": "Reverse Co-occurrence Rate %"
+                }
+              },
+              "queryRef": "KPI_Summary_Table.Reverse Co-occurrence Rate %",
+              "nativeQueryRef": "Reverse Co-occurrence Rate %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI_Summary_Table"
+                    }
+                  },
+                  "Property": "Support %"
+                }
+              },
+              "queryRef": "KPI_Summary_Table.Support %",
+              "nativeQueryRef": "Support %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "KPI_Summary_Table"
+                  }
+                },
+                "Property": "Orders with Product 1"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

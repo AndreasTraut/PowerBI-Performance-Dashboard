@@ -201,6 +201,18 @@
             "width": 234
           },
           "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 2273.7313097651163,
+            "y": 607.70833333333326
+          },
+          "nodeIndex": "dim_product_comparison",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -209,8 +221,36 @@
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
       "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 464,
+            "y": 232
+          },
+          "nodeIndex": "dim_product_comparison",
+          "nodeLineageTag": "019012c0-b15a-457b-ac14-b89824eb4cf2",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Cross Selling",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
     }
   ],
-  "selectedDiagram": "All tables",
+  "selectedDiagram": "Cross Selling",
   "defaultDiagram": "All tables"
 }

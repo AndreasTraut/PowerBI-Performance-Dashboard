@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "560597eb4ff6bb8a8705",
+  "position": {
+    "x": 948.0638584905895,
+    "y": 668.39339798272135,
+    "z": 9000,
+    "height": 60.121951219512191,
+    "width": 440.30487804878049,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Produkt-Affinitäts-Matrix ",
+                    "textStyle": {
+                      "fontSize": "20pt"
+                    }
+                  },
+                  {
+                    "value": "| Click to Filter",
+                    "textStyle": {
+                      "fontSize": "12pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

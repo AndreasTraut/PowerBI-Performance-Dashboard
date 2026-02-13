@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "bc8d0d61d996b18a560d",
+  "position": {
+    "x": 962.62790697674427,
+    "y": 201.44186046511629,
+    "z": 25000,
+    "height": 209.69767441860466,
+    "width": 1244.9767441860465,
+    "tabOrder": 25000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI_Summary_Table"
+                    }
+                  },
+                  "Property": "Orders containing both"
+                }
+              },
+              "queryRef": "KPI_Summary_Table.Orders containing both",
+              "nativeQueryRef": "Orders containing both"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI_Summary_Table"
+                    }
+                  },
+                  "Property": "Co-occurrence Rate %"
+                }
+              },
+              "queryRef": "KPI_Summary_Table.Co-occurrence Rate %",
+              "nativeQueryRef": "Co-occurrence Rate %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI_Summary_Table"
+                    }
+                  },
+                  "Property": "Lift"
+                }
+              },
+              "queryRef": "KPI_Summary_Table.Lift",
+              "nativeQueryRef": "Lift"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI_Summary_Table"
+                    }
+                  },
+                  "Property": "Confidence %"
+                }
+              },
+              "queryRef": "KPI_Summary_Table.Confidence %",
+              "nativeQueryRef": "Confidence %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "KPI_Summary_Table"
+                  }
+                },
+                "Property": "Orders containing both"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

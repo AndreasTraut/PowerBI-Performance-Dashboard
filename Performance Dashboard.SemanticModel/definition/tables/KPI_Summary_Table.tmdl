@@ -1,6 +1,170 @@
 table KPI_Summary_Table
 	lineageTag: 1c6ec32a-7b85-446c-af04-71873eff9fb3
 
+	measure 'Orders containing both' = ```
+			
+			VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductID])
+			VAR OrdersWithComparisonProduct = 
+			    CALCULATETABLE(
+			        VALUES(fact_sales[OrderID]),
+			        ALL(dim_product),
+			        fact_sales[ProductID] = SelectedComparisonProduct
+			    )
+			RETURN
+			    IF(
+			        NOT ISBLANK(SelectedComparisonProduct),
+			        CALCULATE(
+			            DISTINCTCOUNT(fact_sales[OrderID]),
+			            fact_sales[OrderID] IN OrdersWithComparisonProduct
+			        ),
+			        BLANK()
+			    )
+			
+			
+			```
+		formatString: 0
+		lineageTag: 7e3479ba-fdee-43f3-b616-84fb8178f839
+
+	measure 'Orders with Product 1' = DISTINCTCOUNT(fact_sales[OrderID])
+		formatString: 0
+		lineageTag: 5d3ddc37-f8cf-4141-8bda-92a2fa039505
+
+	measure 'Orders with Product 2' = ```
+			
+			VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductID])
+			RETURN
+			    IF(
+			        NOT ISBLANK(SelectedComparisonProduct),
+			        CALCULATE(
+			            DISTINCTCOUNT(fact_sales[OrderID]),
+			            ALL(dim_product),
+			            fact_sales[ProductID] = SelectedComparisonProduct
+			        ),
+			        BLANK()
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: ebb5929b-3bd7-42c3-8ef9-28a34577501a
+
+	measure 'Co-occurrence Rate %' =
+			
+			VAR OrdersBoth = [Orders containing both]
+			VAR OrdersProduct1 = [Orders with Product 1]
+			RETURN
+			    IF(
+			        NOT ISBLANK(OrdersBoth) && OrdersProduct1 > 0,
+			        DIVIDE(OrdersBoth, OrdersProduct1, 0) * 100,
+			        BLANK()
+			    )
+		lineageTag: 89df709a-3ca3-457a-a641-8cf8f54022f9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Support %' = ```
+			
+			VAR OrdersBoth = [Orders containing both]
+			VAR TotalOrders = CALCULATE(
+			    DISTINCTCOUNT(fact_sales[OrderID]), 
+			    ALL(dim_product), 
+			    ALL(dim_product_comparison)
+			)
+			RETURN
+			    IF(
+			        NOT ISBLANK(OrdersBoth) && TotalOrders > 0,
+			        DIVIDE(OrdersBoth, TotalOrders, 0) * 100,
+			        BLANK()
+			    )
+			```
+		lineageTag: fe1141f5-0e75-4ff3-8301-7498016cf40c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Confidence %' = [Co-occurrence Rate %]
+		lineageTag: 710008ec-e0eb-4fea-9ebb-56c922714cac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Lift = ```
+			
+			VAR OrdersBoth = [Orders containing both]
+			VAR OrdersProduct1 = [Orders with Product 1]
+			VAR OrdersProduct2 = [Orders with Product 2]
+			VAR TotalOrders = CALCULATE(
+			    DISTINCTCOUNT(fact_sales[OrderID]), 
+			    ALL(dim_product), 
+			    ALL(dim_product_comparison)
+			)
+			VAR ExpectedCoOccurrence = DIVIDE(OrdersProduct1 * OrdersProduct2, TotalOrders, 0)
+			RETURN
+			    IF(
+			        NOT ISBLANK(OrdersBoth) && ExpectedCoOccurrence > 0,
+			        DIVIDE(OrdersBoth, ExpectedCoOccurrence, 0),
+			        BLANK()
+			    )
+			```
+		lineageTag: e3c59676-d7f3-462c-8928-433027fb34a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Reverse Co-occurrence Rate %' =
+			
+			VAR OrdersBoth = [Orders containing both]
+			VAR OrdersProduct2 = [Orders with Product 2]
+			RETURN
+			    IF(
+			        NOT ISBLANK(OrdersBoth) && OrdersProduct2 > 0,
+			        DIVIDE(OrdersBoth, OrdersProduct2, 0) * 100,
+			        BLANK()
+			    )
+		lineageTag: 7a70fcd4-eda7-4940-8eb7-218f9fa7b862
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Product Pair' =
+			
+			VAR Product1 = SELECTEDVALUE(dim_product[ProductName])
+			VAR Product2 = SELECTEDVALUE(dim_product_comparison[ProductName])
+			RETURN
+			    IF(
+			        NOT ISBLANK(Product1) && NOT ISBLANK(Product2),
+			        Product1 & " + " & Product2,
+			        BLANK()
+			    )
+		lineageTag: 61cb451b-1bf7-435b-a42a-cdff635df75e
+
+	measure 'Jaccard Similarity %' =
+			
+			VAR OrdersBoth = [Orders containing both]
+			VAR OrdersProduct1 = [Orders with Product 1]
+			VAR OrdersProduct2 = [Orders with Product 2]
+			VAR OrdersEither = OrdersProduct1 + OrdersProduct2 - OrdersBoth
+			RETURN
+			    IF(
+			        NOT ISBLANK(OrdersBoth) && OrdersEither > 0,
+			        DIVIDE(OrdersBoth, OrdersEither, 0) * 100,
+			        BLANK()
+			    )
+		lineageTag: 1beb9143-327a-4568-9690-41b8e860058e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Is Strong Association' =
+			
+			VAR CurrentLift = [Lift]
+			VAR CurrentCoOccurrence = [Co-occurrence Rate %]
+			RETURN
+			    IF(
+			        NOT ISBLANK(CurrentLift) && NOT ISBLANK(CurrentCoOccurrence),
+			        IF(
+			            CurrentLift > 1.5 && CurrentCoOccurrence > 20,
+			            "Yes",
+			            "No"
+			        ),
+			        BLANK()
+			    )
+		lineageTag: 6874f6c2-703e-48dd-9f23-8b2c02609a61
+
 	column 'KPI Category'
 		lineageTag: 40842d83-dfe6-47b1-a9eb-486cdacd8e70
 		summarizeBy: none

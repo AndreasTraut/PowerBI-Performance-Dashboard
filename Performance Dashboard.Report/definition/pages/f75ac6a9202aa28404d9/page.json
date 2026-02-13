@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "f75ac6a9202aa28404d9",
+  "displayName": "Cross Selling",
+  "displayOption": "FitToPage",
+  "height": 1420,
+  "width": 2240,
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "242L"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F7F7F7'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "6be02a342a8510093647",
+      "target": "caf8f07fef2d8db163d7",
+      "type": "NoFilter"
+    },
+    {
+      "source": "caf8f07fef2d8db163d7",
+      "target": "6be02a342a8510093647",
+      "type": "NoFilter"
+    }
+  ]
+}

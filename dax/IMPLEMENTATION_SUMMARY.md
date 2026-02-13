@@ -103,19 +103,19 @@ Contains 10 supplementary measures for enhanced analysis:
 2. **Create the Measure**
    ```dax
    Orders containing both = 
-   VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductKey])
+   VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductID])
    VAR OrdersWithComparisonProduct = 
        CALCULATETABLE(
-           VALUES(fact_orders[OrderID]),
+           VALUES(fact_sales[OrderID]),
            ALL(dim_product),
-           fact_orders[ProductKey] = SelectedComparisonProduct
+           fact_sales[ProductID] = SelectedComparisonProduct
        )
    RETURN
        IF(
            NOT ISBLANK(SelectedComparisonProduct),
            CALCULATE(
-               DISTINCTCOUNT(fact_orders[OrderID]),
-               fact_orders[OrderID] IN OrdersWithComparisonProduct
+               DISTINCTCOUNT(fact_sales[OrderID]),
+               fact_sales[OrderID] IN OrdersWithComparisonProduct
            ),
            BLANK()
        )
@@ -190,12 +190,12 @@ See `IMPLEMENTATION_CHECKLIST.md` for complete step-by-step guide with:
 - `fact_orders` - Order transactions (existing)
 
 **Required Columns:**
-- `dim_product[ProductKey]` - Primary key
+- `dim_product[ProductID]` - Primary key
 - `fact_orders[OrderID]` - Order identifier
-- `fact_orders[ProductKey]` - Foreign key to products
+- `fact_orders[ProductID]` - Foreign key to products
 
 **Required Relationships:**
-- `dim_product[ProductKey]` → `fact_orders[ProductKey]` (One-to-Many)
+- `dim_product[ProductID]` → `fact_orders[ProductID]` (One-to-Many)
 
 ### DAX Pattern Used
 

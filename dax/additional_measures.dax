@@ -7,7 +7,7 @@
 // Counts how many total orders contain the selected product from dim_product
 // This is the baseline for calculating co-occurrence rates
 
-Orders with Product 1 = DISTINCTCOUNT(fact_orders[OrderID])
+Orders with Product 1 = DISTINCTCOUNT(fact_sales[OrderID])
 
 
 // ============================================================================
@@ -18,14 +18,14 @@ Orders with Product 1 = DISTINCTCOUNT(fact_orders[OrderID])
 // Uses ALL(dim_product) to ignore filters from the main product dimension
 
 Orders with Product 2 = 
-VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductKey])
+VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductID])
 RETURN
     IF(
         NOT ISBLANK(SelectedComparisonProduct),
         CALCULATE(
-            DISTINCTCOUNT(fact_orders[OrderID]),
+            DISTINCTCOUNT(fact_sales[OrderID]),
             ALL(dim_product),
-            fact_orders[ProductKey] = SelectedComparisonProduct
+            fact_sales[ProductID] = SelectedComparisonProduct
         ),
         BLANK()
     )
@@ -64,7 +64,7 @@ RETURN
 Support % = 
 VAR OrdersBoth = [Orders containing both]
 VAR TotalOrders = CALCULATE(
-    DISTINCTCOUNT(fact_orders[OrderID]), 
+    DISTINCTCOUNT(fact_sales[OrderID]), 
     ALL(dim_product), 
     ALL(dim_product_comparison)
 )
@@ -108,7 +108,7 @@ VAR OrdersBoth = [Orders containing both]
 VAR OrdersProduct1 = [Orders with Product 1]
 VAR OrdersProduct2 = [Orders with Product 2]
 VAR TotalOrders = CALCULATE(
-    DISTINCTCOUNT(fact_orders[OrderID]), 
+    DISTINCTCOUNT(fact_sales[OrderID]), 
     ALL(dim_product), 
     ALL(dim_product_comparison)
 )

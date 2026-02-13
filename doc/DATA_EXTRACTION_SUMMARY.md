@@ -26,10 +26,10 @@ Die CSV-Dateien entsprechen genau dem Schema des Power BI Dashboards:
 - **dim_customer**: CustomerKey, CustomerID, CustomerName, CustomerType (B2B/B2C), PriorityLevel, Channel, FirstOrderDate, GeographyKey
 - **dim_date**: DateKey, Date, Year, Quarter, Month, Week, DayOfWeek, YearMonth, etc.
 - **dim_geography**: GeographyKey, Country, Region (Americas/Europe/Asia), Continent
-- **dim_product**: ProductKey, SKU, ProductName, Category, SubCategory, Brand, UnitCost, UnitPrice, GrossMargin
-- **fact_orders**: OrderKey, OrderDateKey, CustomerKey, ProductKey, Quantity, UnitPrice, COGS, OrderStatus, DeliveryStatus
+- **dim_product**: ProductID, SKU, ProductName, Category, SubCategory, Brand, UnitCost, UnitPrice, GrossMargin
+- **fact_orders**: OrderKey, OrderDateKey, CustomerKey, ProductID, Quantity, UnitPrice, COGS, OrderStatus, DeliveryStatus
 - **fact_sales**: SalesKey, SalesDateKey, CustomerKey, GrossSales, NetSales, COGS, GrossProfit
-- **fact_returns**: ReturnKey, ReturnDateKey, OrderKey, CustomerKey, ProductKey, ReturnQuantity, ReturnReason, ReturnStatus
+- **fact_returns**: ReturnKey, ReturnDateKey, OrderKey, CustomerKey, ProductID, ReturnQuantity, ReturnReason, ReturnStatus
 
 ## Technische Herausforderung
 

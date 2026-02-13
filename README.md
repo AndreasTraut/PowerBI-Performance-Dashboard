@@ -51,7 +51,7 @@ legacy/
 - ❌ **Keine Entwicklungsumgebung**: Kein DevContainer oder Setup-Anleitung
 - ❌ **Begrenzte Wiederverwendbarkeit**: Schwierig, Daten oder Modell außerhalb von Power BI zu nutzen
 - ❌ **Fehlendes technisches Wissen**: Neue Entwickler mussten Modell selbst analysieren
-- ❌ **Nur englische Dokumentation**: Nicht lokalisiert
+- ❌ **Inkonsistente Report-Struktur**: Es wurden verschiedene Canvas-Größen auf den Berichtsseiten verwendet. Zudem kamen mehrfach geschachtelte Objekte zum Einsatz, obwohl einfache „Karten"-Visuals (standardmäßig in Power BI enthalten) ausgereicht hätten – das erschwert die Weiterentwicklung erheblich
 
 #### 🎯 Aktuelles Repository (v2.0 - Weiterentwicklung)
 
@@ -72,10 +72,9 @@ PowerBI-Performance-Dashboard/        # ✨ Verbessertes Repository
 │   ├── fact_sales.csv               # 99.801 Verkaufstransaktionen
 │   └── fact_returns.csv             # 3.007 Rücksendungen
 ├── doc/                             # ✨ NEU: Professionelle Dokumentation
-│   ├── model-documentation.md       # 482 Zeilen: Vollständige Modellarchitektur
+│   ├── MODEL_DOKUMENTATION.md       # 482 Zeilen: Vollständige Modellarchitektur
 │   ├── DATA_EXTRACTION_SUMMARY.md   # Extraktionsmethoden & Anleitungen
 │   ├── SECURITY_SUMMARY.md          # Sicherheitsaudit & Best Practices
-│   └── MODEL_DOCUMENTATION.md       # Dokumentationsübersicht
 ├── tools/                           # ✨ NEU: Entwickler-Werkzeuge
 │   ├── generate_sample_data.py      # Beispieldaten-Generator
 │   ├── extract_pbix_actual.py       # PBIX-Analyse-Tool
@@ -116,11 +115,6 @@ Zusätzlich enthält die **[Extraktionsanleitung](doc/DATA_EXTRACTION_SUMMARY.md
 
 **Lösung**: Eine vollständige **DevContainer-Konfiguration für Visual Studio Code** ist nun verfügbar. Diese enthält Python 3.11 mit allen notwendigen Abhängigkeiten vorinstalliert. Beim Start des Containers werden automatisch alle benötigten VS Code Extensions installiert, darunter Python, Pylance und Jupyter für die Entwicklung, Markdown-Tools für die Dokumentation, Git-Tools (Git Graph, GitLens) für die Versionskontrolle sowie Rainbow CSV für die komfortable Arbeit mit CSV-Dateien. Die gesamte Umgebung ist nach dem Container-Start sofort einsatzbereit, ohne dass manuelle Konfigurationsschritte erforderlich sind.
 
-#### 5️⃣ Dokumentation in Deutsch
-
-**Problem im vorherigen Repository**: Die gesamte Dokumentation war ausschließlich in englischer Sprache verfügbar.
-
-**Lösung**: Alle Dokumentationsdateien wurden vollständig ins Deutsche übersetzt. Dabei wurden technische Fachbegriffe korrekt lokalisiert und eine konsistente Terminologie im gesamten Projekt sichergestellt. Dies verbessert die Zugänglichkeit erheblich, insbesondere für deutschsprachige Entwickler, Analysten und Stakeholder, die nun alle Informationen in ihrer bevorzugten Sprache vorfinden.
 
 ### 📊 Vorher/Nachher-Vergleich
 
@@ -132,7 +126,6 @@ Zusätzlich enthält die **[Extraktionsanleitung](doc/DATA_EXTRACTION_SUMMARY.md
 | **Modellverständnis** | Nur durch PBIX öffnen | ✅ Vollständige Textdoku + Diagramme | Modellstruktur ist ohne Power BI Desktop einsehbar. Ermöglicht schnelle Analyse und Planung. |
 | **Entwicklungsumgebung** | Manuelles Setup | ✅ DevContainer ready-to-use | Neue Entwickler sind innerhalb von Minuten produktiv statt Stunden. Konsistente Umgebung für alle Teammitglieder. |
 | **Sicherheit** | Nicht überprüft | ✅ Vollständig auditiert | Erfüllt Enterprise-Compliance-Anforderungen. Reduziert Sicherheitsrisiken durch validierte Skripte. |
-| **Sprache** | Nur Englisch | ✅ Vollständig Deutsch | Verbesserte Zusammenarbeit im deutschsprachigen Raum. Reduziert Missverständnisse durch Sprachbarrieren. |
 | **Wiederverwendbarkeit** | Begrenzt auf Power BI | ✅ Daten für Python, R, SQL, Excel | Maximale Flexibilität für unterschiedliche Analysewerkzeuge und Workflows. Daten können in verschiedenen Kontexten genutzt werden. |
 | **Onboarding** | Schwierig, zeitaufwändig | ✅ Einfach durch Dokumentation | Neue Teammitglieder verstehen Projekt schneller. Reduziert Schulungsaufwand und Abhängigkeit von Experten. |
 | **Dateigröße** | ~50 MB (nur PBIX) | ~72 MB (mit allem) | Minimaler zusätzlicher Speicherbedarf für massiv erweiterte Funktionalität. Hervorragendes Kosten-Nutzen-Verhältnis. |
@@ -166,18 +159,24 @@ Das **vorherige Repository** ist vollständig im [/legacy](legacy/) Verzeichnis 
 
 ## 🚀 Schnellstart
 
-### Für Dashboard-Nutzung
-1. **Herunterladen** der `.pbix` Datei  
-2. **Öffnen** in **Power BI Desktop**
-3. **Erkunden** des Dashboards mit Datenschnitten, Navigation und Fokusmodus
+### Für Anwender (Bericht ansehen)
+1. **Repository klonen oder herunterladen**:
+   ```bash
+   git clone https://github.com/your-username/PowerBI-Performance-Dashboard.git
+   ```
+2. **Projekt öffnen**: Navigieren Sie in das Verzeichnis und öffnen Sie die Datei `Performance Dashboard.pbip` mit **Power BI Desktop**. Das lädt den Bericht und das zugehörige Datenmodell.
+3. **Dashboard erkunden**: Nutzen Sie die interaktiven Filter, die Navigation und den Fokusmodus.
 
-### Für Entwickler
-1. **Repository klonen**
-2. **DevContainer starten** (VS Code mit Remote-Containers Extension)
-3. **CSV-Daten verwenden** aus [/data](data/)
-4. **Dokumentation lesen** in [/doc](doc/)
+### Für Entwickler (Modell bearbeiten)
+1. **Voraussetzungen**: Installieren Sie VS Code, Docker und die Dev Containers Extension.
+2. **Repository klonen**: Siehe oben.
+3. **DevContainer starten**: Öffnen Sie den geklonten Ordner in VS Code und klicken Sie auf die Benachrichtigung "Reopen in Container".
+4. **Entwicklung starten**: Die Umgebung ist sofort einsatzbereit. Sie können nun:
+   - Die CSV-Daten in `/data` für Analysen nutzen.
+   - Die Python-Skripte in `/tools` ausführen oder anpassen.
+   - Das Datenmodell und die Berichtsstruktur im `Performance Dashboard.Report` Verzeichnis bearbeiten.
 
-📖 Vollständige Details: [Dokumentation](#-dokumentation)
+📖 **Weitere Details**: Eine vollständige Übersicht der Projektstruktur und Dokumentation finden Sie weiter unten.
 
 ---
 
@@ -242,6 +241,31 @@ Diese Seite bietet wichtige Einblicke in das Rücksendeverhalten und Qualitätsp
 
 ---
 
+### 6️⃣ Cross-Selling-Analyse (Warenkorbanalyse)
+
+Diese Seite wurde neu hinzugefügt und bietet eine detaillierte **Warenkorbanalyse (Market Basket Analysis)**, um Cross-Selling-Potenziale zu identifizieren. Nutzer können interaktiv analysieren, welche Produkte häufig zusammen gekauft werden.
+
+![Cross Selling](assets/Cross%20Selling.png)
+
+Die Seite enthält mehrere spezialisierte Visualisierungen:
+- **Produkt-Paar-Analyse**: Oben links wird das ausgewählte Produktpaar angezeigt.
+- **Key Measures**: Rechts daneben fassen Kennzahlen wie `Orders containing both`, `Co-occurrence Rate %`, `Lift` und `Confidence %` die Stärke der Produktbeziehung zusammen.
+- **Top Produkt Kombinationen**: Unten links listet eine Matrix die am häufigsten gemeinsam gekauften Produktkombinationen auf.
+- **Produkt-Affinitäts-Matrix**: Eine große Matrix unten rechts visualisiert die Beziehungen zwischen einzelnen Produkten oder ganzen Kategorien.
+- **Interaktive Filter**: Über die Filter oben können Nutzer die Analyse auf bestimmte Produktgruppen oder einzelne Produkte einschränken.
+
+Die Implementierung basiert auf dem **Disconnected Table Pattern** in Power BI. Wie im Screenshot markiert, wurden dafür folgende Elemente neu erstellt:
+1.  **Cross-Selling-Button (1)**: Eine neue Navigationsschaltfläche für den einfachen Zugriff.
+2.  **Tabelle `dim_product_comparison` (2)**: Eine unverbundene Kopie der Produkttabelle, die eine unabhängige Auswahl von zwei Produkten ermöglicht.
+3.  **DAX-Measures (3)**: Spezialisierte Kennzahlen wie `Orders containing both`, `Lift` und `Confidence %` zur Berechnung der Produktbeziehungen.
+4.  **Externe Tools (4)**: Die Entwicklung und Analyse des Datenmodells erfolgte mit professionellen Werkzeugen wie DAX Studio und dem Tabular Editor.
+    -   **DAX Studio**: Ein kostenloses Werkzeug zur Ausführung und Analyse von DAX-Abfragen gegen Power BI-Modelle. Es ist unerlässlich für die Performance-Optimierung und das Debugging komplexer Berechnungen.
+    -   **Tabular Editor**: Ein Editor für fortgeschrittene Datenmodellierung in Power BI. Er ermöglicht Operationen, die in der Power BI-Oberfläche nicht verfügbar sind, wie das Skripten von Änderungen, das Erstellen von Berechnungsgruppen und die Überprüfung des Modells anhand von Best-Practice-Regeln. Mit diesem Tool wurde auch die Modelldatei (`Model_Weiterentwicklung.bim`) für die Versionskontrolle extrahiert.
+
+Eine vollständige Schritt-für-Schritt-Anleitung, um diese Analyse selbst zu implementieren, finden Sie in der **Implementierungs-Checkliste**. Die technischen Details, der DAX-Code und die Erklärungen zu den Measures sind in der **WARENKORBANALYSE.md** und der **IMPLEMENTIERUNGS_ZUSAMMENFASSUNG.md** dokumentiert.
+
+---
+
 ## 📁 Daten & Modell
 
 ### Datendateien
@@ -254,7 +278,7 @@ Eine ausführliche Anleitung zur Datenextraktion finden Sie in [/data/README.md]
 
 Das semantische Datenmodell (`Model.bim`) basiert auf einer bewährten **Sternschema-Architektur**. Diese Architektur zeichnet sich durch optimierte Beziehungen zwischen den Tabellen und spezialisierte DAX-Measures (Berechnungsformeln) aus, die eine schnelle und effiziente Datenanalyse ermöglichen.
 
-Die vollständige technische Dokumentation des Modells finden Sie in der [Modell-Dokumentation](doc/model-documentation.md). Diese beschreibt die komplette Modellstruktur mit allen Fakten- und Dimensionstabellen, erklärt sämtliche DAX-Measures und deren Berechnungslogik im Detail und dokumentiert alle implementierten Performance-Optimierungen für schnelle Dashboard-Reaktionszeiten.
+Die vollständige technische Dokumentation des Modells finden Sie in der [Modell-Dokumentation](doc/MODEL_DOCUMENTATION.md). Diese beschreibt die komplette Modellstruktur mit allen Fakten- und Dimensionstabellen, erklärt sämtliche DAX-Measures und deren Berechnungslogik im Detail und dokumentiert alle implementierten Performance-Optimierungen für schnelle Dashboard-Reaktionszeiten.
 
 ---
 
@@ -266,7 +290,7 @@ Das [/dax](dax/) Verzeichnis enthält wiederverwendbaren DAX-Code für erweitert
 - **Berechnete Tabellen**: Unverbundene Tabellen für vergleichende Analysen
 - **Erweiterte Measures**: Co-Occurrence-Analyse und Produktaffinität
 
-📖 **Siehe [/dax/README.md](dax/README.md)** für:
+📖 **Siehe /dax/WARENKORBANALYSE.md** für:
 - Implementierung der Warenkorbanalyse
 - DAX-Code für berechnete Tabellen und Measures
 - Schritt-für-Schritt-Implementierungsanleitung

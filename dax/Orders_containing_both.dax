@@ -10,19 +10,19 @@
 // 4. Count distinct OrderIDs (this automatically respects the filter from dim_product for Product 1)
 
 Orders containing both = 
-VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductKey])
+VAR SelectedComparisonProduct = SELECTEDVALUE(dim_product_comparison[ProductID])
 VAR OrdersWithComparisonProduct = 
     CALCULATETABLE(
-        VALUES(fact_orders[OrderID]),
+        VALUES(fact_sales[OrderID]),
         ALL(dim_product),
-        fact_orders[ProductKey] = SelectedComparisonProduct
+        fact_sales[ProductID] = SelectedComparisonProduct
     )
 RETURN
     IF(
         NOT ISBLANK(SelectedComparisonProduct),
         CALCULATE(
-            DISTINCTCOUNT(fact_orders[OrderID]),
-            fact_orders[OrderID] IN OrdersWithComparisonProduct
+            DISTINCTCOUNT(fact_sales[OrderID]),
+            fact_sales[OrderID] IN OrdersWithComparisonProduct
         ),
         BLANK()
     )

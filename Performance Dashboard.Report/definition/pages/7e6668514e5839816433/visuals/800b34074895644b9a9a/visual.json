@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "800b34074895644b9a9a",
   "position": {
-    "x": 1093.5982025892026,
-    "y": 864.2067556350371,
+    "x": 1093.0697674418604,
+    "y": 863.55813953488371,
     "z": 7000,
-    "height": 398.18181818181813,
-    "width": 999.090909090909,
+    "height": 528.37209302325584,
+    "width": 1111.2325581395348,
     "tabOrder": 7000
   },
   "visual": {
@@ -145,21 +145,16 @@
         "sort": [
           {
             "field": {
-              "Aggregation": {
+              "Column": {
                 "Expression": {
-                  "Column": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "fact_orders"
-                      }
-                    },
-                    "Property": "OrderAmount"
+                  "SourceRef": {
+                    "Entity": "dim_customer"
                   }
                 },
-                "Function": 0
+                "Property": "CustomerID"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }
@@ -649,7 +644,7 @@
         "howCreated": "User"
       },
       {
-        "name": "1def2d4f517d5cd043f6",
+        "name": "168c9a8a609901c81a3a",
         "field": {
           "Measure": {
             "Expression": {

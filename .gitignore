@@ -38,3 +38,8 @@ wheels/
 # Extraction temporary folders
 data_extracted/
 pbix_extract_*/
+
+# Power BI Developer Mode
+*.pbip.user
+.recovery/
+localSettings.json

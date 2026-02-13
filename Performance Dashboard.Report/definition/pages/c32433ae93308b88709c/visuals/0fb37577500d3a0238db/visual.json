@@ -4,7 +4,7 @@
   "position": {
     "x": 727.14285714285722,
     "y": 47.142857142857146,
-    "z": 12000,
+    "z": 11000,
     "height": 402.85714285714289,
     "width": 567.14285714285722,
     "tabOrder": 0
@@ -194,7 +194,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "983bac6f0bbc51d8d5aa",
+        "name": "c3907e644ac8e1619b8b",
         "field": {
           "Column": {
             "Expression": {

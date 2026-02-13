@@ -1,26 +1,30 @@
-# Market Basket Analysis - Implementation Examples
+# Warenkorbanalyse - Implementierungsbeispiele
 
-## Visual Setup Guide
+> ➡️ **Details siehe:** Technische Dokumentation  
+> 📖 **Implementierung:** `dax/Orders_containing_both.dax`  
+> 🧠 **Dokumentation:** Implementierungs-Checkliste
 
-This document provides visual instructions and examples for implementing the Market Basket Analysis in Power BI.
+## 🚀 Visueller Einrichtungsleitfaden
+
+Dieses Dokument bietet visuelle Anleitungen und Beispiele für die Implementierung der Warenkorbanalyse (Market Basket Analysis) in Power BI.
 
 ---
 
-## Example 1: Product Affinity Matrix
+## 📊 Beispiel 1: Produkt-Affinitäts-Matrix
 
-### Visual Type: Matrix
+### Visualisierungstyp: Matrix
 
-**Purpose**: Show a complete grid of how often each product pair appears together in orders.
+**Zweck**: Zeigt ein vollständiges Raster an, wie oft jedes Produktpaar zusammen in Bestellungen erscheint.
 
-### Configuration:
+### 🔧 Konfiguration:
 ```
 Matrix Visual:
-├─ Rows: dim_product[ProductName]
-├─ Columns: dim_product_comparison[ProductName]
-└─ Values: Orders containing both
+├─ Zeilen: dim_product[ProductName]
+├─ Spalten: dim_product_comparison[ProductName]
+└─ Werte: Orders containing both
 ```
 
-### Expected Output:
+### ✅ Erwartetes Ergebnis:
 ```
                      | Laptop A | Laptop B | Mouse X | Keyboard Y |
 ---------------------|----------|----------|---------|------------|
@@ -30,35 +34,35 @@ Mouse X              |    89    |    45    |   -     |   123      |
 Keyboard Y           |    67    |    34    |  123    |    -       |
 ```
 
-**Interpretation**:
-- Diagonal cells can be hidden (a product always appears with itself)
-- High values indicate strong product affinity
-- Example: Mouse X and Keyboard Y appear together in 123 orders
+**🧠 Interpretation**:
+- Diagonale Zellen können ignoriert werden (ein Produkt erscheint immer mit sich selbst).
+- Hohe Werte zeigen eine starke Produkt-Affinität an.
+- Beispiel: Mouse X und Keyboard Y erscheinen zusammen in 123 Bestellungen.
 
-### Conditional Formatting (Recommended):
-- Background color scales: Higher values → Darker color
-- Helps identify strong relationships at a glance
+### Bedingte Formatierung (Empfohlen):
+- Hintergrundfarbskalen: Höhere Werte → Dunklere Farbe
+- Hilft, starke Beziehungen auf einen Blick zu erkennen.
 
 ---
 
-## Example 2: Top Product Combinations for a Specific Product
+## 📊 Beispiel 2: Top Produkt-Kombinationen für ein spezifisches Produkt
 
-### Visual Type: Table or Bar Chart
+### Visualisierungstyp: Tabelle oder Balkendiagramm
 
-**Purpose**: For a selected product, show which other products are most frequently bought together.
+**Zweck**: Zeigt für ein ausgewähltes Produkt an, welche anderen Produkte am häufigsten zusammen gekauft werden.
 
-### Configuration:
+### 🔧 Konfiguration:
 ```
-Slicer:
+Datenschnitt (Slicer):
 └─ dim_product[ProductName] = "TechPro Laptops Model 1"
 
-Table Visual:
-├─ Column 1: dim_product_comparison[ProductName]
-├─ Column 2: Orders containing both
-└─ Sort by: Orders containing both (Descending)
+Tabelle Visual:
+├─ Spalte 1: dim_product_comparison[ProductName]
+├─ Spalte 2: Orders containing both
+└─ Sortieren nach: Orders containing both (Absteigend)
 ```
 
-### Expected Output:
+### ✅ Erwartetes Ergebnis:
 ```
 Comparison Product          | Orders containing both
 ----------------------------|----------------------
@@ -69,28 +73,28 @@ SmartHome USB Hub           |          76
 Premium Headphones          |          54
 ```
 
-**Business Use Case**:
-- Cross-selling recommendations
-- Bundle creation
-- Product placement strategies
+**Geschäftsanwendung**:
+- Cross-Selling-Empfehlungen
+- Erstellung von Produktbündeln (Bundles)
+- Produktplatzierungsstrategien
 
 ---
 
-## Example 3: Category Cross-Selling Analysis
+## 📊 Beispiel 3: Kategorie Cross-Selling Analyse
 
-### Visual Type: Matrix with Category Hierarchy
+### Visualisierungstyp: Matrix mit Kategorie-Hierarchie
 
-**Purpose**: Analyze which product categories are bought together.
+**Zweck**: Analysiert, welche Produktkategorien zusammen gekauft werden.
 
-### Configuration:
+### 🔧 Konfiguration:
 ```
 Matrix Visual:
-├─ Rows: dim_product[Category] → dim_product[ProductName]
-├─ Columns: dim_product_comparison[Category] → dim_product_comparison[ProductName]
-└─ Values: Orders containing both
+├─ Zeilen: dim_product[Category] → dim_product[ProductName]
+├─ Spalten: dim_product_comparison[Category] → dim_product_comparison[ProductName]
+└─ Werte: Orders containing both
 ```
 
-### Expected Output:
+### ✅ Erwartetes Ergebnis:
 ```
                         | Electronics           | Accessories
                         |--------               |------------
@@ -104,61 +108,61 @@ Accessories             |         |             |      |
   Keyboards             |   389   |     156     |  567 |    -
 ```
 
-**Insights**:
-- Laptops and Mice have high affinity (456 orders)
-- Mice and Keyboards are frequently bought together (567 orders)
-- Cross-category patterns inform bundle strategies
+**Erkenntnisse**:
+- Laptops und Mäuse haben eine hohe Affinität (456 Bestellungen).
+- Mäuse und Tastaturen werden häufig zusammen gekauft (567 Bestellungen).
+- Kategorieübergreifende Muster informieren über Bündelungsstrategien.
 
 ---
 
-## Example 4: Interactive Product Comparison Dashboard
+## 📊 Beispiel 4: Interaktives Produkt-Vergleichs-Dashboard
 
 ### Layout:
 ```
 ┌────────────────────────────────────────────────┐
-│  Select Product 1:         Select Product 2:  │
+│  Wähle Produkt 1:          Wähle Produkt 2:   │
 │  [Slicer: dim_product]     [Slicer: dim_...   │
 │                            product_comparison] │
 ├────────────────────────────────────────────────┤
-│  Orders containing both:                       │
+│  Bestellungen mit beiden:                      │
 │  ┌──────────┐                                  │
-│  │   142    │  (Card Visual)                   │
+│  │   142    │  (Karte Visual)                  │
 │  └──────────┘                                  │
 ├────────────────────────────────────────────────┤
 │  Details:                                      │
-│  Orders with Product 1 only:      234          │
-│  Orders with Product 2 only:      198          │
+│  Bestellungen nur mit Prod 1:     234          │
+│  Bestellungen nur mit Prod 2:     198          │
 │  Co-occurrence Rate:              60.7%        │
 │  Lift:                            2.34         │
 └────────────────────────────────────────────────┘
 ```
 
-### KPIs Explained:
+### 🧠 KPIs Erklärt:
 
 **Orders containing both**: 142
-- Direct count of orders with both products
+- Direkte Anzahl der Bestellungen mit beiden Produkten.
 
 **Orders with Product 1 only**: 234
-- Total orders containing Product 1
+- Gesamtbestellungen, die Produkt 1 enthalten.
 
 **Co-occurrence Rate**: 60.7%
-- Formula: (142 / 234) × 100
-- Meaning: 60.7% of Product 1's orders also include Product 2
+- Formel: (142 / 234) × 100
+- Bedeutung: 60,7% der Bestellungen von Produkt 1 enthalten auch Produkt 2.
 
 **Lift**: 2.34
-- Lift > 1 means products are bought together MORE than expected by chance
-- Lift = 1 means no special affinity (random)
-- Lift < 1 means products are rarely bought together
+- Lift > 1 bedeutet, Produkte werden HÄUFIGER zusammen gekauft als durch Zufall erwartet.
+- Lift = 1 bedeutet keine spezielle Affinität (Zufall).
+- Lift < 1 bedeutet, Produkte werden selten zusammen gekauft.
 
 ---
 
-## Example 5: Top 10 Product Pairs
+## 📊 Beispiel 5: Top 10 Produkt-Paare
 
-### Visual Type: Table with Both Products
+### Visualisierungstyp: Tabelle mit beiden Produkten
 
-**Purpose**: Discover the strongest product combinations overall.
+**Zweck**: Entdecken der stärksten Produktkombinationen insgesamt.
 
-### DAX for Combined Product Pair:
+### 💾 DAX für kombiniertes Produkt-Paar:
 ```dax
 Product Pair = 
 VAR Product1 = SELECTEDVALUE(dim_product[ProductName])
@@ -171,16 +175,16 @@ RETURN
     )
 ```
 
-### Configuration:
+### 🔧 Konfiguration:
 ```
-Table Visual:
-├─ Column 1: Product Pair (calculated measure above)
-├─ Column 2: Orders containing both
-├─ Top N Filter: Top 10 by Orders containing both
-└─ Sort by: Orders containing both (Descending)
+Tabelle Visual:
+├─ Spalte 1: Product Pair (berechnetes Measure oben)
+├─ Spalte 2: Orders containing both
+├─ Top N Filter: Top 10 nach Orders containing both
+└─ Sortieren nach: Orders containing both (Absteigend)
 ```
 
-### Expected Output:
+### ✅ Erwartetes Ergebnis:
 ```
 Product Pair                                    | Orders
 ------------------------------------------------|--------
@@ -194,26 +198,26 @@ TechPro Laptop + TechPro Keyboard               |   142
 
 ---
 
-## Example 6: Heatmap Visualization
+## 📊 Beispiel 6: Heatmap Visualisierung
 
-### Visual Type: Matrix with Conditional Formatting
+### Visualisierungstyp: Matrix mit bedingter Formatierung
 
-**Purpose**: Visual heatmap to quickly identify strong product relationships.
+**Zweck**: Visuelle Heatmap zur schnellen Identifizierung starker Produktbeziehungen.
 
-### Configuration:
+### 🔧 Konfiguration:
 ```
 Matrix Visual:
-├─ Rows: dim_product[ProductName] (Filter to Top 20 products)
-├─ Columns: dim_product_comparison[ProductName] (Filter to Top 20 products)
-└─ Values: Orders containing both
+├─ Zeilen: dim_product[ProductName] (Filter auf Top 20 Produkte)
+├─ Spalten: dim_product_comparison[ProductName] (Filter auf Top 20 Produkte)
+└─ Werte: Orders containing both
 
-Conditional Formatting:
-├─ Based on: Orders containing both
-├─ Color Scale: White (0) → Green (Low) → Dark Green (High)
-└─ Show values: Optional
+Bedingte Formatierung:
+├─ Basiert auf: Orders containing both
+├─ Farbskala: Weiß (0) → Grün (Niedrig) → Dunkelgrün (Hoch)
+└─ Werte anzeigen: Optional
 ```
 
-### Visual Appearance:
+### Visuelles Erscheinungsbild:
 ```
          | Prod1 | Prod2 | Prod3 | Prod4 |
 ---------|-------|-------|-------|-------|
@@ -222,56 +226,56 @@ Prod2    |  ░░░  |  ███  |  ▒▒▒  |  ▓▓▓  |
 Prod3    |  ▓▓▓  |  ▒▒▒  |  ███  |  ░░░  |
 Prod4    |  ░░░  |  ▓▓▓  |  ░░░  |  ███  |
 
-Legend: ░░░ = Low    ▒▒▒ = Medium    ▓▓▓ = High    ███ = Same product
+Legende: ░░░ = Niedrig    ▒▒▒ = Mittel    ▓▓▓ = Hoch    ███ = Gleiches Produkt
 ```
 
-**Benefits**:
-- Quick pattern recognition
-- Identify clusters of related products
-- Spot anomalies or unexpected combinations
+**Vorteile**:
+- Schnelle Mustererkennung
+- Identifizierung von Clustern verwandter Produkte
+- Erkennen von Anomalien oder unerwarteten Kombinationen
 
 ---
 
-## Best Practices
+## 🚀 Best Practices
 
-### 1. Performance Optimization
-- **Filter to Top N products** for large datasets
-- Pre-aggregate common pairs in a summary table if needed
-- Use slicers to reduce the data volume
+### 1. Performance-Optimierung
+- **Filter auf Top N Produkte** für große Datensätze.
+- Vor-Aggregation häufiger Paare in einer Übersichtstabelle, falls nötig.
+- Verwendung von Datenschnitten (Slicers), um das Datenvolumen zu reduzieren.
 
-### 2. User Experience
-- **Clear labels**: Use product names, not IDs
-- **Sort by affinity**: Show highest counts first
-- **Contextual help**: Add tooltips explaining the metrics
+### 2. Benutzererfahrung (UX)
+- **Klare Bezeichnungen**: Produktnamen verwenden, keine IDs.
+- **Sortierung nach Affinität**: Höchste Anzahl zuerst anzeigen.
+- **Kontextbezogene Hilfe**: Tooltips hinzufügen, die die Metriken erklären.
 
-### 3. Business Application
-- **Bundle creation**: Products with high co-occurrence
-- **Cross-sell prompts**: "Customers who bought X also bought Y"
-- **Inventory planning**: Stock related products together
-- **Marketing campaigns**: Promote product pairs with high affinity
+### 3. Geschäftsanwendung
+- **Bundle-Erstellung**: Produkte mit hoher gemeinsamer Vorkommenshäufigkeit.
+- **Cross-Sell-Hinweise**: "Kunden, die X kauften, kauften auch Y".
+- **Bestandsplanung**: Verwandte Produkte zusammen lagern.
+- **Marketingkampagnen**: Produktpaare mit hoher Affinität bewerben.
 
-### 4. Data Quality Checks
-- Exclude cancelled orders: `Filter fact_orders where OrderStatus = "Completed"`
-- Minimum order count: Only show pairs with at least 5 occurrences
-- Date filters: Analyze recent trends vs. historical patterns
+### 4. Datenqualitäts-Prüfungen
+- Stornierte Bestellungen ausschließen: `Filter fact_orders where OrderStatus = "Completed"`.
+- Mindestbestellmenge: Nur Paare mit mindestens 5 Vorkommen anzeigen.
+- Datumsfilter: Aktuelle Trends vs. historische Muster analysieren.
 
 ---
 
-## Advanced Measures (Optional)
+## 🧠 Erweiterte Measures (Optional)
 
 ### Support (%)
-Shows what percentage of ALL orders contain this product pair.
+Zeigt an, wie viel Prozent ALLER Bestellungen dieses Produktpaar enthalten.
 
 ```dax
 Support % = 
 VAR OrdersBoth = [Orders containing both]
-VAR TotalOrders = CALCULATE(DISTINCTCOUNT(fact_orders[OrderID]), ALL())
+VAR TotalOrders = CALCULATE(DISTINCTCOUNT(fact_sales[OrderID]), ALL(dim_product), ALL(dim_product_comparison))
 RETURN
     DIVIDE(OrdersBoth, TotalOrders, 0) * 100
 ```
 
 ### Confidence (%)
-Given Product 1 is purchased, what's the probability Product 2 is also purchased?
+Wenn Produkt 1 gekauft wird, wie hoch ist die Wahrscheinlichkeit, dass auch Produkt 2 gekauft wird?
 
 ```dax
 Confidence % = 
@@ -282,7 +286,7 @@ RETURN
 ```
 
 ### Lift
-How much more likely are these products bought together vs. independently?
+Wie viel wahrscheinlicher werden diese Produkte zusammen gekauft im Vergleich zum unabhängigen Kauf?
 
 ```dax
 Lift = 
@@ -296,50 +300,50 @@ RETURN
 ```
 
 **Interpretation**:
-- **Lift = 1**: No association (random)
-- **Lift > 1**: Positive association (bought together more often)
-- **Lift < 1**: Negative association (rarely bought together)
+- **Lift = 1**: Keine Assoziation (Zufall).
+- **Lift > 1**: Positive Assoziation (werden öfter zusammen gekauft).
+- **Lift < 1**: Negative Assoziation (werden selten zusammen gekauft).
 
-**Example**:
-- Support = 2%: This pair appears in 2% of all orders
-- Confidence = 40%: When Product 1 is bought, Product 2 follows 40% of the time
-- Lift = 2.5: This pair occurs 2.5× more often than expected by chance
-
----
-
-## Troubleshooting Visualizations
-
-### Issue: Blank values in matrix
-**Cause**: No product selected from dim_product_comparison
-**Solution**: Add a slicer or ensure columns are from dim_product_comparison
-
-### Issue: All cells show the same value
-**Cause**: dim_product_comparison has relationships (should be disconnected)
-**Solution**: Delete any relationships to dim_product_comparison
-
-### Issue: Performance is slow
-**Solution**: 
-- Filter to top products (e.g., top 50 by sales)
-- Use aggregations
-- Optimize DAX with variables
-
-### Issue: Diagonal cells (same product) show high values
-**Expected**: A product always appears with itself
-**Solution**: 
-- Filter out: Add measure logic to show BLANK() when Product1 = Product2
-- Or simply ignore diagonal values in interpretation
+**Beispiel**:
+- Support = 2%: Dieses Paar erscheint in 2% aller Bestellungen.
+- Confidence = 40%: Wenn Produkt 1 gekauft wird, folgt Produkt 2 in 40% der Fälle.
+- Lift = 2.5: Dieses Paar tritt 2,5× häufiger auf als durch Zufall erwartet.
 
 ---
 
-## Next Steps
+## ❓ Fehlerbehebung bei Visualisierungen
 
-1. **Implement the basic matrix** (Example 1)
-2. **Add slicers** for interactive exploration
-3. **Create focused views** for specific use cases (cross-selling, bundles)
-4. **Add advanced metrics** (Lift, Confidence, Support)
-5. **Build recommendation engine** based on top product pairs
-6. **Schedule refreshes** to keep analysis current
+### Problem: Leere Werte in der Matrix
+**Ursache**: Kein Produkt aus `dim_product_comparison` ausgewählt.
+**Lösung**: Fügen Sie einen Datenschnitt hinzu oder stellen Sie sicher, dass die Spalten aus `dim_product_comparison` stammen.
+
+### Problem: Alle Zellen zeigen den gleichen Wert
+**Ursache**: `dim_product_comparison` hat Beziehungen (sollte unverbunden sein).
+**Lösung**: Löschen Sie alle Beziehungen zu `dim_product_comparison`.
+
+### Problem: Performance ist langsam
+**Lösung**: 
+- Filtern auf Top-Produkte (z. B. Top 50 nach Umsatz).
+- Aggregationen verwenden.
+- DAX mit Variablen optimieren.
+
+### Problem: Diagonale Zellen (gleiches Produkt) zeigen hohe Werte
+**Erwartet**: Ein Produkt erscheint immer mit sich selbst.
+**Lösung**: 
+- Ausfiltern: Measure-Logik hinzufügen, um BLANK() anzuzeigen, wenn Product1 = Product2.
+- Oder diagonale Werte bei der Interpretation einfach ignorieren.
 
 ---
 
-*For DAX code, see the files in the `/dax` directory.*
+## ✅ Nächste Schritte
+
+1. **Implementieren der Basis-Matrix** (Beispiel 1)
+2. **Hinzufügen von Datenschnitten** für interaktive Erkundung
+3. **Erstellen fokussierter Ansichten** für spezifische Anwendungsfälle (Cross-Selling, Bundles)
+4. **Hinzufügen erweiterter Metriken** (Lift, Confidence, Support)
+5. **Aufbau einer Empfehlungsmaschine** basierend auf Top-Produktpaaren
+6. **Aktualisierungen planen**, um die Analyse aktuell zu halten
+
+---
+
+*Für DAX-Code siehe die Dateien im Verzeichnis `/dax`.*

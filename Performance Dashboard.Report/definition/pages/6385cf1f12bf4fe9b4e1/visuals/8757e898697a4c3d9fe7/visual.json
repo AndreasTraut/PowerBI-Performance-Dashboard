@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "8757e898697a4c3d9fe7",
   "position": {
-    "x": 80,
+    "x": 350,
     "y": 70,
     "z": 1000,
     "height": 35,
@@ -22,11 +22,10 @@
                     "value": "Market Basket Analysis | Welche Produkte werden zusammen gekauft?",
                     "textStyle": {
                       "fontSize": "14pt",
-                      "color": "#FFFFFF"
+                      "color": "#ffffff"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }
@@ -49,5 +48,6 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "isHidden": true
 }

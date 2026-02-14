@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "6e92decba134425f85ce",
   "position": {
-    "x": 1880,
-    "y": 150,
-    "z": 5000,
-    "height": 120,
-    "width": 330,
-    "tabOrder": 5000
+    "x": 1524.2803315749813,
+    "y": 150.1577287066246,
+    "z": 20000,
+    "height": 119.8492840994725,
+    "width": 685.33534287867371,
+    "tabOrder": 27000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -32,6 +32,44 @@
           ]
         }
       }
+    },
+    "objects": {
+      "layout": [
+        {
+          "properties": {
+            "calloutSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "value": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "30D"
+                }
+              }
+            },
+            "textWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
     },
     "visualContainerObjects": {
       "dropShadow": [

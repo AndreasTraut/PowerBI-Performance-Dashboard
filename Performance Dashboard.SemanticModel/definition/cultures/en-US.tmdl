@@ -16311,7 +16311,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Return Amount (Monthly Trend)": {
+			          "Return Amount": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -16321,7 +16321,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Return Amount": {
+			          "Return Amount (Monthly Trend)": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -16639,6 +16639,16 @@ cultureInfo en-US
 			          }
 			        },
 			        {
+			          "Customer Type": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
 			          "Channel": {
 			            "State": "Suggested",
 			            "Source": {
@@ -16650,16 +16660,6 @@ cultureInfo en-US
 			        },
 			        {
 			          "Channel Name": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        },
-			        {
-			          "Customer Type": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

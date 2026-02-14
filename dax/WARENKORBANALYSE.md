@@ -343,9 +343,9 @@ Nach der Implementierung können Sie:
 
 ## 📚 Referenzen
 
-- [Power BI Market Basket Analysis](https://docs.microsoft.com/power-bi/guidance/market-basket-analysis)
-- [DAX Patterns - Disconnected Tables](https://www.daxpatterns.com/disconnected-tables/)
-- [SQLBI - Market Basket Analysis in Power BI](https://www.sqlbi.com/)
+- [Power BI Market Basket Analysis](https://learn.microsoft.com/en-us/power-bi/create-reports/sample-sales-returns)
+- [DAX Patterns - Disconnected Tables](https://www.sqlbi.com/p/dax-patterns-parameter-table/)
+- [SQLBI - DAX-Pattern Baske Analysis ](https://www.sqlbi.com/p/dax-patterns-basket-analysis/)
 
 ---
 

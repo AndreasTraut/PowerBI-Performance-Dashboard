@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "cd1a302a66dd4e3ab46b",
   "position": {
-    "x": 80,
-    "y": 20,
-    "z": 1000,
-    "height": 50,
-    "width": 700,
-    "tabOrder": 1000
+    "x": 350,
+    "y": 19.813953488372093,
+    "z": 2000,
+    "height": 49.534883720930232,
+    "width": 700.09302325581393,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "textbox",
@@ -21,13 +21,12 @@
                   {
                     "value": "🛒 Warenkorbanalyse",
                     "textStyle": {
+                      "fontWeight": "bold",
                       "fontSize": "28pt",
-                      "color": "#FFFFFF",
-                      "fontWeight": "bold"
+                      "color": "#ffffff"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }
@@ -50,5 +49,6 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "isHidden": true
 }

@@ -151,5 +151,23 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "e3b03d747c849f204db3"
+  "parentGroupName": "e3b03d747c849f204db3",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c9a385196593ade0173f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_product"
+              }
+            },
+            "Property": "SKU"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
 }

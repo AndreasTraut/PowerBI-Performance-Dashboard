@@ -145,5 +145,23 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "e3b03d747c849f204db3"
+  "parentGroupName": "e3b03d747c849f204db3",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e5e59e9119fc2ad3e315",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_channel"
+              }
+            },
+            "Property": "ChannelName (3)"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
 }

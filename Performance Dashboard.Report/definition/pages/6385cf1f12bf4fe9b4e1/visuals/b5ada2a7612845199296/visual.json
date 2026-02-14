@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "b5ada2a7612845199296",
   "position": {
-    "x": 1280,
-    "y": 300,
-    "z": 2000,
-    "height": 530,
-    "width": 930,
-    "tabOrder": 2000
+    "x": 1389.4880546075085,
+    "y": 300.0682593856655,
+    "z": 5000,
+    "height": 529.419795221843,
+    "width": 819.93174061433444,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "shape",
@@ -19,37 +19,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'rectangle'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "line": [
-        {
-          "properties": {
-            "lineColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#E0E0E0'"
-                    }
-                  }
-                }
-              }
-            },
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "roundEdge": {
-              "expr": {
-                "Literal": {
-                  "Value": "15D"
                 }
               }
             }
@@ -78,10 +47,27 @@
               }
             }
           }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F7F7F7'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "dropShadow": [
         {
@@ -95,7 +81,32 @@
             }
           }
         }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F7F7F7'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

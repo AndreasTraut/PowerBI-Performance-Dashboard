@@ -174,5 +174,47 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "99fbe647e0c26b9e98dd",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "Category"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "40dd85c397e931602c2c",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "SubCategory"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

@@ -95,7 +95,7 @@
             "leftMargin": {
               "expr": {
                 "Literal": {
-                  "Value": "90L"
+                  "Value": "40L"
                 }
               }
             }
@@ -142,7 +142,7 @@
             "leftMargin": {
               "expr": {
                 "Literal": {
-                  "Value": "90L"
+                  "Value": "40L"
                 }
               }
             }
@@ -168,7 +168,7 @@
             "leftMargin": {
               "expr": {
                 "Literal": {
-                  "Value": "90L"
+                  "Value": "40L"
                 }
               }
             },
@@ -224,7 +224,7 @@
             "leftMargin": {
               "expr": {
                 "Literal": {
-                  "Value": "90L"
+                  "Value": "40L"
                 }
               }
             },

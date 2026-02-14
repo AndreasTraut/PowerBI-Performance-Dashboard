@@ -152,5 +152,23 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "e3b03d747c849f204db3"
+  "parentGroupName": "e3b03d747c849f204db3",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "44ac39f3f00b40cc27cb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_region"
+              }
+            },
+            "Property": "Continent"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
 }

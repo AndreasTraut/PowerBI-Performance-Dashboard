@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "1ef3de6e950f474a9335",
   "position": {
-    "x": 50,
-    "y": 910,
-    "z": 4000,
-    "height": 465,
-    "width": 1050,
-    "tabOrder": 4000
+    "x": 361.22866894197949,
+    "y": 919.31740614334467,
+    "z": 12000,
+    "height": 447.23549488054607,
+    "width": 988.122866894198,
+    "tabOrder": 14000
   },
   "visual": {
     "visualType": "tableEx",
@@ -158,6 +158,22 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "173.32519938218465D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "KPI_Summary_Table.Is Strong Association"
           }
         }
       ]

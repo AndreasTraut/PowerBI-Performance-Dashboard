@@ -468,5 +468,37 @@
     },
     "drillFilterOtherVisuals": true
   },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c7aec1cd83201e176d90",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_date"
+              }
+            },
+            "Property": "Year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "289cfa5cbafd85745f67",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_sales"
+              }
+            },
+            "Property": "net_sales"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  },
   "isHidden": true
 }

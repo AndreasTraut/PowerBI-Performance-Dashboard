@@ -4,10 +4,10 @@
   "position": {
     "x": 370,
     "y": 310,
-    "z": 3000,
+    "z": 7000,
     "height": 35,
     "width": 500,
-    "tabOrder": 3000
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "textbox",
@@ -21,13 +21,12 @@
                   {
                     "value": "📊 Produkt-Affinitäts-Matrix",
                     "textStyle": {
+                      "fontWeight": "bold",
                       "fontSize": "16pt",
-                      "color": "#1B2A4A",
-                      "fontWeight": "bold"
+                      "color": "#1b2a4a"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

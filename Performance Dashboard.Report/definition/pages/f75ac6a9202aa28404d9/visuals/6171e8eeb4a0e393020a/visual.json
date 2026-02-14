@@ -122,5 +122,65 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a6a1dc22be4d989969f9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "KPI_Summary_Table"
+              }
+            },
+            "Property": "Orders with Product 1"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6b6b8009219348d7d8e1",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "KPI_Summary_Table"
+              }
+            },
+            "Property": "Orders with Product 2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "689481c8730256e978d2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "KPI_Summary_Table"
+              }
+            },
+            "Property": "Reverse Co-occurrence Rate %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3075329a00af1c4d5b6a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "KPI_Summary_Table"
+              }
+            },
+            "Property": "Support %"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

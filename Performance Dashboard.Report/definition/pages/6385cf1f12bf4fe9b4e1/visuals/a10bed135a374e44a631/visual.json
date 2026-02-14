@@ -2,36 +2,17 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "a10bed135a374e44a631",
   "position": {
-    "x": 360,
-    "y": 350,
-    "z": 4000,
-    "height": 465,
-    "width": 880,
-    "tabOrder": 4000
+    "x": 359.31740614334467,
+    "y": 349.76109215017061,
+    "z": 17000,
+    "height": 464.43686006825936,
+    "width": 990.03412969283272,
+    "tabOrder": 23000
   },
   "visual": {
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "dim_product"
-                    }
-                  },
-                  "Property": "ProductName"
-                }
-              },
-              "queryRef": "dim_product.ProductName",
-              "nativeQueryRef": "ProductName",
-              "active": true
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -47,6 +28,25 @@
               },
               "queryRef": "dim_product_comparison.ProductName",
               "nativeQueryRef": "ProductName1",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_product"
+                    }
+                  },
+                  "Property": "ProductName"
+                }
+              },
+              "queryRef": "dim_product.ProductName",
+              "nativeQueryRef": "ProductName",
               "active": true
             }
           ]

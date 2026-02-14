@@ -32,7 +32,7 @@ Befolge bei der Erstellung von Antworten, Dokumentation oder Code die folgenden 
    
 **Standard-Layout (immer in dieser Reihenfolge verwenden):**
 ```markdown
-> ➡️ **Details siehe:** [Phase {N} in Projekt-Evolution](#anchor-link)  
+> ➡️ **Details siehe:** [Phase {N} in Projekt-Evolution]()  
 > 💼 **[LinkedIn Post: Titel](https://www.linkedin.com/posts/...)**  
 > 💾 **Modul:** `phase{n}_module_name/file.py`
 ```

@@ -220,5 +220,85 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "67915137ead3f9115e8a",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "Category"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "db47cf4a57accc3321f0",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "SubCategory"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "02f6f058b07149e2b905",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "Brand"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f634f4ccfe1ae13482b3",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "ProductName"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

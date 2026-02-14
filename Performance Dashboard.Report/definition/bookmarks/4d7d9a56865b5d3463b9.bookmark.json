@@ -1643,18 +1643,6 @@
               "objects": {}
             }
           },
-          "2e3dc5bb43379e2841d6": {
-            "singleVisual": {
-              "visualType": "actionButton",
-              "objects": {}
-            }
-          },
-          "52c6e6192d087535776e": {
-            "singleVisual": {
-              "visualType": "textbox",
-              "objects": {}
-            }
-          },
           "c0b891ed0609397c45e5": {
             "filters": {
               "byExpr": [

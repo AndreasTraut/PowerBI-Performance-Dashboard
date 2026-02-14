@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "4e63fe635196472fb4d7",
   "position": {
-    "x": 1300,
-    "y": 310,
-    "z": 3000,
-    "height": 35,
-    "width": 600,
-    "tabOrder": 3000
+    "x": 1398.5348837209303,
+    "y": 309.62457337883956,
+    "z": 9000,
+    "height": 36.31399317406143,
+    "width": 600.136518771331,
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "textbox",
@@ -21,13 +21,12 @@
                   {
                     "value": "🏆 Top Produkt-Kombinationen",
                     "textStyle": {
+                      "fontWeight": "bold",
                       "fontSize": "16pt",
-                      "color": "#1B2A4A",
-                      "fontWeight": "bold"
+                      "color": "#1b2a4a"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "cdba3211cde24f4b9f10",
   "position": {
-    "x": 50,
-    "y": 570,
-    "z": 4000,
+    "x": 35.43340403311764,
+    "y": 1199.3842658886101,
+    "z": 30000,
     "height": 100,
     "width": 260,
-    "tabOrder": 4000
+    "tabOrder": 25000
   },
   "visual": {
     "visualType": "slicer",
@@ -43,6 +43,57 @@
                 "Literal": {
                   "Value": "'Dropdown'"
                 }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "selfFilterEnabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "selfFilter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "d",
+                    "Entity": "dim_product",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "Contains": {
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "d"
+                              }
+                            },
+                            "Property": "Category"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'care'"
+                          }
+                        }
+                      }
+                    },
+                    "Annotations": {
+                      "PowerBI.MParameterBehavior": 1
+                    }
+                  }
+                ]
               }
             }
           }

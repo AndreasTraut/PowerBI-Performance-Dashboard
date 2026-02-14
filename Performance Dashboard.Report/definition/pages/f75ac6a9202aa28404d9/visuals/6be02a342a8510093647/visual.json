@@ -272,5 +272,94 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6ea341f32325aaf1ac8c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_product_comparison"
+              }
+            },
+            "Property": "ProductName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8323595862f99a9cc50f",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "Category"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "2e0d40c00359e2d4b625",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "SubCategory"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c7d5065b3e913f7f819f",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_product"
+                  }
+                },
+                "Hierarchy": "Product"
+              }
+            },
+            "Level": "ProductName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "47914eca4f3eb8746d72",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "KPI_Summary_Table"
+              }
+            },
+            "Property": "Orders containing both"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

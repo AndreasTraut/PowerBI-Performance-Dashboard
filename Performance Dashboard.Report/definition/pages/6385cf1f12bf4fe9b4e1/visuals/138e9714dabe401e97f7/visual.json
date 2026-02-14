@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "138e9714dabe401e97f7",
   "position": {
-    "x": 60,
-    "y": 870,
-    "z": 3000,
+    "x": 370,
+    "y": 875.29968454258676,
+    "z": 8000,
     "height": 35,
     "width": 600,
-    "tabOrder": 3000
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "textbox",
@@ -21,13 +21,12 @@
                   {
                     "value": "📋 Detaillierte Kennzahlen",
                     "textStyle": {
+                      "fontWeight": "bold",
                       "fontSize": "16pt",
-                      "color": "#1B2A4A",
-                      "fontWeight": "bold"
+                      "color": "#1b2a4a"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

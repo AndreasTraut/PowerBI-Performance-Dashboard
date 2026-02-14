@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "64a38b33c6f740cbb2ea",
   "position": {
-    "x": 40,
-    "y": 300,
-    "z": 2000,
-    "height": 400,
-    "width": 280,
-    "tabOrder": 2000
+    "x": 24,
+    "y": 919.3174061433449,
+    "z": 26000,
+    "height": 399.45392491467572,
+    "width": 279.04436860068256,
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "shape",
@@ -19,37 +19,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'rectangle'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "line": [
-        {
-          "properties": {
-            "lineColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#E0E0E0'"
-                    }
-                  }
-                }
-              }
-            },
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "roundEdge": {
-              "expr": {
-                "Literal": {
-                  "Value": "15D"
                 }
               }
             }
@@ -78,10 +47,27 @@
               }
             }
           }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F7F7F7'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "dropShadow": [
         {
@@ -96,6 +82,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

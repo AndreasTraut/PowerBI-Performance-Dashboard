@@ -12,22 +12,49 @@ Das ursprüngliche Repository ([archiviert in /legacy](legacy/)) enthielt aussch
 
 Das Repository wurde um eine vollständige **Warenkorbanalyse (Market Basket Analysis)** erweitert, die Cross-Selling-Potenziale identifiziert. Nutzer können interaktiv analysieren, welche Produkte häufig zusammen gekauft werden – ein wertvolles Werkzeug für Bundle-Strategien und Produktempfehlungen.
 
+![Warenkorbanalyse](assets/ExampleCrosselling.png)  
+
+
 **📖 Schritt-für-Schritt-Tutorial**
 
-Zusätzlich enthält dieses Repository eine **umfassende Anleitung**, wie man ausgehend vom ursprünglichen Legacy-Projekt die Cross-Selling-Analyse selbst implementieren kann. Es dient damit nicht nur als fertiges Dashboard, sondern auch als **Lern-Tutorial für Power BI-Entwickler**, die fortgeschrittene DAX-Patterns wie das "Disconnected Table Pattern" erlernen möchten.
+Zusätzlich enthält dieses Repository eine **umfassende Anleitung**, wie man ausgehend vom ursprünglichen Legacy-Projekt die Cross-Selling-Analyse selbst implementieren kann. Es dient damit nicht nur als fertiges Dashboard, sondern auch als **Lern-Tutorial für Power BI-Entwickler**, die fortgeschrittene DAX-Patterns wie das "Disconnected Table Pattern" erlernen möchten. Siehe unter anderen: Implementierungs-Checkliste ( [DE](/dax/IMPLEMENTIERUNGS_CHECKLISTE.md) / [EN](/dax/IMPLEMENTATION_CHECKLIST.md) )
 
-### 🤖 KI-gestützte Entwicklung
+**🤖 KI-gestützte Entwicklung**
 
-Dieses Projekt wurde mit Unterstützung verschiedener KI-Tools entwickelt, wobei sich unterschiedliche Stärken herauskristallisierten:
+Dieses Projekt wurde vollständig mit Unterstützung von KI-Tools entwickelt – von der Ideenfindung bis zur fertigen Implementierung.
 
-| KI-Tool | Stärke | Einsatzbereich in diesem Projekt |
-|---------|--------|----------------------------------|
-| **GitHub Copilot (Claude Opus 4.5)** | Technische Dokumentation & Code | Erstellung der umfassenden README-Struktur, DAX-Code-Dokumentation, DevContainer-Konfiguration |
-| **Google Gemini** | Recherche & Ideenfindung | Konzepte für Datenextraktion mit Python, Warenkorbanalyse-Ansätze, Vorschläge für Weiterentwicklungen |
+**💡 Schritt 1: Ideenfindung mit Google Gemini**
 
-**💡 Weiterentwicklungsideen (via Google Gemini):**
-- **Dynamische Pareto-Analyse**: Identifikation der Top 20% Produkte/Kunden, die 80% des Umsatzes generieren
-- **Kohortenanalyse (Customer Retention)**: Visualisierung der Kundenbindung über Zeit nach Akquisitionsmonat
+Google Gemini schlug verschiedene Weiterentwicklungen für das Dashboard vor:
+- **Warenkorbanalyse (Market Basket Analysis)** – Cross-Selling-Potenziale identifizieren ✅ *Umgesetzt*
+- **Dynamische Pareto-Analyse** – Top 20% Produkte/Kunden identifizieren, die 80% des Umsatzes generieren
+- **Kohortenanalyse (Customer Retention)** – Kundenbindung über Zeit nach Akquisitionsmonat visualisieren
+
+**📋 Schritt 2: Planung durch KI**
+
+Basierend auf der Warenkorbanalyse-Idee wurde von der KI eine detaillierte Implementierungs-Checkliste angelegt und ein vollständiger Umsetzungsplan ausgearbeitet (siehe [Implementierungs-Checkliste](/dax/IMPLEMENTIERUNGS_CHECKLISTE.md)).
+
+**🚀 Schritt 3: Umsetzung durch KI**
+
+Die KI hat den Plan dann auch selbstständig umgesetzt – mit einem erstaunlichen Ergebnis: **Die von der KI generierte Power BI Berichtsseite ist sogar besser als meine eigene, handgenerierte Version.** 
+
+Von GitHub Copilot generierte Berichtsseite auf Basis der von Google Gemini generierten Implementierungs-Checkliste:  
+
+![ExampleWarenkorbanalyse](./assets/ExampleWarenkorbanalyse.png)
+
+Von mir generierte Berichtsseite:   
+
+![ExampleCrosselling](./assets/ExampleCrosselling.png)
+
+
+Die Implementierung wurde über die GitHub Mobile App vom Smartphone aus gesteuert. Ohne die `.pbip`-Dateien im Developer Mode (die im Legacy-Repository fehlten) wäre dies nicht möglich gewesen.
+
+**🔧 Stärken der verschiedenen KI-Tools**
+
+| KI-Tool | Stärke | Einsatzbereich |
+|---------|--------|----------------|
+| **GitHub Copilot (Claude Opus 4.5)** | Technische Dokumentation & Code-Generierung | README-Struktur, DAX-Code, DevContainer-Konfiguration, **vollständige Implementierung der Warenkorbanalyse** |
+| **Google Gemini** | Recherche & Ideenfindung | Konzeptentwicklung, Weiterentwicklungsvorschläge, Lösungsansätze |
 
 ---
 
@@ -71,7 +98,7 @@ legacy/
 ```
 
 **Einschränkungen des vorherigen Repositories:**
-- ❌ **Keine Datenextraktion**: Daten waren nur in der PBIX-Datei eingebettet und nicht zugreifbar
+- ❌ **Keine Datenextraktion**: Daten waren nur in der PBIX-Datei eingebettet und nicht zugreifbar. PBIP-Datei war nicht vorhanden. 
 - ❌ **Keine Dokumentation**: Kein Verständnis der Modellstruktur ohne Öffnen der PBIX
 - ❌ **Keine Entwicklertools**: Keine Skripte zur Datenverarbeitung oder -extraktion
 - ❌ **Keine Sicherheitsüberprüfung**: Code-Sicherheit nicht validiert
@@ -118,7 +145,7 @@ PowerBI-Performance-Dashboard/        # ✨ Verbessertes Repository
 
 | Kategorie | Vorheriges Repository (v1.0) | Aktuelles Repository (v2.0) | Verbesserung |
 |-----------|------------------------------|------------------------------|--------------|
-| **Daten** | Nur in PBIX eingebettet | ✅ 7 CSV-Dateien (22 MB) | Daten sind nun universell nutzbar für Python, R, SQL und Excel. Ermöglicht Analysen außerhalb von Power BI. |
+| **Daten** | Nur in PBIX eingebettet | ✅ 7 CSV-Dateien (22 MB) | Daten sind nun universell nutzbar für Python, R, SQL und Excel. Ermöglicht Analysen außerhalb von Power BI. Weiterentwicklung der PowerBI-Berichtsseiten mit der GitHub App am Smartphone möglich! |
 | **Dokumentation** | 1 minimales README | ✅ 4 umfassende Dokumente (900+ Zeilen) | Vollständige technische Dokumentation beschleunigt Onboarding und reduziert Einarbeitungszeit erheblich. |
 | **Entwicklertools** | 0 Skripte | ✅ 4 Python-Skripte | Automatisierung spart Entwicklungszeit und ermöglicht wiederholbare Prozesse für Datenextraktion und -generierung. |
 | **Modellverständnis** | Nur durch PBIX öffnen | ✅ Vollständige Textdoku + Diagramme | Modellstruktur ist ohne Power BI Desktop einsehbar. Ermöglicht schnelle Analyse und Planung. |
@@ -128,14 +155,17 @@ PowerBI-Performance-Dashboard/        # ✨ Verbessertes Repository
 | **Onboarding** | Schwierig, zeitaufwändig | ✅ Einfach durch Dokumentation | Neue Teammitglieder verstehen Projekt schneller. Reduziert Schulungsaufwand und Abhängigkeit von Experten. |
 | **Dateigröße** | ~50 MB (nur PBIX) | ~72 MB (mit allem) | Minimaler zusätzlicher Speicherbedarf für massiv erweiterte Funktionalität. Hervorragendes Kosten-Nutzen-Verhältnis. |
 
-### 🎯 Zielgruppen-Nutzen
+### 🎯 Für wen ist dieses Projekt? (Zielgruppen-Nutzen)
 
-| Zielgruppe | Nutzen |
-|------------|--------|
-| **Entwickler** | Direkter Zugriff auf CSV-Daten, DevContainer für sofortigen Start, wiederverwendbare Python-Skripte |
-| **BI-Analysten** | Vollständige Modell-Dokumentation ohne PBIX öffnen, dokumentierte DAX-Measures, Extraktionsanleitungen |
-| **Data Scientists** | Strukturierte Daten für ML-Modelle, realistische Beispieldaten, Schema-Dokumentation für Feature-Engineering |
-| **Projektmanager** | Sicherheitsaudit für Compliance, klare Projektstruktur, reduzierter Schulungsaufwand |
+Dieses Repository bietet einen erheblichen Mehrwert für verschiedene Rollen in einem datengetriebenen Team:
+
+- **Für Entwickler**: Der vorkonfigurierte **DevContainer** ermöglicht einen sofortigen Projektstart ohne langwierige manuelle Einrichtung. Der direkte Zugriff auf die Daten im CSV-Format und die Sammlung wiederverwendbarer Python-Skripte beschleunigen die Entwicklung, das Testen und die Automatisierung von Datenprozessen erheblich.
+
+- **Für BI-Analysten**: Anstatt Stunden mit dem Reverse Engineering der PBIX-Datei zu verbringen, bietet die **vollständige Modelldokumentation** sofortige Klarheit. Alle DAX-Measures sind transparent dokumentiert, was die Einarbeitung beschleunigt und die Konzentration auf die eigentliche Analyse ermöglicht.
+
+- **Für Data Scientists**: Sie erhalten eine perfekte Grundlage für Machine-Learning-Projekte. Die Daten liegen in einem sauberen, **strukturierten CSV-Format** vor, und die detaillierte Schema-Dokumentation ist ideal für schnelles Feature-Engineering und das Prototyping von Vorhersagemodellen.
+
+- **Für Projektmanager und Entscheider**: Die professionelle Struktur und das durchgeführte **Sicherheitsaudit** gewährleisten Enterprise-Compliance und vereinfachen die Projektplanung. Die umfassende Dokumentation **reduziert den Schulungsaufwand** für neue Teammitglieder und steigert die Effizienz des gesamten Teams.
 
 
 ---
@@ -261,7 +291,7 @@ Eine ausführliche Anleitung zur Datenextraktion finden Sie in [/data/DATA.md](d
 
 Das semantische Datenmodell (`Model.bim`) basiert auf einer bewährten **Sternschema-Architektur**. Diese Architektur zeichnet sich durch optimierte Beziehungen zwischen den Tabellen und spezialisierte DAX-Measures (Berechnungsformeln) aus, die eine schnelle und effiziente Datenanalyse ermöglichen.
 
-Die vollständige technische Dokumentation des Modells finden Sie in der [Modell-Dokumentation](doc/MODEL_DOCUMENTATION.md). Diese beschreibt die komplette Modellstruktur mit allen Fakten- und Dimensionstabellen, erklärt sämtliche DAX-Measures und deren Berechnungslogik im Detail und dokumentiert alle implementierten Performance-Optimierungen für schnelle Dashboard-Reaktionszeiten.
+Die vollständige technische Dokumentation des Modells finden Sie in der [Modell-Dokumentation](doc/MODEL_DOKUMENTATION.md). Diese beschreibt die komplette Modellstruktur mit allen Fakten- und Dimensionstabellen, erklärt sämtliche DAX-Measures und deren Berechnungslogik im Detail und dokumentiert alle implementierten Performance-Optimierungen für schnelle Dashboard-Reaktionszeiten.
 
 ### DAX Code-Bibliothek
 
@@ -273,6 +303,8 @@ Das [/dax](dax/) Verzeichnis enthält wiederverwendbaren DAX-Code für die **War
 - [extract_pbix_actual.py](tools/extract_pbix_actual.py) - Analysieren und Extrahieren aus PBIX
 - [extract_pbix_data.py](tools/extract_pbix_data.py) - Datenextraktions-Dienstprogramme
 
+📖 **Detaillierte Anleitungen** zur Installation, Verwendung und Troubleshooting aller Python-Skripte finden Sie in der [Tools-Dokumentation](tools/TOOLS.md).
+
 
 ---
 
@@ -283,5 +315,3 @@ Das [/dax](dax/) Verzeichnis enthält wiederverwendbaren DAX-Code für die **War
 - **DAX** - KPIs, YoY-Vergleiche, Retention-Logik
 - **Datenmodellierung** - Sternschema, Beziehungen
 - **Python** - Datenextraktion und Beispieldaten-Generierung
-
-

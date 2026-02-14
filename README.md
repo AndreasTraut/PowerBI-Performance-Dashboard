@@ -12,7 +12,7 @@ Das ursprüngliche Repository ([archiviert in /legacy](legacy/)) enthielt aussch
 
 Das Repository wurde um eine vollständige **Warenkorbanalyse (Market Basket Analysis)** erweitert, die Cross-Selling-Potenziale identifiziert. Nutzer können interaktiv analysieren, welche Produkte häufig zusammen gekauft werden – ein wertvolles Werkzeug für Bundle-Strategien und Produktempfehlungen.
 
-![Warenkorbanalyse](assets/ExampleCrosselling.png)  
+![Warenkorbanalyse](assets/ExampleWarenkorbanalyse.png)  
 
 
 **📖 Schritt-für-Schritt-Tutorial**
@@ -38,12 +38,10 @@ Basierend auf der Warenkorbanalyse-Idee wurde von der KI eine detaillierte Imple
 
 Die KI hat den Plan dann auch selbstständig umgesetzt – mit einem erstaunlichen Ergebnis: **Die von der KI generierte Power BI Berichtsseite ist sogar besser als meine eigene, handgenerierte Version.** 
 
-Von GitHub Copilot generierte Berichtsseite auf Basis der von Google Gemini generierten Implementierungs-Checkliste:  
-
+* Von GitHub Copilot generierte Berichtsseite auf Basis der von Google Gemini generierten Implementierungs-Checkliste:
 ![ExampleWarenkorbanalyse](./assets/ExampleWarenkorbanalyse.png)
 
-Von mir generierte Berichtsseite:   
-
+* Von mir generierte Berichtsseite:
 ![ExampleCrosselling](./assets/ExampleCrosselling.png)
 
 

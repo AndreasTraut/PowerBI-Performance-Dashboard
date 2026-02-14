@@ -96,7 +96,7 @@ Die Seite verwendet ein buntes, ansprechendes Farbschema:
 
 ## 📦 Erstellte Visuals (31 Stück)
 
-### 🎨 Header & Design-Elemente (7 Visuals)
+### 🎨 Header & Design-Elemente (8 Visuals)
 
 | Visual-ID                | Typ       | Beschreibung                                                |
 |--------------------------|-----------|-------------------------------------------------------------|
@@ -146,7 +146,7 @@ Die Seite verwendet ein buntes, ansprechendes Farbschema:
 | `4880d6fc58fc4c1bb95d`   | Reverse Co-occurrence Rate %  | `#DDA0DD`  | Rückwärts-Co-occurrence (Prod 2 → 1)    |
 | `05dbe8576bd24e3c8178`   | Is Strong Association         | `#A8E6CF`  | Starke Assoziation (Ja/Nein)            |
 
-### 📝 Bereichstitel & Navigation (4 Visuals)
+### 📝 Bereichstitel & Navigation (6 Visuals)
 
 | Visual-ID                | Typ            | Text / Funktion                       |
 |--------------------------|----------------|---------------------------------------|
